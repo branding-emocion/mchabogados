@@ -11,8 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Calculator, Download, FileText, Users, Scale } from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { pdf } from "@react-pdf/renderer";
-import ArbitrationPDFDocument from "@/components/pdf-document";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 // Tablas oficiales según PDF de MCH Abogados
 const PRESENTATION_FEE = 650.0; // Incluye IGV
@@ -224,6 +224,7 @@ export default function CotizarPage() {
   const [arbitrationType, setArbitrationType] = useState("unico");
   const [result, setResult] = useState(null);
   const [showResult, setShowResult] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const calculateFee = (amount, feeTable) => {
     const currentTier = feeTable.find(
@@ -288,29 +289,221 @@ export default function CotizarPage() {
   const exportToPDF = async () => {
     if (!result) return;
 
+    setIsGeneratingPDF(true);
+
     try {
-      const blob = await pdf(
-        <ArbitrationPDFDocument result={result} />
-      ).toBlob();
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
 
-      // Create download link
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `Cotizacion_Arbitral_MCH_${result.amount
-        .toLocaleString("es-PE")
-        .replace(/,/g, "")}_${new Date().toISOString().split("T")[0]}.pdf`;
+      // Colors
+      const colors = {
+        primary: [52, 152, 219], // MCH blue
+        secondary: [149, 165, 166],
+        accent: [41, 128, 185],
+        success: [39, 174, 96],
+        light: [245, 245, 245],
+        white: [255, 255, 255],
+        text: [44, 62, 80],
+      };
 
-      // Trigger download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      // Header
+      doc.setFillColor(...colors.primary);
+      doc.rect(0, 0, 210, 30, "F");
+      doc.setTextColor(...colors.white);
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.text("MCH ABOGADOS", 105, 12, { align: "center" });
+      doc.setFontSize(14);
+      doc.text("Cotización de Costos Arbitrales", 105, 22, { align: "center" });
 
-      console.log("PDF generated successfully");
+      // Date and details
+      const currentDate = new Date().toLocaleDateString("es-PE");
+      doc.setTextColor(...colors.text);
+      doc.setFontSize(10);
+      doc.text(`Fecha: ${currentDate}`, 14, 40);
+      doc.text(
+        `Monto: S/${result.amount.toLocaleString("es-PE", {
+          minimumFractionDigits: 2,
+        })}`,
+        14,
+        46
+      );
+      doc.text(
+        `Tipo: ${
+          result.arbitrationType === "tribunal"
+            ? "Tribunal Arbitral"
+            : "Árbitro Único"
+        }`,
+        14,
+        52
+      );
+
+      const tableData = [
+        [
+          "Tasa de presentación",
+          `S/${result.presentationFee.toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          "Incluido",
+          "-",
+          `S/${result.presentationFee.toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${result.presentationFee.toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+        ],
+        [
+          "Servicio de Administración de Arbitraje",
+          `S/${result.administrativeFee.toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.administrativeFee * 0.18).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.administrativeFee * 0.08).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.administrativeFee * 1.18).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.administrativeFee * 1.08).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+        ],
+        [
+          `Honorarios ${
+            result.arbitrationType === "tribunal"
+              ? "Tribunal Arbitral"
+              : "Árbitro Único"
+          }`,
+          `S/${result.arbitratorFee.toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.arbitratorFee * 0.18).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.arbitratorFee * 0.08).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.arbitratorFee * 1.18).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+          `S/${(result.arbitratorFee * 1.08).toLocaleString("es-PE", {
+            minimumFractionDigits: 2,
+          })}`,
+        ],
+      ];
+
+      const totalCostService = result.presentationFee + result.subtotal;
+      const totalIGV = result.igv; // IGV only applies to administrative and arbitrator fees
+      const totalRenta = result.renta; // Renta only applies to administrative and arbitrator fees
+      const totalWithIGV = result.presentationFee + result.totalWithIGV;
+      const totalWithRenta = result.presentationFee + result.totalWithRenta;
+
+      tableData.push([
+        "TOTAL",
+        `S/${totalCostService.toLocaleString("es-PE", {
+          minimumFractionDigits: 2,
+        })}`,
+        `S/${totalIGV.toLocaleString("es-PE", { minimumFractionDigits: 2 })}`,
+        `S/${totalRenta.toLocaleString("es-PE", { minimumFractionDigits: 2 })}`,
+        `S/${totalWithIGV.toLocaleString("es-PE", {
+          minimumFractionDigits: 2,
+        })}`,
+        `S/${totalWithRenta.toLocaleString("es-PE", {
+          minimumFractionDigits: 2,
+        })}`,
+      ]);
+
+      // Create table using autoTable
+      doc.autoTable({
+        startY: 60,
+        head: [
+          [
+            "El nombre del servicio",
+            "El costo del servicio",
+            "IGV (18%)",
+            "Renta (8%)",
+            "Total con IGV",
+            "Total con Renta",
+          ],
+        ],
+        body: tableData,
+        theme: "grid",
+        headStyles: {
+          fillColor: colors.primary,
+          textColor: colors.white,
+          fontStyle: "bold",
+          halign: "center",
+          fontSize: 9,
+          cellPadding: 3,
+        },
+        styles: {
+          fontSize: 8,
+          cellPadding: 2,
+          lineColor: colors.secondary,
+          lineWidth: 0.3,
+          textColor: colors.text,
+        },
+        columnStyles: {
+          0: { cellWidth: 45, halign: "left" },
+          1: { cellWidth: 28, halign: "right" },
+          2: { cellWidth: 25, halign: "right" },
+          3: { cellWidth: 25, halign: "right" },
+          4: { cellWidth: 28, halign: "right" },
+          5: { cellWidth: 28, halign: "right" },
+        },
+        didParseCell: (data) => {
+          if (data.row.index === tableData.length - 1) {
+            // Last row (TOTAL)
+            data.cell.styles.fillColor = colors.primary;
+            data.cell.styles.textColor = colors.white;
+            data.cell.styles.fontStyle = "bold";
+          }
+        },
+        margin: { left: 14, right: 14 },
+      });
+
+      const finalY = doc.lastAutoTable.finalY + 10;
+
+      // Note section
+      doc.setFillColor(...colors.light);
+      doc.rect(14, finalY, 182, 25, "F");
+      doc.setTextColor(...colors.text);
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Cada Parte Deberá Asumir El 50%", 105, finalY + 8, {
+        align: "center",
+      });
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      const noteText =
+        "Con relación a los honorarios de los árbitros y el servicio de administración de arbitraje, cada parte deberá asumir el 50% de los costos arbitrales.";
+      const splitText = doc.splitTextToSize(noteText, 170);
+      doc.text(splitText, 105, finalY + 15, { align: "center" });
+
+      // Footer
+      doc.setTextColor(...colors.secondary);
+      doc.setFontSize(8);
+      doc.text(`Fecha: ${currentDate}`, 14, 280);
+      doc.text("MCH Abogados S.A.C.", 105, 280, { align: "center" });
+      doc.text("Página 1/1", 196, 280, { align: "right" });
+
+      // Save PDF
+      doc.save(
+        `Cotizacion_Arbitral_MCH_${result.amount
+          .toLocaleString("es-PE")
+          .replace(/[,\s]/g, "")}_${new Date().toISOString().split("T")[0]}.pdf`
+      );
     } catch (error) {
       console.error("Error generating PDF:", error);
       alert("Error al generar el PDF. Por favor, intente nuevamente.");
+    } finally {
+      setIsGeneratingPDF(false);
     }
   };
 
@@ -703,9 +896,19 @@ export default function CotizarPage() {
                             <Button
                               onClick={exportToPDF}
                               className="flex-1 flex items-center gap-2"
+                              disabled={isGeneratingPDF}
                             >
-                              <Download className="w-4 h-4" />
-                              DESCARGAR PDF
+                              {isGeneratingPDF ? (
+                                <>
+                                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                  GENERANDO PDF...
+                                </>
+                              ) : (
+                                <>
+                                  <Download className="w-4 h-4" />
+                                  DESCARGAR PDF
+                                </>
+                              )}
                             </Button>
                             <Button
                               variant="outline"
@@ -917,6 +1120,8 @@ export default function CotizarPage() {
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   );
 }
