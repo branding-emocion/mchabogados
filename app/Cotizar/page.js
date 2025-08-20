@@ -8,11 +8,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Calculator, Download, FileText, Users, Scale } from "lucide-react";
+import {
+  Calculator,
+  Download,
+  FileText,
+  Users,
+  Scale,
+  Badge,
+  ArrowRight,
+} from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import Link from "next/link";
 
 // Tablas oficiales según PDF de MCH Abogados
 const PRESENTATION_FEE = 650.0; // Incluye IGV
@@ -508,620 +517,642 @@ export default function CotizarPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <Header />
+    <div className="min-h-screen bg-background">
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/DefensaArbitral.avif')`,
+          }}
+        />
+        <div className="absolute inset-0 bg-slate-900/70" />
 
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-r from-primary to-blue-600 text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <Calculator className="w-16 h-16 mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Calculadora de Costos Arbitrales
-              </h1>
-              <p className="text-xl opacity-90">
-                Calcula los costos arbitrales según las pretensiones en disputa,
-                ya sea ante un Árbitro Único o un Tribunal Arbitral, e incluye
-                el servicio de administración del proceso.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              Calculadora de Costos{" "}
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+              Calcula los costos arbitrales según las pretensiones en disputa,
+              ya sea ante un Árbitro Único o un Tribunal Arbitral, e incluye el
+              servicio de administración del proceso.
+            </p>
+            <Link href="#contacto">
+              <Button
+                size="lg"
+                className="hover:cursor-pointer bg-primary hover:bg-primary/90"
+              >
+                Solicitar Consulta
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Calculator Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <Tabs defaultValue="calculator" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger
-                  value="calculator"
-                  className="flex items-center gap-2"
-                >
-                  <Calculator className="w-4 h-4" />
-                  Calculadora
-                </TabsTrigger>
-                <TabsTrigger value="tables" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  Tablas de Costos
-                </TabsTrigger>
-              </TabsList>
+      {/* Calculator Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <Tabs defaultValue="calculator" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsTrigger
+                value="GastosAdministrativos"
+                className="flex items-center gap-2"
+              >
+                <Calculator className="w-4 h-4" />
+                Calculadora de gastos administrativos{" "}
+              </TabsTrigger>
+              <TabsTrigger
+                value="ArbitroUnico"
+                className="flex items-center gap-2"
+              >
+                <Calculator className="w-4 h-4" />
+                Calculadora de Árbitro único{" "}
+              </TabsTrigger>
+              <TabsTrigger
+                value="TribunalArbitral"
+                className="flex items-center gap-2"
+              >
+                <FileText className="w-4 h-4" />
+                Calculadora de Tribunal Arbitral{" "}
+              </TabsTrigger>
+            </TabsList>
 
-              <TabsContent value="calculator">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Scale className="w-5 h-5" />
-                      Calcular Costos Arbitrales
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Tipo de Arbitraje */}
-                    <div>
-                      <Label className="text-base font-medium mb-4 block">
-                        Tipo de Arbitraje
-                      </Label>
+            <TabsContent value="GastosAdministrativos">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Scale className="w-5 h-5" />
+                    Calcular Costos Arbitrales
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Tipo de Arbitraje */}
+                  <div>
+                    <Label className="text-base font-medium mb-4 block">
+                      Tipo de Arbitraje
+                    </Label>
+                    <RadioGroup
+                      value={arbitrationType}
+                      onValueChange={setArbitrationType}
+                      className="flex gap-6"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="unico" id="unico" />
+                        <Label
+                          htmlFor="unico"
+                          className="flex items-center gap-2"
+                        >
+                          <Users className="w-4 h-4" />
+                          Árbitro Único
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="tribunal" id="tribunal" />
+                        <Label
+                          htmlFor="tribunal"
+                          className="flex items-center gap-2"
+                        >
+                          <Users className="w-4 h-4" />
+                          Tribunal Arbitral
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  {/* Monto y Moneda */}
+                  <div>
+                    <Label className="text-base font-medium mb-4 block">
+                      Pretensiones Determinadas
+                      <span className="text-sm text-gray-500 ml-2">
+                        Monto de la cuantía | Tasa: SUNAT (3.522)
+                      </span>
+                    </Label>
+                    <div className="flex gap-4">
+                      <div className="flex-1">
+                        <Input
+                          type="number"
+                          placeholder="0.00"
+                          value={amount}
+                          onChange={(e) => setAmount(e.target.value)}
+                          className="text-lg h-12"
+                        />
+                      </div>
                       <RadioGroup
-                        value={arbitrationType}
-                        onValueChange={setArbitrationType}
-                        className="flex gap-6"
+                        value={currency}
+                        onValueChange={setCurrency}
+                        className="flex gap-4"
                       >
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="unico" id="unico" />
-                          <Label
-                            htmlFor="unico"
-                            className="flex items-center gap-2"
-                          >
-                            <Users className="w-4 h-4" />
-                            Árbitro Único
-                          </Label>
+                          <RadioGroupItem value="PEN" id="pen" />
+                          <Label htmlFor="pen">S/</Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="tribunal" id="tribunal" />
-                          <Label
-                            htmlFor="tribunal"
-                            className="flex items-center gap-2"
-                          >
-                            <Users className="w-4 h-4" />
-                            Tribunal Arbitral
-                          </Label>
+                          <RadioGroupItem value="USD" id="usd" />
+                          <Label htmlFor="usd">USD</Label>
                         </div>
                       </RadioGroup>
                     </div>
+                  </div>
 
-                    {/* Monto y Moneda */}
-                    <div>
-                      <Label className="text-base font-medium mb-4 block">
-                        Pretensiones Determinadas
-                        <span className="text-sm text-gray-500 ml-2">
-                          Monto de la cuantía | Tasa: SUNAT (3.522)
-                        </span>
-                      </Label>
-                      <div className="flex gap-4">
-                        <div className="flex-1">
-                          <Input
-                            type="number"
-                            placeholder="0.00"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                            className="text-lg h-12"
-                          />
-                        </div>
-                        <RadioGroup
-                          value={currency}
-                          onValueChange={setCurrency}
-                          className="flex gap-4"
+                  <Button
+                    onClick={handleCalculate}
+                    className="w-full h-12 text-lg"
+                    disabled={!amount || Number.parseFloat(amount) <= 0}
+                  >
+                    CALCULAR
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Results Modal */}
+              {showResult && result && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+                >
+                  <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                    <CardHeader className="bg-primary text-white">
+                      <div className="flex justify-between items-center">
+                        <CardTitle className="flex items-center gap-2">
+                          {result.arbitrationType === "tribunal" ? (
+                            <Users className="w-5 h-5" />
+                          ) : (
+                            <Users className="w-5 h-5" />
+                          )}
+                          Para{" "}
+                          {result.arbitrationType === "tribunal"
+                            ? "Tribunal Arbitral"
+                            : "Árbitro Único"}
+                        </CardTitle>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setShowResult(false)}
+                          className="text-white hover:bg-white/20"
                         >
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="PEN" id="pen" />
-                            <Label htmlFor="pen">S/</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="USD" id="usd" />
-                            <Label htmlFor="usd">USD</Label>
-                          </div>
-                        </RadioGroup>
+                          ✕
+                        </Button>
                       </div>
-                    </div>
+                      <p className="text-lg">
+                        Monto de la cuantía:{" "}
+                        {result.currency === "PEN" ? "S/" : "USD"}
+                        {result.amount.toLocaleString("es-PE", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </p>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-6">
+                        {/* Results Table */}
+                        <div className="overflow-x-auto">
+                          <table className="w-full border-collapse border border-gray-300">
+                            <thead>
+                              <tr className="bg-primary text-white">
+                                <th className="border border-gray-300 p-3 text-left">
+                                  El nombre del servicio
+                                </th>
+                                <th className="border border-gray-300 p-3 text-left">
+                                  El costo del servicio
+                                </th>
+                                <th className="border border-gray-300 p-3 text-left">
+                                  IGV
+                                </th>
+                                <th className="border border-gray-300 p-3 text-left">
+                                  Renta
+                                </th>
+                                <th className="border border-gray-300 p-3 text-left">
+                                  Total con IGV
+                                </th>
+                                <th className="border border-gray-300 p-3 text-left">
+                                  Total con Renta
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="hover:bg-gray-50">
+                                <td className="border border-gray-300 p-3">
+                                  Tasa de presentación
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {result.presentationFee.toLocaleString(
+                                    "es-PE",
+                                    { minimumFractionDigits: 2 }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  Incluido
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  -
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {result.presentationFee.toLocaleString(
+                                    "es-PE",
+                                    { minimumFractionDigits: 2 }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {result.presentationFee.toLocaleString(
+                                    "es-PE",
+                                    { minimumFractionDigits: 2 }
+                                  )}
+                                </td>
+                              </tr>
+                              <tr className="hover:bg-gray-50">
+                                <td className="border border-gray-300 p-3">
+                                  Servicio de Administración de Arbitraje
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {result.administrativeFee.toLocaleString(
+                                    "es-PE",
+                                    { minimumFractionDigits: 2 }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(
+                                    result.administrativeFee * 0.18
+                                  ).toLocaleString("es-PE", {
+                                    minimumFractionDigits: 2,
+                                  })}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(
+                                    result.administrativeFee * 0.08
+                                  ).toLocaleString("es-PE", {
+                                    minimumFractionDigits: 2,
+                                  })}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(
+                                    result.administrativeFee * 1.18
+                                  ).toLocaleString("es-PE", {
+                                    minimumFractionDigits: 2,
+                                  })}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(
+                                    result.administrativeFee * 1.08
+                                  ).toLocaleString("es-PE", {
+                                    minimumFractionDigits: 2,
+                                  })}
+                                </td>
+                              </tr>
+                              <tr className="hover:bg-gray-50">
+                                <td className="border border-gray-300 p-3">
+                                  Honorarios{" "}
+                                  {result.arbitrationType === "tribunal"
+                                    ? "Tribunal Arbitral"
+                                    : "Árbitro Único"}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {result.arbitratorFee.toLocaleString(
+                                    "es-PE",
+                                    { minimumFractionDigits: 2 }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(result.arbitratorFee * 0.18).toLocaleString(
+                                    "es-PE",
+                                    {
+                                      minimumFractionDigits: 2,
+                                    }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(result.arbitratorFee * 0.08).toLocaleString(
+                                    "es-PE",
+                                    {
+                                      minimumFractionDigits: 2,
+                                    }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(result.arbitratorFee * 1.18).toLocaleString(
+                                    "es-PE",
+                                    {
+                                      minimumFractionDigits: 2,
+                                    }
+                                  )}
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  S/
+                                  {(result.arbitratorFee * 1.08).toLocaleString(
+                                    "es-PE",
+                                    {
+                                      minimumFractionDigits: 2,
+                                    }
+                                  )}
+                                </td>
+                              </tr>
+                              <tr className="bg-blue-50 font-bold">
+                                <td className="border border-gray-300 p-3">
+                                  <strong>TOTAL</strong>
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  <strong>
+                                    S/
+                                    {result.subtotal.toLocaleString("es-PE", {
+                                      minimumFractionDigits: 2,
+                                    })}
+                                  </strong>
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  <strong>
+                                    S/
+                                    {result.igv.toLocaleString("es-PE", {
+                                      minimumFractionDigits: 2,
+                                    })}
+                                  </strong>
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  <strong>
+                                    S/
+                                    {result.renta.toLocaleString("es-PE", {
+                                      minimumFractionDigits: 2,
+                                    })}
+                                  </strong>
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  <strong>
+                                    S/
+                                    {result.totalWithIGV.toLocaleString(
+                                      "es-PE",
+                                      { minimumFractionDigits: 2 }
+                                    )}
+                                  </strong>
+                                </td>
+                                <td className="border border-gray-300 p-3">
+                                  <strong>
+                                    S/
+                                    {result.totalWithRenta.toLocaleString(
+                                      "es-PE",
+                                      { minimumFractionDigits: 2 }
+                                    )}
+                                  </strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
 
-                    <Button
-                      onClick={handleCalculate}
-                      className="w-full h-12 text-lg"
-                      disabled={!amount || Number.parseFloat(amount) <= 0}
-                    >
-                      CALCULAR
-                    </Button>
+                        {/* Nota */}
+                        <div className="bg-yellow-50 p-4 rounded-lg">
+                          <h4 className="font-semibold text-yellow-800 mb-2">
+                            Cada Parte Deberá Asumir El 50%
+                          </h4>
+                          <p className="text-sm text-yellow-700">
+                            Con relación a los honorarios de los árbitros y el
+                            servicio de administración de arbitraje, cada parte
+                            deberá asumir el 50% de los costos arbitrales.
+                          </p>
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="flex gap-4 pt-4">
+                          <Button
+                            onClick={exportToPDF}
+                            className="flex-1 flex items-center gap-2"
+                            disabled={isGeneratingPDF}
+                          >
+                            {isGeneratingPDF ? (
+                              <>
+                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                GENERANDO PDF...
+                              </>
+                            ) : (
+                              <>
+                                <Download className="w-4 h-4" />
+                                DESCARGAR PDF
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => setShowResult(false)}
+                            className="flex-1"
+                          >
+                            REALIZAR NUEVO CÁLCULO
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="tables">
+              <div className="space-y-8">
+                {/* Tabla de Gastos Administrativos */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      Gastos Administrativos y Secretaría Arbitral
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                          <tr className="bg-primary text-white">
+                            <th className="border border-gray-300 p-3 text-left">
+                              Cuantía
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Tasa
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Mínimo (Sin IGV)
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Máximo (Sin IGV)
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {ADMINISTRATIVE_FEES.map((fee, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                              <td className="border border-gray-300 p-3">
+                                De S/{fee.min.toLocaleString()} hasta S/
+                                {fee.max === Number.POSITIVE_INFINITY
+                                  ? "∞"
+                                  : fee.max.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {(fee.rate * 100).toFixed(1)}% sobre la cantidad
+                                que exceda de S/
+                                {fee.baseAmount.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                S/{fee.minFee.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {fee.maxFee
+                                  ? `S/${fee.maxFee.toLocaleString()}`
+                                  : "----"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </CardContent>
                 </Card>
 
-                {/* Results Modal */}
-                {showResult && result && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
-                  >
-                    <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-                      <CardHeader className="bg-primary text-white">
-                        <div className="flex justify-between items-center">
-                          <CardTitle className="flex items-center gap-2">
-                            {result.arbitrationType === "tribunal" ? (
-                              <Users className="w-5 h-5" />
-                            ) : (
-                              <Users className="w-5 h-5" />
-                            )}
-                            Para{" "}
-                            {result.arbitrationType === "tribunal"
-                              ? "Tribunal Arbitral"
-                              : "Árbitro Único"}
-                          </CardTitle>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setShowResult(false)}
-                            className="text-white hover:bg-white/20"
-                          >
-                            ✕
-                          </Button>
-                        </div>
-                        <p className="text-lg">
-                          Monto de la cuantía:{" "}
-                          {result.currency === "PEN" ? "S/" : "USD"}
-                          {result.amount.toLocaleString("es-PE", {
-                            minimumFractionDigits: 2,
-                          })}
-                        </p>
-                      </CardHeader>
-                      <CardContent className="p-6">
-                        <div className="space-y-6">
-                          {/* Results Table */}
-                          <div className="overflow-x-auto">
-                            <table className="w-full border-collapse border border-gray-300">
-                              <thead>
-                                <tr className="bg-primary text-white">
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    El nombre del servicio
-                                  </th>
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    El costo del servicio
-                                  </th>
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    IGV
-                                  </th>
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    Renta
-                                  </th>
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    Total con IGV
-                                  </th>
-                                  <th className="border border-gray-300 p-3 text-left">
-                                    Total con Renta
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr className="hover:bg-gray-50">
-                                  <td className="border border-gray-300 p-3">
-                                    Tasa de presentación
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {result.presentationFee.toLocaleString(
-                                      "es-PE",
-                                      { minimumFractionDigits: 2 }
-                                    )}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    Incluido
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    -
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {result.presentationFee.toLocaleString(
-                                      "es-PE",
-                                      { minimumFractionDigits: 2 }
-                                    )}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {result.presentationFee.toLocaleString(
-                                      "es-PE",
-                                      { minimumFractionDigits: 2 }
-                                    )}
-                                  </td>
-                                </tr>
-                                <tr className="hover:bg-gray-50">
-                                  <td className="border border-gray-300 p-3">
-                                    Servicio de Administración de Arbitraje
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {result.administrativeFee.toLocaleString(
-                                      "es-PE",
-                                      { minimumFractionDigits: 2 }
-                                    )}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.administrativeFee * 0.18
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.administrativeFee * 0.08
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.administrativeFee * 1.18
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.administrativeFee * 1.08
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                </tr>
-                                <tr className="hover:bg-gray-50">
-                                  <td className="border border-gray-300 p-3">
-                                    Honorarios{" "}
-                                    {result.arbitrationType === "tribunal"
-                                      ? "Tribunal Arbitral"
-                                      : "Árbitro Único"}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {result.arbitratorFee.toLocaleString(
-                                      "es-PE",
-                                      { minimumFractionDigits: 2 }
-                                    )}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.arbitratorFee * 0.18
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.arbitratorFee * 0.08
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.arbitratorFee * 1.18
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    S/
-                                    {(
-                                      result.arbitratorFee * 1.08
-                                    ).toLocaleString("es-PE", {
-                                      minimumFractionDigits: 2,
-                                    })}
-                                  </td>
-                                </tr>
-                                <tr className="bg-blue-50 font-bold">
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>TOTAL</strong>
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>
-                                      S/
-                                      {result.subtotal.toLocaleString("es-PE", {
-                                        minimumFractionDigits: 2,
-                                      })}
-                                    </strong>
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>
-                                      S/
-                                      {result.igv.toLocaleString("es-PE", {
-                                        minimumFractionDigits: 2,
-                                      })}
-                                    </strong>
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>
-                                      S/
-                                      {result.renta.toLocaleString("es-PE", {
-                                        minimumFractionDigits: 2,
-                                      })}
-                                    </strong>
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>
-                                      S/
-                                      {result.totalWithIGV.toLocaleString(
-                                        "es-PE",
-                                        { minimumFractionDigits: 2 }
-                                      )}
-                                    </strong>
-                                  </td>
-                                  <td className="border border-gray-300 p-3">
-                                    <strong>
-                                      S/
-                                      {result.totalWithRenta.toLocaleString(
-                                        "es-PE",
-                                        { minimumFractionDigits: 2 }
-                                      )}
-                                    </strong>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-
-                          {/* Nota */}
-                          <div className="bg-yellow-50 p-4 rounded-lg">
-                            <h4 className="font-semibold text-yellow-800 mb-2">
-                              Cada Parte Deberá Asumir El 50%
-                            </h4>
-                            <p className="text-sm text-yellow-700">
-                              Con relación a los honorarios de los árbitros y el
-                              servicio de administración de arbitraje, cada
-                              parte deberá asumir el 50% de los costos
-                              arbitrales.
-                            </p>
-                          </div>
-
-                          {/* Buttons */}
-                          <div className="flex gap-4 pt-4">
-                            <Button
-                              onClick={exportToPDF}
-                              className="flex-1 flex items-center gap-2"
-                              disabled={isGeneratingPDF}
-                            >
-                              {isGeneratingPDF ? (
-                                <>
-                                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                  GENERANDO PDF...
-                                </>
-                              ) : (
-                                <>
-                                  <Download className="w-4 h-4" />
-                                  DESCARGAR PDF
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              variant="outline"
-                              onClick={() => setShowResult(false)}
-                              className="flex-1"
-                            >
-                              REALIZAR NUEVO CÁLCULO
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                )}
-              </TabsContent>
-
-              <TabsContent value="tables">
-                <div className="space-y-8">
-                  {/* Tabla de Gastos Administrativos */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        Gastos Administrativos y Secretaría Arbitral
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="overflow-x-auto">
-                        <table className="w-full border-collapse border border-gray-300">
-                          <thead>
-                            <tr className="bg-primary text-white">
-                              <th className="border border-gray-300 p-3 text-left">
-                                Cuantía
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Tasa
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Mínimo (Sin IGV)
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Máximo (Sin IGV)
-                              </th>
+                {/* Tabla de Honorarios Árbitro Único */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Honorarios del Árbitro Único</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                          <tr className="bg-primary text-white">
+                            <th className="border border-gray-300 p-3 text-left">
+                              Cuantía
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Tasa
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Mínimo (Sin IGV)
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Máximo (Sin IGV)
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {SINGLE_ARBITRATOR_FEES.map((fee, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                              <td className="border border-gray-300 p-3">
+                                De S/{fee.min.toLocaleString()} hasta S/
+                                {fee.max === Number.POSITIVE_INFINITY
+                                  ? "∞"
+                                  : fee.max.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {(fee.rate * 100).toFixed(1)}% sobre la cantidad
+                                que exceda de S/
+                                {fee.baseAmount.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                S/{fee.minFee.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {fee.maxFee
+                                  ? `S/${fee.maxFee.toLocaleString()}`
+                                  : "----"}
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            {ADMINISTRATIVE_FEES.map((fee, index) => (
-                              <tr key={index} className="hover:bg-gray-50">
-                                <td className="border border-gray-300 p-3">
-                                  De S/{fee.min.toLocaleString()} hasta S/
-                                  {fee.max === Number.POSITIVE_INFINITY
-                                    ? "∞"
-                                    : fee.max.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {(fee.rate * 100).toFixed(1)}% sobre la
-                                  cantidad que exceda de S/
-                                  {fee.baseAmount.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  S/{fee.minFee.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {fee.maxFee
-                                    ? `S/${fee.maxFee.toLocaleString()}`
-                                    : "----"}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </CardContent>
-                  </Card>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                  {/* Tabla de Honorarios Árbitro Único */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Honorarios del Árbitro Único</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="overflow-x-auto">
-                        <table className="w-full border-collapse border border-gray-300">
-                          <thead>
-                            <tr className="bg-primary text-white">
-                              <th className="border border-gray-300 p-3 text-left">
-                                Cuantía
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Tasa
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Mínimo (Sin IGV)
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Máximo (Sin IGV)
-                              </th>
+                {/* Tabla de Honorarios Tribunal Arbitral */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Honorarios del Tribunal Arbitral</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                          <tr className="bg-primary text-white">
+                            <th className="border border-gray-300 p-3 text-left">
+                              Cuantía
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Tasa
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Mínimo (Sin IGV)
+                            </th>
+                            <th className="border border-gray-300 p-3 text-left">
+                              Monto Máximo (Sin IGV)
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {TRIBUNAL_ARBITRAL_FEES.map((fee, index) => (
+                            <tr key={index} className="hover:bg-gray-50">
+                              <td className="border border-gray-300 p-3">
+                                De S/{fee.min.toLocaleString()} hasta S/
+                                {fee.max === Number.POSITIVE_INFINITY
+                                  ? "∞"
+                                  : fee.max.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {(fee.rate * 100).toFixed(1)}% sobre la cantidad
+                                que exceda de S/
+                                {fee.baseAmount.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                S/{fee.minFee.toLocaleString()}
+                              </td>
+                              <td className="border border-gray-300 p-3">
+                                {fee.maxFee
+                                  ? `S/${fee.maxFee.toLocaleString()}`
+                                  : "----"}
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            {SINGLE_ARBITRATOR_FEES.map((fee, index) => (
-                              <tr key={index} className="hover:bg-gray-50">
-                                <td className="border border-gray-300 p-3">
-                                  De S/{fee.min.toLocaleString()} hasta S/
-                                  {fee.max === Number.POSITIVE_INFINITY
-                                    ? "∞"
-                                    : fee.max.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {(fee.rate * 100).toFixed(1)}% sobre la
-                                  cantidad que exceda de S/
-                                  {fee.baseAmount.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  S/{fee.minFee.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {fee.maxFee
-                                    ? `S/${fee.maxFee.toLocaleString()}`
-                                    : "----"}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </CardContent>
-                  </Card>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-800">
+                        <strong>Nota:</strong> Los montos calculados están
+                        realizados en referencia a un Tribunal Arbitral
+                        conformado por tres (03) árbitros.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                  {/* Tabla de Honorarios Tribunal Arbitral */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Honorarios del Tribunal Arbitral</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="overflow-x-auto">
-                        <table className="w-full border-collapse border border-gray-300">
-                          <thead>
-                            <tr className="bg-primary text-white">
-                              <th className="border border-gray-300 p-3 text-left">
-                                Cuantía
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Tasa
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Mínimo (Sin IGV)
-                              </th>
-                              <th className="border border-gray-300 p-3 text-left">
-                                Monto Máximo (Sin IGV)
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {TRIBUNAL_ARBITRAL_FEES.map((fee, index) => (
-                              <tr key={index} className="hover:bg-gray-50">
-                                <td className="border border-gray-300 p-3">
-                                  De S/{fee.min.toLocaleString()} hasta S/
-                                  {fee.max === Number.POSITIVE_INFINITY
-                                    ? "∞"
-                                    : fee.max.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {(fee.rate * 100).toFixed(1)}% sobre la
-                                  cantidad que exceda de S/
-                                  {fee.baseAmount.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  S/{fee.minFee.toLocaleString()}
-                                </td>
-                                <td className="border border-gray-300 p-3">
-                                  {fee.maxFee
-                                    ? `S/${fee.maxFee.toLocaleString()}`
-                                    : "----"}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                        <p className="text-sm text-blue-800">
-                          <strong>Nota:</strong> Los montos calculados están
-                          realizados en referencia a un Tribunal Arbitral
-                          conformado por tres (03) árbitros.
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Tasa de Presentación */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        Tasa de Presentación de Solicitud de Arbitraje
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-center p-8 bg-primary/10 rounded-lg">
-                        <h3 className="text-2xl font-bold text-primary">
-                          S/650.00
-                        </h3>
-                        <p className="text-gray-600 mt-2">Incluido IGV</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
+                {/* Tasa de Presentación */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      Tasa de Presentación de Solicitud de Arbitraje
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-center p-8 bg-primary/10 rounded-lg">
+                      <h3 className="text-2xl font-bold text-primary">
+                        S/650.00
+                      </h3>
+                      <p className="text-gray-600 mt-2">Incluido IGV</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
     </div>
   );
 }

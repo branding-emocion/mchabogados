@@ -1,123 +1,169 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { MapPin, Mail, Phone, Send } from "lucide-react";
 
-const ContactCTASection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+export function ContactSection() {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    email: "",
+    telefono: "",
+    mensaje: "",
+  });
 
-  const contactMethods = [
-    {
-      icon: "📞",
-      title: "Llámanos",
-      description: "Habla directamente con nuestros expertos",
-      action: "Llamar Ahora",
-      details: "+51 1 234-5678",
-    },
-    {
-      icon: "✉️",
-      title: "Escríbenos",
-      description: "Envíanos tu consulta por email",
-      action: "Enviar Email",
-      details: "contacto@mchabogados.pe",
-    },
-    {
-      icon: "📅",
-      title: "Agenda una Cita",
-      description: "Programa una consulta personalizada",
-      action: "Agendar Cita",
-      details: "Disponible Lun-Vie",
-    },
-  ];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes agregar la lógica para enviar el formulario
+    console.log("Formulario enviado:", formData);
+    // Reset form
+    setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+  };
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   return (
-    <section
-      className="py-20 bg-gradient-to-br from-slate-50 to-white"
-      ref={ref}
-    >
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
-            ¿Necesitas Asesoría Legal?
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Nuestro equipo de expertos está listo para ayudarte. Contáctanos hoy
-            mismo y obtén la mejor asesoría legal.
-          </p>
-        </motion.div>
+    <section className="py-16 px-4 max-w-7xl mx-auto">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-foreground mb-4">CONTÁCTANOS</h2>
+        <p className="text-muted-foreground text-lg">
+          ¡Visítanos en nuestras oficinas!
+        </p>
+      </div>
 
-        {/* Contact Methods Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {contactMethods.map((method, index) => (
-            <motion.div
-              key={method.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-            >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-3xl">{method.icon}</span>
-                  </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
-                    {method.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{method.description}</p>
-                  <p className="text-sm text-primary font-medium mb-4">
-                    {method.details}
-                  </p>
-                  <Button
-                    variant="outline"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
-                  >
-                    {method.action}
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+      <div className="grid lg:grid-cols-2 gap-12 items-start">
+        {/* Información de contacto */}
+        <div className="space-y-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <MapPin className="h-5 w-5 text-primary" />
+                NUESTRA DIRECCIÓN
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-foreground font-medium">
+                Residencial San Francisco A'-27, Huanchaco
+              </p>
+            </CardContent>
+          </Card>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Mail className="h-5 w-5 text-primary" />
+                  Email
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <a
+                  href="mailto:mchabogados@legalmch.com"
+                  className="text-primary hover:underline font-medium"
+                >
+                  mchabogados@legalmch.com
+                </a>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Phone className="h-5 w-5 text-primary" />
+                  Teléfono
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <a
+                  href="tel:976936575"
+                  className="text-primary hover:underline font-medium"
+                >
+                  976-936-575
+                </a>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
-        {/* Main CTA */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="bg-primary rounded-2xl p-8 md:p-12 text-white">
-            <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4">
-              Consulta Gratuita de 30 Minutos
-            </h3>
-            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
-              Agenda una consulta inicial sin costo y descubre cómo podemos
-              ayudarte con tu caso legal.
+        {/* Formulario de contacto */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">Consultas Generales</CardTitle>
+            <p className="text-muted-foreground">
+              Por favor completa el siguiente formulario:
             </p>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-gray-100 px-8 py-3 text-lg font-medium"
-                onClick={() => (window.location.href = "/contacto")}
-              >
-                Solicitar Consulta Gratuita
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="nombre">Nombre completo *</Label>
+                  <Input
+                    id="nombre"
+                    name="nombre"
+                    type="text"
+                    required
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    placeholder="Tu nombre completo"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telefono">Teléfono</Label>
+                  <Input
+                    id="telefono"
+                    name="telefono"
+                    type="tel"
+                    value={formData.telefono}
+                    onChange={handleChange}
+                    placeholder="Tu número de teléfono"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="mensaje">Mensaje *</Label>
+                <Textarea
+                  id="mensaje"
+                  name="mensaje"
+                  required
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                  placeholder="Describe tu consulta o mensaje..."
+                  className="min-h-[120px] resize-none"
+                />
+              </div>
+
+              <Button type="submit" className="w-full">
+                <Send className="h-4 w-4 mr-2" />
+                Enviar Consulta
               </Button>
-            </motion.div>
-          </div>
-        </motion.div>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
-};
-
-export default ContactCTASection;
+}

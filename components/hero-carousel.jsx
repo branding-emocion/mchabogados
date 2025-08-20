@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Scale, Shield, Users, Award } from "lucide-react";
+import Link from "next/link";
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,7 +17,7 @@ const HeroCarousel = () => {
       description:
         "Brindamos asesoría legal especializada con un enfoque integral y personalizado para empresas y particulares en todo el Perú",
       icon: Scale,
-      stats: "500+ Casos Exitosos",
+      // stats: "500+ Casos Exitosos",
     },
     {
       title: "DERECHO CORPORATIVO",
@@ -24,23 +25,7 @@ const HeroCarousel = () => {
       description:
         "Acompañamos el crecimiento de tu negocio con asesoría especializada en fusiones, adquisiciones, compliance y gobierno corporativo",
       icon: Shield,
-      stats: "200+ Empresas Asesoradas",
-    },
-    {
-      title: "ARBITRAJE Y MEDIACIÓN",
-      subtitle: "Resolución Eficiente de Controversias",
-      description:
-        "Especialistas en métodos alternativos de resolución de conflictos con reconocimiento nacional e internacional",
-      icon: Users,
-      stats: "95% Casos Resueltos",
-    },
-    {
-      title: "LITIGIOS COMPLEJOS",
-      subtitle: "Representación Legal de Alto Nivel",
-      description:
-        "Defendemos tus intereses con estrategias jurídicas innovadoras respaldadas por un equipo de abogados especializados",
-      icon: Award,
-      stats: "85% Casos Ganados",
+      // stats: "200+ Empresas Asesoradas",
     },
   ];
 
@@ -137,19 +122,14 @@ const HeroCarousel = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
                 >
-                  <Button
-                    size="lg"
-                    className="bg-white text-primary hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    Solicitar Consulta Gratuita
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300"
-                  >
-                    Ver Casos de Éxito
-                  </Button>
+                  <Link href="#contacto">
+                    <Button
+                      size="lg"
+                      className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                    >
+                      Solicitar Consulta
+                    </Button>
+                  </Link>
                 </motion.div>
               </motion.div>
             </AnimatePresence>
@@ -212,23 +192,6 @@ const HeroCarousel = () => {
             </button>
           ))}
         </div>
-
-        {/* Trust Indicators */}
-        <motion.div
-          className="absolute bottom-20 left-8 hidden lg:block"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-            <div className="text-white text-sm font-medium">
-              Certificados por:
-            </div>
-            <div className="text-teal-200 text-xs mt-1">
-              Colegio de Abogados de Lima • CAL
-            </div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Custom CSS for slow spin animation */}

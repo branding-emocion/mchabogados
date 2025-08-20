@@ -63,9 +63,8 @@ const Footer = () => {
               viewport={{ once: true }}
             >
               Estudio jurídico especializado en brindar asesoría legal integral
-              con más de 15 años de experiencia en el mercado peruano.
-              Comprometidos con la excelencia y la satisfacción de nuestros
-              clientes.
+              en el mercado peruano. Comprometidos con la excelencia y la
+              satisfacción de nuestros clientes.
             </motion.p>
 
             <motion.div

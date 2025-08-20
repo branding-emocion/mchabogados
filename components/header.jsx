@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,20 +21,20 @@ const Header = () => {
   }, []);
 
   const legalServices = [
-    { name: "Defensa Arbitral", href: "/asesoria-legal#defensa-arbitral" },
+    { name: "Defensa Arbitral", href: "/AsesoriaLegal/DefensaArbitral" },
     {
       name: "Derecho Administrativo",
-      href: "/asesoria-legal#derecho-administrativo",
+      href: "/AsesoriaLegal/DerechoAdministrativo",
     },
-    { name: "Derecho Civil", href: "/asesoria-legal#derecho-civil" },
-    { name: "Derecho Penal", href: "/asesoria-legal#derecho-penal" },
+    { name: "Derecho Civil", href: "/AsesoriaLegal/derecho-civil" },
+    { name: "Derecho Penal", href: "/AsesoriaLegal/DefensaPenal" },
     {
       name: "Contratación Pública",
-      href: "/asesoria-legal#contratacion-publica",
+      href: "/AsesoriaLegal/contratacion-publica",
     },
     {
       name: "Conciliación Extrajudicial",
-      href: "/asesoria-legal#conciliacion-extrajudicial",
+      href: "/AsesoriaLegal/ConciliacionExtrajudicial",
     },
   ];
 
@@ -45,9 +46,8 @@ const Header = () => {
       hasDropdown: true,
       dropdownItems: legalServices,
     },
-    { name: "Centro de Arbitraje", href: "/centro-arbitraje" },
-    { name: "Nuestro Equipo", href: "/nuestro-equipo" },
-    { name: "Contacto", href: "/contacto" },
+    { name: "Nuestro Equipo", href: "#nuestro-equipo" },
+    { name: "Contacto", href: "#contacto" },
   ];
 
   return (
@@ -67,7 +67,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+            {/* <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
               <span className="text-xl font-bold text-white">MCH</span>
             </div>
             <div className="flex flex-col">
@@ -85,7 +85,15 @@ const Header = () => {
               >
                 ABOGADOS
               </span>
-            </div>
+            </div> */}
+
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={281}
+              height={87}
+              className="object-cover"
+            />
           </motion.div>
 
           {/* Navigation */}
@@ -164,7 +172,7 @@ const Header = () => {
                     : "bg-white text-primary hover:bg-white/90 hover:shadow-xl"
                 }`}
               >
-                Cotizar
+                Calculadora
               </Button>
             </Link>
 

@@ -1,10 +1,8 @@
-import Header from "@/components/header";
+import ContactSection from "@/components/ContactSection";
 import HeroCarousel from "@/components/hero-carousel";
 import ServicesSection from "@/components/services-section";
 import StatsSection from "@/components/stats-section";
 import TeamSection from "@/components/team-section";
-import ContactCTASection from "@/components/contact-cta-section";
-import Footer from "@/components/footer";
 
 export default function HomePage() {
   return (
@@ -13,7 +11,7 @@ export default function HomePage() {
       <ServicesSection />
       <StatsSection />
       <TeamSection />
-      <ContactCTASection />
+      <ContactSection />
     </main>
   );
 }
