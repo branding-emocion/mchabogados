@@ -5,10 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, MessageCircle, Phone } from "lucide-react"; // Added icons for floating buttons
 
-const Header = () => {
+export default function ContratacionPublica() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] =
-    (useState < string) | (null > null);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,20 +19,20 @@ const Header = () => {
   }, []);
 
   const legalServices = [
-    { name: "Defensa Arbitral", href: "/asesoria-legal/proceso-arbitral" }, // Updated to specific page
+    { name: "Defensa Arbitral", href: "/AsesoriaLegal/proceso-arbitral" }, // Updated to specific page
     {
       name: "Derecho Administrativo",
-      href: "/asesoria-legal/derecho-administrativo",
+      href: "/AsesoriaLegal/derecho-administrativo",
     }, // Updated to specific page
-    { name: "Derecho Civil", href: "/asesoria-legal/derecho-civil" }, // Updated to specific page
-    { name: "Derecho Penal", href: "/asesoria-legal/derecho-penal" }, // Updated to specific page
+    { name: "Derecho Civil", href: "/AsesoriaLegal/derecho-civil" }, // Updated to specific page
+    { name: "Derecho Penal", href: "/AsesoriaLegal/derecho-penal" }, // Updated to specific page
     {
       name: "Contratación Pública",
-      href: "/asesoria-legal/contratacion-publica",
+      href: "/AsesoriaLegal/contratacion-publica",
     }, // Updated to specific page
     {
       name: "Conciliación Extrajudicial",
-      href: "/asesoria-legal/conciliacion-extrajudicial",
+      href: "/AsesoriaLegal/conciliacion-extrajudicial",
     }, // Updated to specific page
   ];
 
@@ -41,7 +40,7 @@ const Header = () => {
     { name: "Inicio", href: "/" },
     {
       name: "Asesoría Legal",
-      href: "/asesoria-legal",
+      href: "/AsesoriaLegal",
       hasDropdown: true,
       dropdownItems: legalServices,
     },
@@ -227,6 +226,4 @@ const Header = () => {
       </div>
     </>
   );
-};
-
-export default Header;
+}
