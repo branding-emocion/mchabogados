@@ -11,7 +11,8 @@ export default function HomePage() {
       <ServicesSection />
       <StatsSection />
       <TeamSection />
-      <ContactSection />
+      {/* CTA Section */}
+      <ContactSection />{" "}
     </main>
   );
 }

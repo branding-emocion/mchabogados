@@ -20,6 +20,7 @@ import {
   Target,
 } from "lucide-react";
 import Link from "next/link";
+import ContactSection from "@/components/ContactSection";
 
 export default function ConciliacionExtrajudicialPage() {
   const advantages = [
@@ -318,6 +319,8 @@ export default function ConciliacionExtrajudicialPage() {
           </div>
         </div>
       </section>
+      {/* CTA Section */}
+      <ContactSection />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Scale, Award, Users, BookOpen } from "lucide-react";
+import Link from "next/link";
 
 const TeamSection = () => {
   const ref = useRef(null);
@@ -164,6 +165,13 @@ const TeamSection = () => {
                     ))}
                   </ul>
                 </div>
+                <Link href={`/NuestroEquipo`}>
+                  <div className="mt-4 text-center">
+                    <span className="text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                      Ver perfil completo →
+                    </span>
+                  </div>
+                </Link>
               </div>
             </motion.div>
           ))}

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import ContactSection from "@/components/ContactSection";
 
 export default function DerechoAdministrativo() {
   const services = [
@@ -155,6 +156,8 @@ export default function DerechoAdministrativo() {
           </div>
         </div>
       </section>
+      {/* CTA Section */}
+      <ContactSection />
     </div>
   );
 }

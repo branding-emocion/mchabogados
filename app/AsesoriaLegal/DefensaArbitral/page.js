@@ -13,6 +13,7 @@ import {
   ArrowRight,
   MessageCircle,
 } from "lucide-react";
+import ContactSection from "@/components/ContactSection";
 
 const processSteps = [
   {
@@ -254,6 +255,8 @@ export default function ProcesoArbitralPage() {
           </motion.div>
         </div>
       </section>
+      {/* CTA Section */}
+      <ContactSection />
     </div>
   );
 }
