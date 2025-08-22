@@ -266,34 +266,33 @@ const Header = () => {
   }, []);
 
   const legalServices = [
-    { name: "Defensa Arbitral", href: "/asesoria-legal/proceso-arbitral" }, // Updated to specific page
+    { name: "Defensa Arbitral", href: "/AsesoriaLegal/DefensaArbitral" },
     {
       name: "Derecho Administrativo",
-      href: "/asesoria-legal/derecho-administrativo",
-    }, // Updated to specific page
-    { name: "Derecho Civil", href: "/asesoria-legal/derecho-civil" }, // Updated to specific page
-    { name: "Derecho Penal", href: "/asesoria-legal/derecho-penal" }, // Updated to specific page
+      href: "/AsesoriaLegal/DerechoAdministrativo",
+    },
+    { name: "Derecho Civil", href: "/AsesoriaLegal/DerechoCivil" },
+    { name: "Derecho Penal", href: "/AsesoriaLegal/DefensaPenal" },
     {
       name: "Contratación Pública",
-      href: "/asesoria-legal/contratacion-publica",
-    }, // Updated to specific page
+      href: "/AsesoriaLegal/ContratacionPublica",
+    },
     {
       name: "Conciliación Extrajudicial",
-      href: "/asesoria-legal/conciliacion-extrajudicial",
-    }, // Updated to specific page
+      href: "/AsesoriaLegal/ConciliacionExtrajudicial",
+    },
   ];
 
   const navItems = [
     { name: "Inicio", href: "/" },
     {
       name: "Asesoría Legal",
-      href: "/asesoria-legal",
+      href: "/AsesoriaLegal",
       hasDropdown: true,
       dropdownItems: legalServices,
     },
-    { name: "Centro de Arbitraje", href: "/centro-arbitraje" },
-    { name: "Nuestro Equipo", href: "/nuestro-equipo" },
-    { name: "Contacto", href: "/contacto" },
+    { name: "Nuestro Equipo", href: "/NuestroEquipo" },
+    { name: "Contacto", href: "/Contacto" },
   ];
 
   return (
