@@ -168,48 +168,6 @@ const TeamSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Values Section */}
-        <motion.div
-          className="bg-white rounded-3xl p-8 md:p-12 shadow-lg"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-serif font-bold text-gray-900 mb-4">
-              Nuestros Valores
-            </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Los principios que guían nuestro trabajo y definen nuestra
-              excelencia profesional
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                }
-                transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-              >
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-8 h-8 text-primary" />
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-3">
-                  {value.title}
-                </h4>
-                <p className="text-gray-600 leading-relaxed">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

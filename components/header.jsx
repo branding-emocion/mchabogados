@@ -42,12 +42,12 @@ const Header = () => {
     { name: "Inicio", href: "/" },
     {
       name: "Asesoría Legal",
-      href: "/asesoria-legal",
+      href: "#",
       hasDropdown: true,
       dropdownItems: legalServices,
     },
-    { name: "Nuestro Equipo", href: "#nuestro-equipo" },
-    { name: "Contacto", href: "#contacto" },
+    { name: "Nuestro Equipo", href: "/NuestroEquipo" },
+    { name: "Contacto", href: "/Contacto" },
   ];
 
   return (
