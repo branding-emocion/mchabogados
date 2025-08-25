@@ -17,11 +17,8 @@ import {
   ArrowRight,
   Settings,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import Link from "next/link";
 import { getCalculatorConfig } from "@/lib/calculator";
 
 export default function CotizarPage() {
@@ -180,21 +177,37 @@ export default function CotizarPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
+        <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-primary/80 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Badge className="mb-4 bg-white/20 text-white border-white/30">
+                Calculadora Oficial
+              </Badge>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Calculadoras de Arbitraje
+              </h1>
+              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Calcula los costos de arbitraje de manera precisa según las
+                tarifas oficiales
+              </p>
+            </motion.div>
+          </div>
+        </section>
         <div className="container mx-auto px-4 py-32 text-center">
           <div className="text-lg">
             Cargando configuraciones desde la base de datos...
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary to-primary/80 text-white">
         <div className="container mx-auto px-4 text-center">
@@ -386,8 +399,6 @@ export default function CotizarPage() {
           </Tabs>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }
