@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -46,13 +47,13 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-xl font-bold text-white">MCH</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-serif font-bold">MCH</span>
-                <span className="text-sm text-gray-400">ABOGADOS</span>
-              </div>
+              <Image
+                src="/LogoBlanco.png"
+                alt="logo"
+                width={281}
+                height={87}
+                className="object-cover"
+              />
             </motion.div>
 
             <motion.p

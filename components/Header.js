@@ -81,7 +81,7 @@ const Header = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="flex flex-col">
+                <Link href={"/"} className="flex flex-col hover:cursor-pointer">
                   {isScrolled ? (
                     <Image
                       src="/logo.png"
@@ -99,7 +99,7 @@ const Header = () => {
                       className="object-cover"
                     />
                   )}
-                </div>
+                </Link>
               </motion.div>
             </motion.div>
 
