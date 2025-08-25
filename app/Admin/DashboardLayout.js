@@ -42,11 +42,7 @@ const DashboardLayout = ({ children }) => {
       link: "/Admin/Calculadoras",
       icon: <Warehouse className="w-6 h-6 text-white" />,
     },
-    {
-      name: "Blog",
-      link: "/Admin/Blog",
-      icon: <BookOpenText className="w-6 h-6 text-white" />,
-    },
+
     // {
     //   name: "Comentarios",
     //   link: "/Admin/Notificaciones",
