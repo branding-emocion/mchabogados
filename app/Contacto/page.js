@@ -12,6 +12,7 @@ import { MapPin, Clock, Phone, Mail, MessageCircle } from "lucide-react";
 export default function Contacto() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,9 +29,31 @@ export default function Contacto() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // evita que el form recargue la página (si es dentro de un <form>)
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/SendMailPageContacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(InputValues),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error en la petición: ${response.status}`);
+      }
+
+      const data = await response.json();
+      alert(data.body || "Mensaje enviado correctamente ✅");
+    } catch (error) {
+      console.error("Error al enviar el mensaje:", error);
+      alert("❌ Ocurrió un error al enviar el mensaje. Inténtalo nuevamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactMethods = [

@@ -6,6 +6,8 @@ import { auth, db } from "@/firebase/firebaseClient";
 import Link from "next/link";
 import {
   BookOpenText,
+  DollarSign,
+  File,
   MonitorXIcon,
   Users,
   Warehouse,
@@ -32,23 +34,26 @@ const DashboardLayout = ({ children }) => {
       icon: <Users className="w-6 h-6 text-white" />,
       hidden: claims?.UsuarioBase,
     },
-    // {
-    //   name: "Pódcast",
-    //   link: "/Admin/Podcast",
-    //   icon: <YoutubeIcon className="w-6 h-6 text-white" />,
-    // },
     {
       name: "Calculadoras",
       link: "/Admin/Calculadoras",
       icon: <Warehouse className="w-6 h-6 text-white" />,
     },
-
-    // {
-    //   name: "Comentarios",
-    //   link: "/Admin/Notificaciones",
-    //   icon: <MessageSquareDot className="w-6 h-6 text-white" />,
-    //   CantComentarios: true,
-    // },
+    {
+      name: "Clientes",
+      link: "/Admin/Clientes",
+      icon: <DollarSign className="w-6 h-6 text-white" />,
+    },
+    {
+      name: "Nomina",
+      link: "/Admin/Nomina",
+      icon: <DollarSign className="w-6 h-6 text-white" />,
+    },
+    {
+      name: "Laudos",
+      link: "/Admin/Laudos",
+      icon: <File className="w-6 h-6 text-white" />,
+    },
   ];
 
   useEffect(() => {
