@@ -28,20 +28,18 @@ const Header = () => {
   }, []);
 
   const legalServices = [
-    { name: "Defensa Arbitral", href: "/AsesoriaLegal/DefensaArbitral" },
     {
-      name: "Derecho Administrativo",
-      href: "/AsesoriaLegal/DerechoAdministrativo",
-    },
-    { name: "Derecho Civil", href: "/AsesoriaLegal/DerechoCivil" },
-    { name: "Derecho Penal", href: "/AsesoriaLegal/DefensaPenal" },
-    {
-      name: "Contratación Pública",
+      name: "Arbitraje en contratación pública",
       href: "/AsesoriaLegal/ContratacionPublica",
     },
     {
-      name: "Conciliación Extrajudicial",
-      href: "/AsesoriaLegal/ConciliacionExtrajudicial",
+      name: "Arbitraje de emergencia",
+      href: "/AsesoriaLegal/ArbitrajeEmergencia",
+    },
+    { name: "Arbitraje entre privados", href: "/AsesoriaLegal/EntrePrivados" },
+    {
+      name: "Recusación",
+      href: "/AsesoriaLegal/Recusacion",
     },
   ];
 
@@ -78,11 +76,14 @@ const Header = () => {
               transition={{ duration: 0.2 }}
             >
               <motion.div
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 my-5"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                <Link href={"/"} className="flex flex-col hover:cursor-pointer">
+                <Link
+                  href={"/"}
+                  className="flex flex-col hover:cursor-pointer "
+                >
                   {isScrolled ? (
                     <Image
                       src="/logo.png"

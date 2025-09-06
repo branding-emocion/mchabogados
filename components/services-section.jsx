@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
 
 const ServicesSection = () => {
   const ref = useRef(null);
@@ -12,46 +11,32 @@ const ServicesSection = () => {
 
   const services = [
     {
-      title: "Derecho Corporativo",
+      title: "Arbitraje en Contratación Pública",
       description:
-        "Asesoría integral para empresas en constitución, fusiones, adquisiciones y gobierno corporativo.",
-      icon: "🏢",
-      link: "/AsesoriaLegal", // General link since we don't have a specific corporate law page
+        "Resolución especializada de controversias en procesos de contratación con el Estado y entidades públicas.",
+      icon: "🏛️",
+      link: "/AsesoriaLegal/arbitraje-contratacion-publica",
     },
     {
-      title: "Derecho Civil",
+      title: "Arbitraje de Emergencia",
       description:
-        "Contratos, obligaciones, derechos reales y responsabilidad civil con enfoque personalizado.",
-      icon: "⚖️",
-      link: "/AsesoriaLegal/derecho-civil", // Updated to link to specific civil law page
+        "Procedimientos arbitrales urgentes para la resolución rápida de conflictos que requieren medidas cautelares inmediatas.",
+      icon: "⚡",
+      link: "/AsesoriaLegal/arbitraje-emergencia",
     },
     {
-      title: "Derecho Penal",
+      title: "Arbitraje entre Privados",
       description:
-        "Defensa penal especializada en delitos económicos, contra la administración pública y empresariales.",
-      icon: "🛡️",
-      link: "/AsesoriaLegal/derecho-penal",
-    },
-    {
-      title: "Arbitraje y Mediación",
-      description:
-        "Resolución alternativa de conflictos con árbitros especializados en diversas materias.",
+        "Mediación y arbitraje comercial entre empresas privadas para resolver disputas contractuales y comerciales.",
       icon: "🤝",
-      link: "/AsesoriaLegal/proceso-arbitral",
+      link: "/AsesoriaLegal/arbitraje-privados",
     },
     {
-      title: "Derecho Laboral",
+      title: "Recusación",
       description:
-        "Asesoría en relaciones laborales, despidos, beneficios sociales y negociación colectiva.",
-      icon: "👥",
-      link: "/AsesoriaLegal", // General link since we don't have a specific labor law page
-    },
-    {
-      title: "Derecho Administrativo",
-      description:
-        "Procedimientos administrativos, contratación pública y relaciones con el Estado.",
-      icon: "📋",
-      link: "/AsesoriaLegal/derecho-administrativo",
+        "Procedimientos de recusación de árbitros y magistrados para garantizar la imparcialidad en los procesos.",
+      icon: "⚖️",
+      link: "/AsesoriaLegal/recusacion",
     },
   ];
 
@@ -112,7 +97,7 @@ const ServicesSection = () => {
 
         {/* Services Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}

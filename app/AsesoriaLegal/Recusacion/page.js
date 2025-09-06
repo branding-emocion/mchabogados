@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Building2,
-  FileText,
-  Clock,
+  CheckCircle,
+  Scale,
   Shield,
+  Users,
   Phone,
   Mail,
   MapPin,
 } from "lucide-react";
 
-export default function ArbitrajeContratacionPublicaPage() {
+export default function RecusacionPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -34,15 +34,12 @@ export default function ArbitrajeContratacionPublicaPage() {
             className="text-white"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
-              ARBITRAJE EN
-              <br />
-              <span className="text-white">CONTRATACIÓN PÚBLICA</span>
+              <span className="text-white">RECUSACIÓN</span>
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              Resolución especializada de controversias en procesos de
-              contratación estatal, garantizando transparencia y eficiencia en
-              la administración pública.
+              Procedimiento para garantizar la imparcialidad e independencia de
+              los árbitros en el proceso arbitral.
             </p>
           </motion.div>
         </div>
@@ -61,27 +58,27 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12 text-slate-800 font-serif text-center">
-                ARBITRAJE EN CONTRATACIÓN PÚBLICA
+                RECUSACIÓN DE ÁRBITROS
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6">
-                  El arbitraje en contratación pública es un mecanismo
-                  especializado para resolver controversias que surgen en los
-                  procesos de contratación del Estado. Este procedimiento
-                  permite una resolución más ágil y técnica de los conflictos
-                  entre entidades públicas y contratistas.
+                  La recusación es un mecanismo fundamental para garantizar la
+                  imparcialidad e independencia de los árbitros. Permite a las
+                  partes cuestionar la participación de un árbitro cuando
+                  existen circunstancias que puedan generar dudas justificadas
+                  sobre su neutralidad.
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  Nuestro centro cuenta con árbitros especializados en derecho
-                  administrativo y contratación estatal, garantizando decisiones
-                  fundamentadas en la normativa vigente y las mejores prácticas
-                  del sector público.
+                  Nuestro centro maneja estos procedimientos con estricto apego
+                  a los principios de transparencia y debido proceso, asegurando
+                  que el tribunal arbitral mantenga la confianza de todas las
+                  partes involucradas en el proceso.
                 </p>
               </div>
             </div>
           </motion.section>
 
-          {/* Expertise Areas */}
+          {/* Key Features */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +88,7 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="text-center mb-16">
               <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4">
-                Áreas de Especialización
+                Características del Procedimiento
               </h3>
               <div className="w-20 h-1 bg-primary mx-auto" />
             </div>
@@ -99,41 +96,41 @@ export default function ArbitrajeContratacionPublicaPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
-                  icon: Building2,
-                  title: "Obras Públicas",
+                  icon: Scale,
+                  title: "Imparcialidad",
                   description:
-                    "Controversias en contratos de construcción, infraestructura y proyectos de inversión pública.",
-                },
-                {
-                  icon: FileText,
-                  title: "Servicios Públicos",
-                  description:
-                    "Disputas en contratos de prestación de servicios, consultoría y asesoría al Estado.",
-                },
-                {
-                  icon: Clock,
-                  title: "Procesos Ágiles",
-                  description:
-                    "Resolución eficiente que respeta los tiempos de la administración pública.",
+                    "Garantizamos la neutralidad absoluta en todos los procedimientos de recusación.",
                 },
                 {
                   icon: Shield,
-                  title: "Cumplimiento Legal",
+                  title: "Transparencia",
                   description:
-                    "Estricto apego a la normativa de contratación pública y transparencia.",
+                    "Proceso claro y transparente con plazos definidos y comunicación constante.",
                 },
-              ].map((area, index) => (
+                {
+                  icon: Users,
+                  title: "Debido Proceso",
+                  description:
+                    "Respeto estricto a los derechos de todas las partes involucradas.",
+                },
+                {
+                  icon: CheckCircle,
+                  title: "Eficiencia",
+                  description:
+                    "Resolución ágil para no afectar los tiempos del proceso arbitral principal.",
+                },
+              ].map((feature, index) => (
                 <Card
                   key={index}
                   className="text-center hover:shadow-lg transition-shadow"
                 >
                   <CardContent className="p-6">
-                    <area.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <feature.icon className="w-12 h-12 text-primary mx-auto mb-4" />
                     <h4 className="text-xl font-semibold mb-3 text-slate-800">
-                      {area.title}
+                      {feature.title}
                     </h4>
                     <p className="text-gray-600 leading-relaxed">
-                      {area.description}
+                      {feature.description}
                     </p>
                   </CardContent>
                 </Card>
@@ -141,7 +138,7 @@ export default function ArbitrajeContratacionPublicaPage() {
             </div>
           </motion.section>
 
-          {/* Benefits Section */}
+          {/* Process Section */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -149,67 +146,55 @@ export default function ArbitrajeContratacionPublicaPage() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <div className="bg-slate-50 rounded-2xl p-8 lg:p-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4">
-                  Ventajas del Arbitraje Público
-                </h3>
-                <div className="w-20 h-1 bg-primary mx-auto" />
-              </div>
+            <div className="text-center mb-16">
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4">
+                Proceso de Recusación
+              </h3>
+              <div className="w-20 h-1 bg-primary mx-auto" />
+            </div>
 
-              <div className="grid md:grid-cols-2 gap-12">
-                <div>
-                  <h4 className="text-2xl font-semibold mb-6 text-slate-800">
-                    Para Entidades Públicas
-                  </h4>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Resolución técnica especializada en contratación estatal
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Reducción de tiempos procesales comparado con la vía
-                        judicial
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Confidencialidad en asuntos sensibles de la
-                        administración
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-2xl font-semibold mb-6 text-slate-800">
-                    Para Contratistas
-                  </h4>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Acceso a árbitros con experiencia en sector público
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Proceso imparcial y transparente
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">
-                        Ejecución efectiva de laudos arbitrales
-                      </span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-8">
+                {[
+                  {
+                    step: "01",
+                    title: "Presentación de la Solicitud",
+                    description:
+                      "La parte interesada presenta la solicitud de recusación fundamentando las causales que afectan la imparcialidad del árbitro.",
+                  },
+                  {
+                    step: "02",
+                    title: "Evaluación Preliminar",
+                    description:
+                      "Nuestro equipo evalúa la procedencia de la solicitud conforme a los criterios legales y reglamentarios aplicables.",
+                  },
+                  {
+                    step: "03",
+                    title: "Audiencia y Alegatos",
+                    description:
+                      "Se otorga oportunidad a todas las partes para presentar sus argumentos y al árbitro para su defensa.",
+                  },
+                  {
+                    step: "04",
+                    title: "Resolución",
+                    description:
+                      "Emisión de la resolución fundamentada sobre la procedencia o improcedencia de la recusación.",
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="flex gap-6 items-start">
+                    <div className="flex-shrink-0 w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg">
+                      {item.step}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-semibold mb-3 text-slate-800">
+                        {item.title}
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.section>
@@ -224,11 +209,11 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold font-serif mb-4">
-                Consulte su Caso de Contratación Pública
+                ¿Necesita Asesoría en Recusación?
               </h3>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Nuestros especialistas en derecho administrativo están listos
-                para asesorarle en su controversia de contratación estatal.
+                Nuestros expertos están listos para guiarle en el proceso de
+                recusación y garantizar la imparcialidad en su arbitraje.
               </p>
             </div>
 
@@ -258,7 +243,7 @@ export default function ArbitrajeContratacionPublicaPage() {
                 className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
                 asChild
               >
-                <a href="/Contacto">Solicitar Consulta Especializada</a>
+                <a href="/Contacto">Solicitar Consulta</a>
               </Button>
             </div>
           </motion.section>
