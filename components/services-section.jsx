@@ -15,28 +15,28 @@ const ServicesSection = () => {
       description:
         "Resolución especializada de controversias en procesos de contratación con el Estado y entidades públicas.",
       icon: "🏛️",
-      link: "/AsesoriaLegal/arbitraje-contratacion-publica",
+      link: "/AsesoriaLegal/ContratacionPublica",
     },
     {
       title: "Arbitraje de Emergencia",
       description:
         "Procedimientos arbitrales urgentes para la resolución rápida de conflictos que requieren medidas cautelares inmediatas.",
       icon: "⚡",
-      link: "/AsesoriaLegal/arbitraje-emergencia",
+      link: "/AsesoriaLegal/ArbitrajeEmergencia",
     },
     {
       title: "Arbitraje entre Privados",
       description:
         "Mediación y arbitraje comercial entre empresas privadas para resolver disputas contractuales y comerciales.",
       icon: "🤝",
-      link: "/AsesoriaLegal/arbitraje-privados",
+      link: "/AsesoriaLegal/EntrePrivados",
     },
     {
       title: "Recusación",
       description:
         "Procedimientos de recusación de árbitros y magistrados para garantizar la imparcialidad en los procesos.",
       icon: "⚖️",
-      link: "/AsesoriaLegal/recusacion",
+      link: "/AsesoriaLegal/Recusacion",
     },
   ];
 
