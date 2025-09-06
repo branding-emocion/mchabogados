@@ -6,10 +6,12 @@ import { auth, db } from "@/firebase/firebaseClient";
 import Link from "next/link";
 import {
   BookOpenText,
+  Cross,
   DollarSign,
   File,
   MonitorXIcon,
   Users,
+  WallpaperIcon,
   Warehouse,
   YoutubeIcon,
 } from "lucide-react";
@@ -35,6 +37,11 @@ const DashboardLayout = ({ children }) => {
       hidden: claims?.UsuarioBase,
     },
     {
+      name: "Carrousel",
+      link: "/Admin/Carrousel",
+      icon: <WallpaperIcon className="w-6 h-6 text-white" />,
+    },
+    {
       name: "Calculadoras",
       link: "/Admin/Calculadoras",
       icon: <Warehouse className="w-6 h-6 text-white" />,
@@ -48,6 +55,11 @@ const DashboardLayout = ({ children }) => {
       name: "Nomina",
       link: "/Admin/Nomina",
       icon: <DollarSign className="w-6 h-6 text-white" />,
+    },
+    {
+      name: "Expedientes",
+      link: "/Admin/Expedientes",
+      icon: <Cross className="w-6 h-6 text-white" />,
     },
     {
       name: "Laudos",

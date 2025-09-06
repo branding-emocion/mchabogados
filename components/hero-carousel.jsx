@@ -4,20 +4,79 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Scale, Shield, Users, Award } from "lucide-react";
+import { Scale, Shield, Play, ImageIcon } from "lucide-react";
 import Link from "next/link";
+import { useBanners } from "@/hooks/useBanners";
+
+const CarouselSkeleton = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/85 to-primary/80" />
+      </div>
+
+      {/* Content Skeleton */}
+      <div className="relative z-10 container mx-auto px-4 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+          {/* Left Column - Text Content Skeleton */}
+          <div className="text-left space-y-6">
+            {/* Badge Skeleton */}
+            <div className="w-32 h-8 bg-white/20 rounded-full animate-pulse" />
+
+            {/* Title Skeleton */}
+            <div className="space-y-3">
+              <div className="w-full h-16 bg-white/20 rounded animate-pulse" />
+              <div className="w-3/4 h-16 bg-white/20 rounded animate-pulse" />
+            </div>
+
+            {/* Subtitle Skeleton */}
+            <div className="w-5/6 h-10 bg-white/15 rounded animate-pulse" />
+
+            {/* Description Skeleton */}
+            <div className="space-y-2">
+              <div className="w-full h-6 bg-white/15 rounded animate-pulse" />
+              <div className="w-4/5 h-6 bg-white/15 rounded animate-pulse" />
+              <div className="w-3/5 h-6 bg-white/15 rounded animate-pulse" />
+            </div>
+
+            {/* Buttons Skeleton */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="w-48 h-14 bg-white/20 rounded-full animate-pulse" />
+              <div className="w-40 h-14 bg-white/10 border border-white/20 rounded-full animate-pulse" />
+            </div>
+          </div>
+
+          {/* Right Column - Visual Element Skeleton */}
+          <div className="hidden lg:flex items-center justify-center">
+            <div className="w-80 h-80 rounded-full bg-white/10 border border-white/20 animate-pulse" />
+          </div>
+        </div>
+
+        {/* Slide Indicators Skeleton */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+          <div className="w-12 h-3 bg-white/40 rounded-full animate-pulse" />
+          <div className="w-3 h-3 bg-white/20 rounded-full animate-pulse" />
+          <div className="w-3 h-3 bg-white/20 rounded-full animate-pulse" />
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { banners, isLoading } = useBanners();
 
-  const slides = [
+  const fallbackSlides = [
     {
       title: "MCH ABOGADOS",
       subtitle: "Excelencia Jurídica con Más de 15 Años de Experiencia",
       description:
         "Brindamos asesoría legal especializada con un enfoque integral y personalizado para empresas y particulares en todo el Perú",
       icon: Scale,
-      // stats: "500+ Casos Exitosos",
+      mediaType: "fallback",
     },
     {
       title: "DERECHO CORPORATIVO",
@@ -25,26 +84,52 @@ const HeroCarousel = () => {
       description:
         "Acompañamos el crecimiento de tu negocio con asesoría especializada en fusiones, adquisiciones, compliance y gobierno corporativo",
       icon: Shield,
-      // stats: "200+ Empresas Asesoradas",
+      mediaType: "fallback",
     },
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+  const slides =
+    banners && banners.length > 0
+      ? banners
+          .filter((banner) => banner.isActive)
+          .map((banner) => ({
+            ...banner,
+            icon: banner.mediaType === "video" ? Play : ImageIcon,
+          }))
+      : fallbackSlides;
 
-    return () => clearInterval(timer);
+  useEffect(() => {
+    if (slides.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 6000);
+
+      return () => clearInterval(timer);
+    }
   }, [slides.length]);
+
+  if (isLoading) {
+    return <CarouselSkeleton />;
+  }
 
   const currentSlideData = slides[currentSlide];
   const IconComponent = currentSlideData.icon;
+
+  const getBackgroundImage = () => {
+    if (currentSlideData.mediaType === "image" && currentSlideData.imageUrl) {
+      return currentSlideData.imageUrl;
+    }
+    return "/slider/Banner.avif"; // fallback image
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[url('/slider/Banner.avif')] bg-cover bg-center bg-no-repeat" />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
+          style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/95" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/20" />
       </div>
@@ -69,7 +154,7 @@ const HeroCarousel = () => {
                 exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                {/* Badge with Stats */}
+                {/* Badge with Media Type */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -81,7 +166,11 @@ const HeroCarousel = () => {
                     className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm font-medium"
                   >
                     <IconComponent className="w-4 h-4 mr-2" />
-                    {currentSlideData.stats}
+                    {currentSlideData.mediaType === "video"
+                      ? "Video"
+                      : currentSlideData.mediaType === "image"
+                      ? "Imagen"
+                      : "Contenido"}
                   </Badge>
                 </motion.div>
 
@@ -95,15 +184,17 @@ const HeroCarousel = () => {
                   {currentSlideData.title}
                 </motion.h1>
 
-                {/* Subtitle */}
-                <motion.h2
-                  className="text-2xl md:text-3xl text-teal-200 mb-6 font-light"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                  {currentSlideData.subtitle}
-                </motion.h2>
+                {/* Subtitle - only show for fallback slides */}
+                {currentSlideData.subtitle && (
+                  <motion.h2
+                    className="text-2xl md:text-3xl text-teal-200 mb-6 font-light"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                  >
+                    {currentSlideData.subtitle}
+                  </motion.h2>
+                )}
 
                 {/* Description */}
                 <motion.p
@@ -122,22 +213,40 @@ const HeroCarousel = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
                 >
-                  <Link href="/Contacto">
-                    <Button
-                      size="lg"
-                      className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  {currentSlideData.linkUrl ? (
+                    <Link
+                      href={currentSlideData.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Solicitar Consulta
-                    </Button>
-                  </Link>
+                      <Button
+                        size="lg"
+                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                      >
+                        {currentSlideData.mediaType === "video"
+                          ? "Ver Video"
+                          : "Ver Más"}
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link href="/Contacto">
+                      <Button
+                        size="lg"
+                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                      >
+                        Solicitar Consulta
+                      </Button>
+                    </Link>
+                  )}
+
                   <Link href="/NuestroEquipo">
                     <Button
                       size="lg"
                       variant="outline"
                       className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300"
                     >
-                      Nuestro Equipo{" "}
-                    </Button>{" "}
+                      Nuestro Equipo
+                    </Button>
                   </Link>
                 </motion.div>
               </motion.div>

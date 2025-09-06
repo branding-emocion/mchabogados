@@ -110,13 +110,7 @@ export default function ExpedienteModal({
 
   const handleAddClienteExistente = (cliente) => {
     const clienteData = {
-      id: cliente.id,
-      nombre: `${cliente.nombres} ${cliente.apellidos}`,
-      email: cliente.email || "",
-      telefono: cliente.telefono || "",
-      tipoDocumento: cliente.tipoDocumento || "",
-      numeroDocumento: cliente.numeroDocumento || "",
-      direccion: cliente.direccion || "",
+      ...cliente,
       esClienteExistente: true,
     };
 
@@ -572,8 +566,7 @@ export default function ExpedienteModal({
                           >
                             <div>
                               <p className="font-medium">
-                                {cliente.nombres || cliente.nombre}{" "}
-                                {cliente.apellidos}
+                                {cliente.nombre} {cliente.apellidos}
                               </p>
                               <p className="text-sm text-muted-foreground">
                                 {cliente.tipoDocumento}:{" "}

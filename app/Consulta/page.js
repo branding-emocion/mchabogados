@@ -10,6 +10,7 @@ import { Search, FileText, User, AlertCircle } from "lucide-react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
 import { db } from "@/firebase/firebaseClient";
+import { motion } from "framer-motion";
 
 export default function ConsultaExpediente() {
   const [numeroExpediente, setNumeroExpediente] = useState("");
@@ -96,26 +97,33 @@ export default function ConsultaExpediente() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4">
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-slate-900">
-            Consulta de Expediente
-          </h1>
-          <p className="text-slate-600">
-            Ingrese los datos para consultar el estado de su expediente
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100  ">
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+          }}
+        />
+        <div className="absolute inset-0 bg-slate-900/70" />
 
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-white"
+          >
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+              Consulta de Expediente
+            </h1>
+            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+          </motion.div>
+        </div>
+      </section>
+      <div className="max-w-4xl mx-auto space-y-6 pt-5">
         {/* Formulario de búsqueda */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Search className="h-5 w-5" />
-              Buscar Expediente
-            </CardTitle>
-          </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
