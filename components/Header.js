@@ -114,7 +114,7 @@ const Header = () => {
                       isScrolled ? "text-gray-700" : "text-white bg-transparent"
                     )}
                   >
-                    Asesoría Legal
+                    Servicios{" "}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="w-80 p-2">
