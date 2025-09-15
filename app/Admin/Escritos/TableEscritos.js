@@ -8,6 +8,7 @@ import {
   doc,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,8 +57,8 @@ import {
   Users,
 } from "lucide-react";
 import { toast } from "sonner";
-import EstadoChangeModal from "./EstadoChangeModal";
 import { db } from "@/firebase/firebaseClient";
+import ModalSubirDocumentosFirmar from "./ModalSubirDocumentosFirmar";
 
 const ESTADOS_EXPEDIENTE = {
   PENDIENTE_FIRMA: {
@@ -70,22 +71,32 @@ const ESTADOS_EXPEDIENTE = {
   ARCHIVADO: { label: "Archivado", color: "bg-gray-100 text-gray-800" },
 };
 
-export default function ExpedientesDataTable({ onEdit, onView }) {
+export default function TableEscritos({ onEdit, user, claims }) {
   const [expedientes, setExpedientes] = useState([]);
   const [filteredExpedientes, setFilteredExpedientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [estadoFilter, setEstadoFilter] = useState("todos");
   const [tipoServicioFilter, setTipoServicioFilter] = useState("todos");
-  const [estadoModalOpen, setEstadoModalOpen] = useState(false);
-  const [expedienteParaCambioEstado, setExpedienteParaCambioEstado] =
-    useState(null);
+  const [estadoModalOpen, setEstadoModalOpen] = useState({
+    isOpen: false,
+    expediente: {},
+  });
 
   useEffect(() => {
-    const q = query(
-      collection(db, "expedientes"),
-      orderBy("fechaCreacion", "desc")
-    );
+    let q = null;
+
+    if (claims?.isAdmin || claims?.isSuperAdmin) {
+      q = query(
+        collection(db, "expedientes"),
+        orderBy("fechaCreacion", "desc") // si luego quieres ordenar
+      );
+    } else {
+      q = query(
+        collection(db, "expedientes"),
+        where("ClienteSelector.id", "==", `${user.uid}`)
+      );
+    }
 
     const unsubscribe = onSnapshot(
       q,
@@ -108,7 +119,7 @@ export default function ExpedientesDataTable({ onEdit, onView }) {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [claims, user]);
 
   useEffect(() => {
     let filtered = expedientes;
@@ -366,55 +377,13 @@ export default function ExpedientesDataTable({ onEdit, onView }) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem
-                            onClick={() => onView?.(expediente)}
+                            onClick={() =>
+                              setEstadoModalOpen({ isOpen: true, expediente })
+                            }
                           >
                             <Eye className="mr-2 h-4 w-4" />
                             Ver Detalles
                           </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => onEdit?.(expediente)}
-                          >
-                            <Edit className="mr-2 h-4 w-4" />
-                            Editar
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => handleChangeEstado(expediente)}
-                          >
-                            <Calendar className="mr-2 h-4 w-4" />
-                            Cambiar Estado
-                          </DropdownMenuItem>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <DropdownMenuItem
-                                onSelect={(e) => e.preventDefault()}
-                              >
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Eliminar
-                              </DropdownMenuItem>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  ¿Estás seguro?
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Esta acción no se puede deshacer. Se eliminará
-                                  permanentemente el expediente &quot;
-                                  {expediente.numeroExpediente}&quot; y todos
-                                  sus documentos asociados.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => handleDelete(expediente.id)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  Eliminar
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -426,14 +395,13 @@ export default function ExpedientesDataTable({ onEdit, onView }) {
         </div>
       </CardContent>
 
-      <EstadoChangeModal
-        isOpen={estadoModalOpen}
-        onClose={() => {
-          setEstadoModalOpen(false);
-          setExpedienteParaCambioEstado(null);
-        }}
-        expediente={expedienteParaCambioEstado}
-      />
+      {estadoModalOpen.isOpen && (
+        <ModalSubirDocumentosFirmar
+          expediente={estadoModalOpen.expediente}
+          onClose={() => setEstadoModalOpen({ isOpen: false, expediente: {} })}
+          isOpen={estadoModalOpen.isOpen}
+        />
+      )}
     </Card>
   );
 }

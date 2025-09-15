@@ -150,6 +150,13 @@ const Usuarios = () => {
       ),
     },
     {
+      accessorKey: "role",
+      header: "Rol",
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("role") || "Cliente"}</div>
+      ),
+    },
+    {
       accessorKey: "password",
       header: "Contraseña",
       cell: ({ row }) => (

@@ -118,8 +118,8 @@ const Header = () => {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="w-80 p-2">
-                      {legalServices.map((service) => (
-                        <Link key={service.name} href={service.href} passHref>
+                      {legalServices?.map((service) => (
+                        <Link key={service.name} href={service.href}>
                           <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             <div className="text-sm font-medium leading-none">
                               {service.name}
@@ -143,7 +143,7 @@ const Header = () => {
                   <NavigationMenuContent>
                     <div className="w-80 p-2">
                       {arbitrationCenter.map((item) => (
-                        <Link key={item.name} href={item.href} passHref>
+                        <Link key={item.name} href={item.href}>
                           <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             <div className="text-sm font-medium leading-none">
                               {item.name}
@@ -156,7 +156,7 @@ const Header = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/Laudos" passHref>
+                  <Link href="/Laudos">
                     <NavigationMenuLink
                       className={cn(
                         "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",
@@ -169,7 +169,7 @@ const Header = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/NuestroEquipo" passHref>
+                  <Link href="/NuestroEquipo">
                     <NavigationMenuLink
                       className={cn(
                         "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",
@@ -182,7 +182,7 @@ const Header = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/Contacto" passHref>
+                  <Link href="/Contacto">
                     <NavigationMenuLink
                       className={cn(
                         "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -17,219 +16,240 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Clock } from "lucide-react";
-import { updateDoc, doc, arrayUnion } from "firebase/firestore";
+import { Calendar, FileText, AlertCircle } from "lucide-react";
+import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "sonner";
 import { db } from "@/firebase/firebaseClient";
 
 const ESTADOS_EXPEDIENTE = {
-  ACTIVO: {
-    label: "Activo",
-    color: "bg-green-100 text-green-800",
-    description: "Expediente en curso normal",
+  PENDIENTE_FIRMA: {
+    label: "Pendiente de Firma",
+    color: "bg-orange-100 text-orange-800",
   },
-  EN_PROCESO: {
-    label: "En Proceso",
-    color: "bg-blue-100 text-blue-800",
-    description: "Expediente siendo trabajado activamente",
-  },
-  SUSPENDIDO: {
-    label: "Suspendido",
-    color: "bg-yellow-100 text-yellow-800",
-    description: "Expediente temporalmente pausado",
-  },
-  CERRADO: {
-    label: "Cerrado",
-    color: "bg-gray-100 text-gray-800",
-    description: "Expediente finalizado exitosamente",
-  },
-  ARCHIVADO: {
-    label: "Archivado",
-    color: "bg-purple-100 text-purple-800",
-    description: "Expediente archivado para referencia",
-  },
+  EN_REVISION: { label: "En Revisión", color: "bg-blue-100 text-blue-800" },
+  FIRMADO: { label: "Firmado", color: "bg-green-100 text-green-800" },
+  RECHAZADO: { label: "Rechazado", color: "bg-red-100 text-red-800" },
+  ARCHIVADO: { label: "Archivado", color: "bg-gray-100 text-gray-800" },
 };
 
 export default function EstadoChangeModal({ isOpen, onClose, expediente }) {
   const [nuevoEstado, setNuevoEstado] = useState("");
-  const [observaciones, setObservaciones] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [comentario, setComentario] = useState("");
+  const [updating, setUpdating] = useState(false);
 
-  const handleChangeEstado = async () => {
-    if (!nuevoEstado || nuevoEstado === expediente?.estado) {
-      toast.error("Debe seleccionar un estado diferente");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!nuevoEstado) {
+      toast.error("Por favor selecciona un nuevo estado");
       return;
     }
 
-    setLoading(true);
+    if (nuevoEstado === expediente?.estado) {
+      toast.error("El estado seleccionado es el mismo que el actual");
+      return;
+    }
+
+    setUpdating(true);
 
     try {
-      const actividad = {
-        tipo: "CAMBIO_ESTADO",
-        estadoAnterior: expediente.estado,
-        estadoNuevo: nuevoEstado,
-        observaciones: observaciones || "",
-        fecha: new Date(),
-        usuario: "Sistema", // En una implementación real, sería el usuario actual
+      const expedienteRef = doc(db, "expedientes", expediente.id);
+
+      const updateData = {
+        estado: nuevoEstado,
+        fechaActualizacion: new Date(),
+        historialEstados: [
+          ...(expediente.historialEstados || []),
+          {
+            estadoAnterior: expediente.estado,
+            estadoNuevo: nuevoEstado,
+            fecha: new Date(),
+            comentario: comentario.trim() || "Sin comentarios",
+            usuario: "Sistema", // Aquí podrías poner el usuario actual
+          },
+        ],
       };
 
-      await updateDoc(doc(db, "expedientes", `${expediente.id}`), {
-        estado: nuevoEstado,
-        fechaUltimaModificacion: new Date(),
-        historialActividades: arrayUnion(actividad),
-      });
+      // Actualizar información específica del proceso de firma según el estado
+      if (nuevoEstado === "FIRMADO") {
+        updateData.procesoFirma = {
+          ...expediente.procesoFirma,
+          estadoGeneral: "COMPLETADO",
+          fechaCompletado: new Date(),
+          firmasCompletadas: expediente.procesoFirma?.documentosPendientes || 0,
+        };
+      } else if (nuevoEstado === "RECHAZADO") {
+        updateData.procesoFirma = {
+          ...expediente.procesoFirma,
+          estadoGeneral: "RECHAZADO",
+          fechaRechazo: new Date(),
+          motivoRechazo: comentario.trim() || "Sin motivo especificado",
+        };
+      }
+
+      await updateDoc(expedienteRef, updateData);
 
       toast.success(
-        `Estado cambiado a ${ESTADOS_EXPEDIENTE[nuevoEstado].label}`
+        `Estado del expediente actualizado a: ${ESTADOS_EXPEDIENTE[nuevoEstado].label}`
       );
-      onClose();
+
+      // Limpiar formulario
       setNuevoEstado("");
-      setObservaciones("");
+      setComentario("");
+      onClose();
     } catch (error) {
-      console.error("Error al cambiar estado:", error);
-      toast.error("Error al cambiar el estado del expediente");
+      console.error("Error al actualizar estado:", error);
+      toast.error("Error al actualizar el estado del expediente");
     } finally {
-      setLoading(false);
+      setUpdating(false);
     }
   };
 
-  const formatDate = (timestamp) => {
-    if (!timestamp) return "N/A";
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
-    return date.toLocaleDateString("es-PE", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const getEstadosDisponibles = () => {
+    if (!expediente?.estado) return Object.keys(ESTADOS_EXPEDIENTE);
+
+    const estadoActual = expediente.estado;
+
+    // Definir transiciones válidas según el flujo de firma
+    const transicionesValidas = {
+      PENDIENTE_FIRMA: ["EN_REVISION", "RECHAZADO", "ARCHIVADO"],
+      EN_REVISION: ["FIRMADO", "PENDIENTE_FIRMA", "RECHAZADO", "ARCHIVADO"],
+      FIRMADO: ["ARCHIVADO"],
+      RECHAZADO: ["PENDIENTE_FIRMA", "ARCHIVADO"],
+      ARCHIVADO: ["PENDIENTE_FIRMA", "EN_REVISION"],
+    };
+
+    return transicionesValidas[estadoActual] || Object.keys(ESTADOS_EXPEDIENTE);
   };
+
+  const estadosDisponibles = getEstadosDisponibles();
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Cambiar Estado del Expediente</DialogTitle>
+          <DialogTitle className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            Cambiar Estado del Expediente
+          </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6">
-          {/* Información actual */}
-          <div className="bg-muted/50 p-4 rounded-lg">
-            <h3 className="font-medium mb-2">
-              Expediente: {expediente?.numeroExpediente}
-            </h3>
-            <p className="text-sm text-muted-foreground mb-2">
-              {expediente?.materia}
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-sm">Estado actual:</span>
-              <Badge className={ESTADOS_EXPEDIENTE[expediente?.estado]?.color}>
-                {ESTADOS_EXPEDIENTE[expediente?.estado]?.label}
-              </Badge>
-            </div>
-          </div>
-
-          {/* Nuevo estado */}
-          <div className="space-y-3">
-            <Label>Nuevo Estado *</Label>
-            <Select value={nuevoEstado} onValueChange={setNuevoEstado}>
-              <SelectTrigger>
-                <SelectValue placeholder="Seleccionar nuevo estado" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(ESTADOS_EXPEDIENTE).map(([key, value]) => (
-                  <SelectItem
-                    key={key}
-                    value={key}
-                    disabled={key === expediente?.estado}
-                  >
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-2 h-2 rounded-full ${
-                          value.color.split(" ")[0]
-                        }`}
-                      />
-                      <div>
-                        <div className="font-medium">{value.label}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {value.description}
-                        </div>
-                      </div>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Observaciones */}
-          <div className="space-y-3">
-            <Label>Observaciones</Label>
-            <Textarea
-              value={observaciones}
-              onChange={(e) => setObservaciones(e.target.value)}
-              placeholder="Motivo del cambio de estado, observaciones adicionales..."
-              rows={3}
-            />
-          </div>
-
-          {/* Historial reciente */}
-          {expediente?.historialActividades &&
-            expediente.historialActividades.length > 0 && (
-              <div className="space-y-3">
-                <Label>Historial Reciente</Label>
-                <div className="max-h-32 overflow-y-auto space-y-2">
-                  {expediente.historialActividades
-                    .slice(-3)
-                    .reverse()
-                    .map((actividad, index) => (
-                      <div
-                        key={index}
-                        className="text-sm p-2 bg-muted/30 rounded"
-                      >
-                        <div className="flex items-center gap-2 mb-1">
-                          <Clock className="h-3 w-3" />
-                          <span className="font-medium">
-                            {actividad.tipo.replace("_", " ")}
-                          </span>
-                          <span className="text-muted-foreground">
-                            {formatDate(actividad.fecha)}
-                          </span>
-                        </div>
-                        {actividad.tipo === "CAMBIO_ESTADO" && (
-                          <p className="text-muted-foreground">
-                            {
-                              ESTADOS_EXPEDIENTE[actividad.estadoAnterior]
-                                ?.label
-                            }{" "}
-                            → {ESTADOS_EXPEDIENTE[actividad.estadoNuevo]?.label}
-                          </p>
-                        )}
-                        {actividad.observaciones && (
-                          <p className="text-muted-foreground italic">
-                            &ldquo;{actividad.observaciones}&ldquo;
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                </div>
+        {expediente && (
+          <div className="space-y-4">
+            {/* Información del expediente */}
+            <div className="bg-muted/50 rounded-lg p-3 space-y-2">
+              <div className="flex items-center gap-2">
+                <FileText className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium text-sm">
+                  {expediente.numeroExpediente || "N/A"}
+                </span>
               </div>
-            )}
+              <p className="text-sm text-muted-foreground">
+                {expediente.materia || "Sin materia"}
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">
+                  Estado actual:
+                </span>
+                <Badge
+                  className={
+                    ESTADOS_EXPEDIENTE[expediente.estado]?.color ||
+                    "bg-gray-100 text-gray-800"
+                  }
+                >
+                  {ESTADOS_EXPEDIENTE[expediente.estado]?.label ||
+                    expediente.estado}
+                </Badge>
+              </div>
+            </div>
 
-          {/* Botones */}
-          <div className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={onClose}>
-              Cancelar
-            </Button>
-            <Button
-              onClick={handleChangeEstado}
-              disabled={loading || !nuevoEstado}
-            >
-              {loading ? "Cambiando..." : "Cambiar Estado"}
-            </Button>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Selector de nuevo estado */}
+              <div className="space-y-2">
+                <Label htmlFor="nuevoEstado">Nuevo Estado *</Label>
+                <Select value={nuevoEstado} onValueChange={setNuevoEstado}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccionar nuevo estado" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {estadosDisponibles.map((estado) => (
+                      <SelectItem key={estado} value={estado}>
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-2 h-2 rounded-full ${
+                              ESTADOS_EXPEDIENTE[estado]?.color?.split(
+                                " "
+                              )[0] || "bg-gray-500"
+                            }`}
+                          />
+                          {ESTADOS_EXPEDIENTE[estado]?.label || estado}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Comentario */}
+              <div className="space-y-2">
+                <Label htmlFor="comentario">
+                  Comentario{" "}
+                  {nuevoEstado === "RECHAZADO" && (
+                    <span className="text-red-500">*</span>
+                  )}
+                </Label>
+                <Textarea
+                  id="comentario"
+                  value={comentario}
+                  onChange={(e) => setComentario(e.target.value)}
+                  placeholder={
+                    nuevoEstado === "RECHAZADO"
+                      ? "Especifica el motivo del rechazo..."
+                      : "Comentario opcional sobre el cambio de estado..."
+                  }
+                  rows={3}
+                  required={nuevoEstado === "RECHAZADO"}
+                />
+              </div>
+
+              {/* Advertencia para estados críticos */}
+              {(nuevoEstado === "FIRMADO" || nuevoEstado === "ARCHIVADO") && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 flex items-start gap-2">
+                  <AlertCircle className="h-4 w-4 text-yellow-600 mt-0.5" />
+                  <div className="text-sm">
+                    <p className="font-medium text-yellow-800">
+                      {nuevoEstado === "FIRMADO"
+                        ? "Confirmar Firma Completada"
+                        : "Confirmar Archivado"}
+                    </p>
+                    <p className="text-yellow-700 text-xs mt-1">
+                      {nuevoEstado === "FIRMADO"
+                        ? "Este cambio marcará el expediente como completamente firmado."
+                        : "Este expediente será archivado y no aparecerá en las listas activas."}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Botones */}
+              <div className="flex justify-end space-x-2 pt-2">
+                <Button type="button" variant="outline" onClick={onClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={updating || !nuevoEstado}
+                  className="gap-2"
+                >
+                  <Calendar className="h-4 w-4" />
+                  {updating ? "Actualizando..." : "Cambiar Estado"}
+                </Button>
+              </div>
+            </form>
           </div>
-        </div>
+        )}
       </DialogContent>
     </Dialog>
   );

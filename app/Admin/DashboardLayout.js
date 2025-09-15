@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import useAuthState from "@/lib/useAuthState";
-import { auth, db } from "@/firebase/firebaseClient";
+import { auth } from "@/firebase/firebaseClient";
 import Link from "next/link";
 import {
   BookOpenText,
@@ -18,7 +18,6 @@ import {
 import { signOut } from "firebase/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const DashboardLayout = ({ children }) => {
   const [{ user, claims }, loading, error] = useAuthState(auth);
@@ -29,66 +28,58 @@ const DashboardLayout = ({ children }) => {
     router.replace("/Admin");
   }
 
+  console.log("claims", claims);
+
   const menu = [
     {
       name: "Usuarios",
       link: "/Admin/Usuarios",
       icon: <Users className="w-6 h-6 text-white" />,
-      hidden: claims?.UsuarioBase,
+      hidden: !claims?.isSuperAdmin,
     },
     {
       name: "Carrousel",
       link: "/Admin/Carrousel",
       icon: <WallpaperIcon className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
       name: "Calculadoras",
       link: "/Admin/Calculadoras",
       icon: <Warehouse className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
-      name: "Clientes",
-      link: "/Admin/Clientes",
-      icon: <DollarSign className="w-6 h-6 text-white" />,
+      name: "ISO",
+      link: "/Admin/Normativas",
+      icon: <File className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
       name: "Nomina",
       link: "/Admin/Nomina",
       icon: <DollarSign className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
+    },
+
+    {
+      name: "Laudos",
+      link: "/Admin/Laudos",
+      icon: <File className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
       name: "Expedientes",
       link: "/Admin/Expedientes",
       icon: <Cross className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
-      name: "Laudos",
-      link: "/Admin/Laudos",
+      name: "Escritos",
+      link: "/Admin/Escritos",
       icon: <File className="w-6 h-6 text-white" />,
     },
   ];
-
-  useEffect(() => {
-    // .collection("Notificaciones").where("Show", "==", false)
-    const qComentarios = query(
-      collection(db, "Notificaciones"),
-      where("Show", "==", true) // Asegúrate de usar el valor booleano false
-    );
-
-    const commentarios = onSnapshot(qComentarios, (snapshot) => {
-      console.log(snapshot, "snapshot");
-      setComentarios(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
-    });
-
-    return () => {
-      commentarios(); // Esta función cancela la suscripción al snapshot
-    };
-  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;

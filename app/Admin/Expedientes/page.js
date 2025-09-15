@@ -12,64 +12,12 @@ import ExpedientesDataTable from "./DataTable";
 export default function ExpedientesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingExpediente, setEditingExpediente] = useState(null);
-  const [expedientes, setExpedientes] = useState([]);
   const [stats, setStats] = useState({
     total: 0,
     activos: 0,
     clientesConExpedientes: 0,
     esteMes: 0,
   });
-
-  useEffect(() => {
-    const q = query(collection(db, "expedientes"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const expedientesData = [];
-      querySnapshot.forEach((doc) => {
-        expedientesData.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-
-      setExpedientes(expedientesData);
-
-      // Calcular estadísticas
-      const now = new Date();
-      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-      const activos = expedientesData.filter(
-        (exp) => exp.estado === "ACTIVO" || exp.estado === "EN_PROCESO"
-      ).length;
-      const esteMes = expedientesData.filter((exp) => {
-        const fechaCreacion = exp.fechaCreacion?.toDate
-          ? exp.fechaCreacion.toDate()
-          : new Date(exp.fechaCreacion);
-        return fechaCreacion >= startOfMonth;
-      }).length;
-
-      // Contar clientes únicos con expedientes
-      const clientesUnicos = new Set();
-      expedientesData.forEach((exp) => {
-        if (exp.partes) {
-          exp.partes.forEach((parte) => {
-            if (parte.nombre && parte.nombre.trim() !== "") {
-              clientesUnicos.add(parte.nombre.toLowerCase());
-            }
-          });
-        }
-      });
-
-      setStats({
-        total: expedientesData.length,
-        activos,
-        clientesConExpedientes: clientesUnicos.size,
-        esteMes,
-      });
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   const handleEdit = (expediente) => {
     setEditingExpediente(expediente);

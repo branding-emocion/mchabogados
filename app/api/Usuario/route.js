@@ -1,11 +1,241 @@
+// import { NextResponse } from "next/server";
+// import { AuthAdmin, dbAdmin, timeAdmin } from "@/firebase/firebaseAdmin.js";
+
+// export async function POST(req) {
+//   try {
+//     const { NombreCompleto, Correo, Pass } = await req?.json();
+
+//     let InfoAdd = {
+//       email: Correo,
+//       emailVerified: false,
+//       password: Pass,
+//       displayName: NombreCompleto?.toUpperCase() || "",
+//       disabled: false,
+//     };
+
+//     const CreateUser = await AuthAdmin.createUser(InfoAdd);
+//     const AddClaim = await AuthAdmin.setCustomUserClaims(CreateUser.uid, {
+//       UsuarioBase: true,
+//     });
+
+//     await dbAdmin
+//       .collection("Usuarios")
+//       .doc(`${CreateUser.uid}`)
+//       .set({
+//         ...InfoAdd,
+//         createdAt: timeAdmin,
+//       });
+
+//     return NextResponse.json(
+//       {
+//         body: "Agregado correctamente",
+//       },
+//       {
+//         status: 200,
+//       }
+//     );
+//   } catch (error) {
+//     console.log("error");
+//     if (error.code === "auth/email-already-exists") {
+//       return NextResponse.json(
+//         {
+//           error: {
+//             message: "El correo electrónico ya está en uso",
+//           },
+//         },
+//         {
+//           status: 409,
+//         }
+//       );
+//     } else if (error.code === "auth/invalid-email") {
+//       return NextResponse.json(
+//         {
+//           error: {
+//             message: "El formato del correo electrónico es inválido",
+//           },
+//         },
+//         {
+//           status: 400,
+//         }
+//       );
+//     } else if (error.code === "auth/weak-password") {
+//       return NextResponse.json(
+//         {
+//           error: {
+//             message: "La contraseña es débil. Debe tener al menos 6 caracteres",
+//           },
+//         },
+//         {
+//           status: 400,
+//         }
+//       );
+//     } else if (error.code === "auth/invalid-phone-number") {
+//       return NextResponse.json(
+//         {
+//           error: {
+//             message: "El formato del número de teléfono es inválido",
+//           },
+//         },
+//         {
+//           status: 400,
+//         }
+//       );
+//     } else {
+//       return NextResponse.json(
+//         {
+//           error: { ...error },
+//         },
+//         {
+//           status: 500,
+//         }
+//       );
+//     }
+//   }
+// }
+
+// export async function GET(req) {
+//   const listAllUsers = async (nextPageToken) => {
+//     try {
+//       // List batch of users, 1000 at a time.
+//       const listUsersResult = await AuthAdmin.listUsers(1000, nextPageToken);
+//       let users = listUsersResult.users.map((userRecord) =>
+//         userRecord.toJSON()
+//       );
+
+//       if (listUsersResult.pageToken) {
+//         // List next batch of users.
+//         return users.concat(await listAllUsers(listUsersResult.pageToken));
+//       } else {
+//         return users;
+//       }
+//     } catch (error) {
+//       console.log("Error listing users:", error);
+//       throw error; // Re-throw the error to be caught by the calling function
+//     }
+//   };
+
+//   try {
+//     // Start listing users from the beginning, 1000 at a time.
+//     const usuarios = await listAllUsers();
+
+//     return NextResponse.json(
+//       {
+//         usuarios,
+//       },
+//       {
+//         status: 200,
+//       }
+//     );
+//   } catch (error) {
+//     return NextResponse.json(
+//       {
+//         error: {
+//           message: "Error al obtener la lista de usuarios",
+//         },
+//       },
+//       {
+//         status: 500,
+//       }
+//     );
+//   }
+// }
+
+// export async function DELETE(req) {
+//   const { searchParams } = new URL(req.url);
+//   const uid = searchParams?.get("uid");
+//   console.log("uid", uid);
+
+//   try {
+//     if (!uid) {
+//       return NextResponse.json(
+//         { body: "No se proporcionó un ID de usuario para eliminar." },
+//         { status: 400 }
+//       );
+//     }
+
+//     // Eliminar usuario de la autenticación
+//     await AuthAdmin.deleteUser(uid);
+
+//     // Eliminar usuario de la colección "Usuarios"
+//     await dbAdmin.collection("Usuarios").doc(uid).delete();
+
+//     return NextResponse.json(
+//       { body: "Usuario eliminado correctamente." },
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error("Error al eliminar usuario:", error);
+//     return NextResponse.json(
+//       { body: "Se produjo un error interno al intentar eliminar el usuario." },
+//       { status: 500 }
+//     );
+//   }
+// }
+// export async function PUT(req) {
+//   try {
+//     const { NombreCompleto, Correo, Pass, uid, Habilitar, Inhabilitar } =
+//       await req?.json();
+
+//     let InfoEditar = {};
+
+//     if (Habilitar) {
+//       InfoEditar.disabled = false;
+//     } else if (Inhabilitar) {
+//       InfoEditar.disabled = true;
+//     }
+
+//     if (NombreCompleto) {
+//       InfoEditar.displayName = NombreCompleto;
+//     } else if (Correo) {
+//       InfoEditar.email = Correo;
+//     } else if (Pass) {
+//       InfoEditar.password = Pass;
+//     }
+
+//     if (Object.keys(InfoEditar).length) {
+//       await AuthAdmin.updateUser(uid, InfoEditar);
+
+//       await dbAdmin.collection("Usuarios").doc(`${uid}`).update(InfoEditar);
+
+//       return NextResponse.json(
+//         { body: "Usuario editado correctamente" },
+//         { status: 200 }
+//       );
+//     } else {
+//       return NextResponse.json(
+//         { body: "No se editó información" },
+//         { status: 200 }
+//       );
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     if (error.code) {
+//       return NextResponse.json({ body: error.message }, { status: 400 });
+//     } else {
+//       return NextResponse.json(
+//         {
+//           body: "Se produjo un error interno al intentar editar el usuario.",
+//           error: error,
+//         },
+//         { status: 500 }
+//       );
+//     }
+//   }
+// }
+
 import { NextResponse } from "next/server";
-import { AuthAdmin, dbAdmin, timeAdmin } from "@/firebase/firebaseAdmin.js";
+import { AuthAdmin, dbAdmin, timeAdmin } from "@/firebase/firebaseAdmin";
 
 export async function POST(req) {
   try {
-    const { NombreCompleto, Correo, Pass } = await req?.json();
+    const {
+      NombreCompleto,
+      Correo,
+      Pass,
+      role = "cliente",
+    } = await req?.json();
 
-    let InfoAdd = {
+    const InfoAdd = {
       email: Correo,
       emailVerified: false,
       password: Pass,
@@ -14,28 +244,35 @@ export async function POST(req) {
     };
 
     const CreateUser = await AuthAdmin.createUser(InfoAdd);
-    const AddClaim = await AuthAdmin.setCustomUserClaims(CreateUser.uid, {
-      UsuarioBase: true,
-    });
+
+    const customClaims = {
+      role: role,
+      isAdmin: role === "admin" || role === "superAdmin",
+      isSuperAdmin: role === "superAdmin",
+      isCliente: role === "cliente",
+    };
+
+    await AuthAdmin.setCustomUserClaims(CreateUser.uid, customClaims);
 
     await dbAdmin
       .collection("Usuarios")
       .doc(`${CreateUser.uid}`)
       .set({
         ...InfoAdd,
+        role: role,
         createdAt: timeAdmin,
       });
 
     return NextResponse.json(
       {
-        body: "Agregado correctamente",
+        body: "Usuario agregado correctamente",
       },
       {
         status: 200,
       }
     );
   } catch (error) {
-    console.log("error");
+    console.log("error", error);
     if (error.code === "auth/email-already-exists") {
       return NextResponse.json(
         {
@@ -69,17 +306,6 @@ export async function POST(req) {
           status: 400,
         }
       );
-    } else if (error.code === "auth/invalid-phone-number") {
-      return NextResponse.json(
-        {
-          error: {
-            message: "El formato del número de teléfono es inválido",
-          },
-        },
-        {
-          status: 400,
-        }
-      );
     } else {
       return NextResponse.json(
         {
@@ -96,26 +322,23 @@ export async function POST(req) {
 export async function GET(req) {
   const listAllUsers = async (nextPageToken) => {
     try {
-      // List batch of users, 1000 at a time.
       const listUsersResult = await AuthAdmin.listUsers(1000, nextPageToken);
-      let users = listUsersResult.users.map((userRecord) =>
+      const users = listUsersResult.users.map((userRecord) =>
         userRecord.toJSON()
       );
 
       if (listUsersResult.pageToken) {
-        // List next batch of users.
         return users.concat(await listAllUsers(listUsersResult.pageToken));
       } else {
         return users;
       }
     } catch (error) {
       console.log("Error listing users:", error);
-      throw error; // Re-throw the error to be caught by the calling function
+      throw error;
     }
   };
 
   try {
-    // Start listing users from the beginning, 1000 at a time.
     const usuarios = await listAllUsers();
 
     return NextResponse.json(
@@ -143,7 +366,6 @@ export async function GET(req) {
 export async function DELETE(req) {
   const { searchParams } = new URL(req.url);
   const uid = searchParams?.get("uid");
-  console.log("uid", uid);
 
   try {
     if (!uid) {
@@ -153,10 +375,7 @@ export async function DELETE(req) {
       );
     }
 
-    // Eliminar usuario de la autenticación
     await AuthAdmin.deleteUser(uid);
-
-    // Eliminar usuario de la colección "Usuarios"
     await dbAdmin.collection("Usuarios").doc(uid).delete();
 
     return NextResponse.json(
@@ -171,12 +390,13 @@ export async function DELETE(req) {
     );
   }
 }
+
 export async function PUT(req) {
   try {
-    const { NombreCompleto, Correo, Pass, uid, Habilitar, Inhabilitar } =
+    const { NombreCompleto, Correo, Pass, uid, Habilitar, Inhabilitar, role } =
       await req?.json();
 
-    let InfoEditar = {};
+    const InfoEditar = {};
 
     if (Habilitar) {
       InfoEditar.disabled = false;
@@ -186,15 +406,31 @@ export async function PUT(req) {
 
     if (NombreCompleto) {
       InfoEditar.displayName = NombreCompleto;
-    } else if (Correo) {
+    }
+    if (Correo) {
       InfoEditar.email = Correo;
-    } else if (Pass) {
+    }
+    if (Pass) {
       InfoEditar.password = Pass;
+    }
+
+    console.log("role", role);
+    console.log("uid", uid);
+
+    if (role) {
+      const customClaims = {
+        role: role,
+        isAdmin: role == "admin",
+        isSuperAdmin: role == "superAdmin",
+        isCliente: role == "cliente",
+      };
+
+      await AuthAdmin.setCustomUserClaims(uid, customClaims);
+      InfoEditar.role = role;
     }
 
     if (Object.keys(InfoEditar).length) {
       await AuthAdmin.updateUser(uid, InfoEditar);
-
       await dbAdmin.collection("Usuarios").doc(`${uid}`).update(InfoEditar);
 
       return NextResponse.json(
