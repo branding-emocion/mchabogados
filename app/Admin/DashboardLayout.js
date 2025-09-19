@@ -9,6 +9,7 @@ import {
   Cross,
   DollarSign,
   File,
+  MessageCirclePlus,
   MonitorXIcon,
   Users,
   WallpaperIcon,
@@ -24,6 +25,7 @@ const DashboardLayout = ({ children }) => {
   const [Comentarios, setComentarios] = useState([]);
   const pathname = usePathname();
   const router = useRouter();
+
   if (pathname == "/Admin/Usuarios" && claims?.UsuarioBase) {
     router.replace("/Admin");
   }
@@ -71,6 +73,12 @@ const DashboardLayout = ({ children }) => {
     {
       name: "Expedientes",
       link: "/Admin/Expedientes",
+      icon: <MessageCirclePlus className="w-6 h-6 text-white" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
+    },
+    {
+      name: "Solicitudes",
+      link: "/Admin/Solicitudes",
       icon: <Cross className="w-6 h-6 text-white" />,
       hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
