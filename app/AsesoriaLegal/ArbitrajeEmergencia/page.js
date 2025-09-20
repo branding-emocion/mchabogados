@@ -337,7 +337,7 @@ export default function ArbitrajeEmergenciaPage() {
               <div className="text-center">
                 <Mail className="w-8 h-8 text-primary mx-auto mb-3" />
                 <h4 className="font-semibold text-slate-800 mb-1">Email</h4>
-                <p className="text-gray-600">contacto@mchabogados.pe</p>
+                <p className="text-gray-600">mchabogados@legalmch.com</p>
               </div>
               <div className="text-center">
                 <MessageCircle className="w-8 h-8 text-primary mx-auto mb-3" />

@@ -41,6 +41,7 @@ export default function ExpedienteModal({
     horaPresentacion: "",
     numeroExpediente: "",
     tribunalArbitral: "",
+    tribunalUnico: "",
     secretario: "",
     correos: [""],
     archivos: [],
@@ -58,9 +59,12 @@ export default function ExpedienteModal({
           horaPresentacion: expediente.horaPresentacion || "",
           numeroExpediente: expediente.numeroExpediente || "",
           tribunalArbitral: expediente.tribunalArbitral || "",
+          tribunalUnico: expediente.tribunalUnico || "",
           secretario: expediente.secretario || "",
+          secretarioGeneral: expediente.secretarioGeneral || "",
           correos: expediente.correos || [""],
           archivos: expediente.archivos || [],
+          LinkURL: expediente.LinkURL || "",
         });
       } else {
         setFormData({
@@ -69,9 +73,12 @@ export default function ExpedienteModal({
           horaPresentacion: "",
           numeroExpediente: "",
           tribunalArbitral: "",
+          tribunalUnico: "",
           secretario: "",
+          secretarioGeneral: "",
           correos: [""],
           archivos: [],
+          LinkURL: "",
         });
       }
     }
@@ -312,7 +319,6 @@ export default function ExpedienteModal({
                 onChange={(e) =>
                   handleInputChange("numeroExpediente", e.target.value)
                 }
-                required
               />
             </div>
 
@@ -326,13 +332,26 @@ export default function ExpedienteModal({
                 onChange={(e) =>
                   handleInputChange("tribunalArbitral", e.target.value)
                 }
+              />
+            </div>
+
+            {/* Tribunal Arbitral */}
+            <div className="space-y-2">
+              <Label htmlFor="tribunalUnico">Arbitro único *</Label>
+              <Input
+                id="tribunalUnico"
+                placeholder="Nombre del tribunal"
+                value={formData.tribunalUnico}
+                onChange={(e) =>
+                  handleInputChange("tribunalUnico", e.target.value)
+                }
                 required
               />
             </div>
 
             {/* Secretario */}
             <div className="space-y-2">
-              <Label htmlFor="secretario">Secretario *</Label>
+              <Label htmlFor="secretario">Secretaria Arbitral </Label>
               <Input
                 id="secretario"
                 placeholder="Nombre del secretario"
@@ -340,7 +359,18 @@ export default function ExpedienteModal({
                 onChange={(e) =>
                   handleInputChange("secretario", e.target.value)
                 }
-                required
+              />
+            </div>
+            {/* Secretario */}
+            <div className="space-y-2">
+              <Label htmlFor="secretarioGeneral">Secretaria General </Label>
+              <Input
+                id="secretarioGeneral"
+                placeholder="Nombre del secretarioGeneral"
+                value={formData.secretarioGeneral}
+                onChange={(e) =>
+                  handleInputChange("secretarioGeneral", e.target.value)
+                }
               />
             </div>
           </div>
@@ -382,6 +412,15 @@ export default function ExpedienteModal({
             </div>
           </div>
 
+          <div className="space-y-2">
+            <Label htmlFor="LinkURL">Link URL Archivos </Label>
+            <Input
+              id="LinkURL"
+              placeholder="LinkArchivos"
+              value={formData.LinkURL}
+              onChange={(e) => handleInputChange("LinkURL", e.target.value)}
+            />
+          </div>
           {/* Archivos Adjuntos */}
           <div className="space-y-2">
             <Label>Archivos Adjuntos (Máximo 5 PDFs)</Label>

@@ -226,6 +226,9 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Arbitraje">Arbitraje</SelectItem>
+                      <SelectItem value="ArbitrajeEmergencia">
+                        Arbitraje de Emergencia
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -340,7 +343,9 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg">Partes o Contratantes</CardTitle>
+                <CardTitle className="text-lg uppercase">
+                  Partes Procesales
+                </CardTitle>
                 <Button
                   type="button"
                   variant="outline"
@@ -357,9 +362,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
               {formData.partesContratantes.map((parte, index) => (
                 <div key={index} className="p-4 border rounded-lg space-y-4">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-medium">
-                      Parte/Contratante {index + 1}
-                    </h4>
+                    <h4 className="font-medium">Demanante: {index + 1}</h4>
                     {formData.partesContratantes.length > 1 && (
                       <Button
                         type="button"
@@ -373,7 +376,27 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2 col-span-2">
+                      <Label htmlFor="estado">Tipo </Label>
+                      <Select
+                        value={formData.estado}
+                        onValueChange={(value) =>
+                          handleInputChange("estado", value)
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value={"Demandante"}>
+                            Demandante
+                          </SelectItem>
+                          <SelectItem value={"Demandado"}>Demandado</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     <div className="space-y-2">
                       <Label>Nombre *</Label>
                       <Input
@@ -382,6 +405,17 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                           handleParteChange(index, "nombre", e.target.value)
                         }
                         placeholder="Nombre completo"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Correo electrónico*</Label>
+                      <Input
+                        value={parte.Correo}
+                        onChange={(e) =>
+                          handleParteChange(index, "Correo", e.target.value)
+                        }
+                        placeholder="john@example.com"
                         required
                       />
                     </div>

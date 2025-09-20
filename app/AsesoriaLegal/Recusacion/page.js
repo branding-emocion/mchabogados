@@ -226,7 +226,7 @@ export default function RecusacionPage() {
               <div className="text-center">
                 <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
                 <h4 className="text-lg font-semibold mb-2">Email</h4>
-                <p className="text-gray-300">contacto@mchabogados.pe</p>
+                <p className="text-gray-300">mchabogados@legalmch.com</p>
               </div>
               <div className="text-center">
                 <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />

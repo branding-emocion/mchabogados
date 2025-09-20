@@ -65,7 +65,7 @@ export default function Contacto() {
     {
       icon: Mail,
       title: "Email",
-      info: "contacto@mchabogados.pe",
+      info: "mchabogados@legalmch.com",
     },
     {
       icon: MessageCircle,

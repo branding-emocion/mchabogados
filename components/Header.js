@@ -68,7 +68,7 @@ const Header = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 uppercase">
             {/* Logo */}
             <motion.div
               className="flex items-center space-x-2"
@@ -114,14 +114,14 @@ const Header = () => {
                       isScrolled ? "text-gray-700" : "text-white bg-transparent"
                     )}
                   >
-                    Servicios{" "}
+                    SERVICIOS{" "}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="w-80 p-2">
                       {legalServices?.map((service) => (
                         <Link key={service.name} href={service.href}>
                           <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">
+                            <div className="text-sm font-medium leading-none uppercase">
                               {service.name}
                             </div>
                           </NavigationMenuLink>
@@ -134,7 +134,7 @@ const Header = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={cn(
-                      "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 bg-transparent",
+                      "group inline-flex h-10 w-max items-center justify-center uppercase rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 bg-transparent",
                       isScrolled ? "text-gray-700" : "text-white "
                     )}
                   >
@@ -205,13 +205,13 @@ const Header = () => {
             >
               <Link href="/Cotizar">
                 <Button
-                  className={`px-6 py-2 rounded-full font-medium transition-all duration-300 shadow-lg hover:cursor-pointer ${
+                  className={`px-6 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:cursor-pointer ${
                     isScrolled
                       ? "bg-primary text-white hover:bg-primary/90 hover:shadow-xl"
-                      : "bg-white text-primary hover:bg-white/90 hover:shadow-xl"
+                      : "bg-white text-primary hover:bg-white/90 hover:shadow-xl  "
                   }`}
                 >
-                  Cotizar
+                  COTIZAR
                 </Button>
               </Link>
 

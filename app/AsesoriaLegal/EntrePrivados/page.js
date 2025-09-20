@@ -352,7 +352,7 @@ export default function ArbitrajeEntrePrivadosPage() {
               <div className="text-center">
                 <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
                 <h3 className="font-bold mb-2">Email</h3>
-                <p className="text-gray-300">contacto@mchabogados.pe</p>
+                <p className="text-gray-300">mchabogados@legalmch.com</p>
               </div>
               <div className="text-center">
                 <MessageCircle className="w-8 h-8 text-primary mx-auto mb-4" />
