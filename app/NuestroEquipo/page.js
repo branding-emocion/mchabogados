@@ -77,7 +77,7 @@ export default function NuestroEquipo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 uppercase">
               Nuestro Equipo
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -98,13 +98,13 @@ export default function NuestroEquipo() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
-              Nuestro Equipo Directivo
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
+              Consejo Superior de Arbitraje
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Profesionales altamente calificados que lideran nuestro centro de
               arbitraje y asesoría legal
-            </p>
+            </p> */}
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

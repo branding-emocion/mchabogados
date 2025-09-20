@@ -41,7 +41,7 @@ export function EscritosDataTable() {
       try {
         const q = query(
           collection(db, "expedientes"),
-          where("correos", "array-contains", user.email)
+          where("correos", "array-contains", `${user.email}`)
         );
         const snapshot = await getDocs(q);
         const expedientesData = snapshot.docs.map((doc) => ({
@@ -66,7 +66,7 @@ export function EscritosDataTable() {
         setIsLoading(true);
         const q = query(
           collection(db, "escritos"),
-          where("userEmail", "==", user.email),
+          where("userEmail", "==", `${user.email}`),
           orderBy("fechaCreacion", "desc")
         );
         const snapshot = await getDocs(q);
@@ -120,7 +120,7 @@ export function EscritosDataTable() {
 
   const getExpedienteNumber = (expedienteId) => {
     const expediente = expedientes.find((exp) => exp.id === expedienteId);
-    return expediente?.numero || expedienteId;
+    return expediente?.numeroExpediente || expedienteId;
   };
 
   if (loading || isLoading) {
@@ -157,7 +157,7 @@ export function EscritosDataTable() {
               {/* Updated value prop */}
               {expedientes.map((expediente) => (
                 <SelectItem key={expediente.id} value={expediente.id}>
-                  {expediente.numero}
+                  {expediente.numeroExpediente}
                 </SelectItem>
               ))}
             </SelectContent>

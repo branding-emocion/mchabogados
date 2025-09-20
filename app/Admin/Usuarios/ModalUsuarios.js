@@ -153,7 +153,7 @@ const ModalUsuarios = ({ OpenModal, setOpenModal }) => {
                 defaultValue={OpenModal?.InfoEditar?.password}
                 required={OpenModal?.InfoEditar?.uid ? false : true}
                 autoComplete="off"
-                type="password"
+                type="text"
                 pattern=".{6,}"
                 title="6 caracteres mínimo"
               />

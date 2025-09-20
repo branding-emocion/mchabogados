@@ -51,7 +51,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
-  console.log("user", user);
+  console.log("expedientes", expedientes);
 
   const [formData, setFormData] = useState({
     expedienteId: "",
@@ -69,7 +69,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
       try {
         const q = query(
           collection(db, "expedientes"),
-          where("correos", "array-contains", user.email)
+          where("correos", "array-contains", `${user.email}`)
         );
         const snapshot = await getDocs(q);
         const expedientesData = snapshot.docs.map((doc) => ({
@@ -112,6 +112,9 @@ export function AddEscritoModal({ onEscritoAdded }) {
     }
 
     setIsSubmitting(true);
+    const InfoExpediente = expedientes.find(
+      (expediente) => expediente.id == formData.expedienteId
+    );
 
     try {
       // Create escrito document
@@ -130,6 +133,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
         })),
         fechaCreacion: serverTimestamp(),
         estado: "pendiente",
+        expedienteData: InfoExpediente,
       };
 
       const docRef = await addDoc(collection(db, "escritos"), escritoData);
@@ -189,7 +193,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
                 <SelectContent>
                   {expedientes.map((expediente) => (
                     <SelectItem key={expediente.id} value={expediente.id}>
-                      {expediente.numero}
+                      {expediente.numeroExpediente}
                     </SelectItem>
                   ))}
                 </SelectContent>

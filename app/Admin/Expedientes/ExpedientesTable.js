@@ -25,9 +25,11 @@ import {
   FileText,
   Download,
   ExternalLink,
+  LinkIcon,
 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { ExpedienteNotificationButton } from "./NotificationButton";
 
 export default function ExpedientesTable({
   expedientes,
@@ -37,6 +39,8 @@ export default function ExpedientesTable({
 }) {
   const [sortField, setSortField] = useState("creacion");
   const [sortDirection, setSortDirection] = useState("desc");
+
+  console.log("expedientes", expedientes);
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -113,7 +117,7 @@ export default function ExpedientesTable({
     </HoverCard>
   );
 
-  const FilesHoverCard = ({ archivos }) => (
+  const FilesHoverCard = ({ archivos, LinkURL }) => (
     <HoverCard>
       <HoverCardTrigger asChild>
         <div className="flex items-center gap-1 cursor-pointer hover:bg-muted/50 p-1 rounded">
@@ -157,6 +161,32 @@ export default function ExpedientesTable({
             <p className="text-sm text-muted-foreground">
               No hay archivos registrados
             </p>
+          )}
+
+          {LinkURL.length > 0 && (
+            <>
+              <div className="text-sm p-2 bg-muted/50 rounded">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <LinkIcon className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                    <span className="truncate" title={`Link Externo`}>
+                      Link Externo{" "}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1 ml-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0 hover:cursor-pointer"
+                      onClick={() => window.open(LinkURL, "_blank")}
+                      title="Ver archivo"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </HoverCardContent>
@@ -254,7 +284,10 @@ export default function ExpedientesTable({
                 <EmailsHoverCard correos={expediente.correos} />
               </TableCell>
               <TableCell>
-                <FilesHoverCard archivos={expediente.archivos} />
+                <FilesHoverCard
+                  archivos={expediente.archivos}
+                  LinkURL={expediente.LinkURL}
+                />
               </TableCell>
               <TableCell>
                 <div className="text-sm text-muted-foreground">
@@ -279,6 +312,7 @@ export default function ExpedientesTable({
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
+                  <ExpedienteNotificationButton expediente={expediente} />
                 </div>
               </TableCell>
             </TableRow>

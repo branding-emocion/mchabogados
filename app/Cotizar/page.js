@@ -184,10 +184,10 @@ export default function CotizarPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Badge className="mb-4 bg-white/20 text-white border-white/30">
+              <Badge className="mb-4 bg-white/20 text-white border-white/30 uppercase">
                 Calculadora Oficial
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
                 Calculadoras de Arbitraje
               </h1>
               <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
