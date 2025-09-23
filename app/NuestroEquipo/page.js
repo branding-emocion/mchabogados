@@ -12,12 +12,12 @@ export default function NuestroEquipo() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const teamMembers = [
-    {
-      id: "JuanArmandoMorillasArbildo",
-      name: "Juan Armando Morillas Arbildo",
-      position: "Secretaria Arbitral",
-      image: "/equipo/juan.avif",
-    },
+    // {
+    //   id: "JuanArmandoMorillasArbildo",
+    //   name: "Juan Armando Morillas Arbildo",
+    //   position: "Secretaria Arbitral",
+    //   image: "/equipo/juan.avif",
+    // },
     {
       id: "VacnerValverdeJara",
       name: "Vacner Valverde Jara",
@@ -99,7 +99,7 @@ export default function NuestroEquipo() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
-              Profesionales
+              Consejo superior de arbitraje
             </h2>
             {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Profesionales altamente calificados que lideran nuestro centro de
