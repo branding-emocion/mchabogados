@@ -53,6 +53,10 @@ const Header = () => {
     },
     { name: "Nómina de Árbitros", href: "/CentroArbitraje/NominaDeArbitros" },
     { name: "Cláusula Arbitral", href: "/CentroArbitraje/ClausulaArbitral" },
+    {
+      name: "Secretaria Arbitral ",
+      href: "/CentroArbitraje/SecretariaArbitral",
+    },
   ];
 
   return (
