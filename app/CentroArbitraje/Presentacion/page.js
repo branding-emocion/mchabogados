@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 export default function PresentacionPage() {
   return (
@@ -29,9 +28,7 @@ export default function PresentacionPage() {
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              MCH ABOGADOS - Resolución especializada de controversias a través
-              de arbitraje, brindando un servicio integral y confidencial en
-              procesos arbitrales de alta complejidad.
+              MCH ABOGADOS – Confidencialidad y excelencia en arbitraje.
             </p>
           </motion.div>
         </div>
@@ -50,8 +47,8 @@ export default function PresentacionPage() {
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1">
-                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-primary font-serif">
-                  CENTRO DE ARBITRAJE `&quot;`MCH ABOGADOS`&quot;`
+                <h2 className="text-4xl md:text-4xl font-bold mb-8 text-primary font-serif text-center">
+                  CENTRO DE ARBITRAJE &quot;MCH ABOGADOS&quot;{" "}
                 </h2>
                 <p className="text-lg leading-relaxed text-gray-700 mb-8">
                   MCH Abogados es un centro especializado en la resolución de
@@ -68,23 +65,19 @@ export default function PresentacionPage() {
               </div>
 
               <div className="order-1 lg:order-2">
-                <div className="relative">
-                  <div className="bg-gray-200 rounded-lg p-8 text-center">
-                    <div className="w-64 h-80 mx-auto bg-gray-300 rounded-lg mb-6 flex items-center justify-center">
-                      <Image
-                        src="/professional-lawyer-juan-armando-morillas-arbildo-.png"
-                        alt="Juan Armando Morillas Arbildo"
-                        width={256}
-                        height={320}
-                        className="rounded-lg object-cover"
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold text-primary mb-2">
-                      Juan Armando Morillas Arbildo
-                    </h3>
-                    <p className="text-gray-600 font-medium">
-                      GERENTE GENERAL DEL CENTRO
-                    </p>
+                <div className="bg-gray-200 rounded-lg p-8 text-center">
+                  <div className="w-full h-ful mx-auto bg-gray-300 rounded-lg   flex items-center justify-center">
+                    {/* <Image
+                      src="/QuienesSomos1.jpg"
+                      alt="Juan Armando Morillas Arbildo"
+                      width={256}
+                      height={320}
+                      className="rounded-lg object-cover"
+                    /> */}
+                    <img
+                      src="/QuienesSomos1.jpg"
+                      alt="Juan Armando Morillas Arbildo"
+                    />
                   </div>
                 </div>
               </div>
@@ -100,7 +93,7 @@ export default function PresentacionPage() {
             className="mb-20"
           >
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12 text-primary font-serif text-center">
+              <h2 className="text-4xl md:text-4xl font-bold mb-12 text-primary font-serif text-center">
                 IMPORTANCIA DE UN ARBITRAJE
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">

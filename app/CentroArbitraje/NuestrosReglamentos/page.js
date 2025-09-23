@@ -50,13 +50,13 @@ export default function NuestrosReglamentosPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-white"
+            viewport={{ once: true }}
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
-              NUESTROS
+              NUESTROS REGLAMENTOS
               <br />
-              <span className="text-primary">REGLAMENTOS</span>
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+            <div className="w-24 h-1 bg-white mx-auto mb-8 " />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Documentos normativos que rigen los procesos arbitrales en MCH
               ABOGADOS, garantizando transparencia, eficiencia y cumplimiento de
