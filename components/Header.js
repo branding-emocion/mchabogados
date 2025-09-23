@@ -214,7 +214,7 @@ const Header = () => {
                   COTIZAR
                 </Button>
               </Link>
-              <Link href="/Cotizar">
+              <Link href="/Admin">
                 <Button
                   className={`px-6 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:cursor-pointer ${
                     isScrolled
