@@ -17,13 +17,17 @@ import {
   serverTimestamp,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import { toast } from "sonner";
 import ExpedientesTable from "./ExpedientesTable";
 import ExpedienteModal from "./ExpedienteModal";
-import { db } from "@/firebase/firebaseClient";
+import { auth, db } from "@/firebase/firebaseClient";
+import useAuthState from "@/lib/useAuthState";
 
 export default function ExpedientesModule() {
+  const [{ user, claims }, error] = useAuthState(auth);
+
   const [expedientes, setExpedientes] = useState([]);
   const [filteredExpedientes, setFilteredExpedientes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +40,10 @@ export default function ExpedientesModule() {
 
   // Cargar expedientes al montar el componente
   useEffect(() => {
+    if (!user?.email) return;
+
     loadExpedientes();
-  }, []);
+  }, [claims, user]);
 
   // Aplicar filtros cuando cambien
   useEffect(() => {
@@ -48,7 +54,17 @@ export default function ExpedientesModule() {
     try {
       setLoading(true);
       const expedientesRef = collection(db, "expedientes");
-      const q = query(expedientesRef, orderBy("creacion", "desc"));
+
+      let q = null;
+
+      if (claims?.isAdmin || claims?.isSuperAdmin) {
+        q = query(expedientesRef, orderBy("creacion", "desc"));
+      } else {
+        q = query(
+          collection(db, "expedientes"),
+          where("correos", "array-contains", `${user.email}`)
+        );
+      }
       const querySnapshot = await getDocs(q);
 
       const expedientesData = [];
@@ -161,13 +177,15 @@ export default function ExpedientesModule() {
             Administra los expedientes de arbitraje
           </p>
         </div>
-        <Button
-          onClick={handleNewExpediente}
-          className="flex items-center gap-2"
-        >
-          <Plus className="h-4 w-4" />
-          Nuevo Expediente
-        </Button>
+        {(claims?.isAdmin || claims?.isSuperAdmin) && (
+          <Button
+            onClick={handleNewExpediente}
+            className="flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Nuevo Expediente
+          </Button>
+        )}
       </div>
 
       {/* Filtros */}

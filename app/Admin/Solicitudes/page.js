@@ -20,7 +20,7 @@ export default function SolicitudesPage() {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [refreshTable, setRefreshTable] = useState(0);
 
-  const isAdmin = claims?.role === "superAdmin";
+  const isAdmin = claims?.role == "superAdmin";
 
   const handleNewSolicitud = () => {
     setSelectedSolicitud(null);

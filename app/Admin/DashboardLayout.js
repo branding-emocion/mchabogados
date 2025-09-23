@@ -17,6 +17,7 @@ import {
 import { signOut } from "firebase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePathname, useRouter } from "next/navigation";
+import SoloClientes from "./SoloClients";
 
 const DashboardLayout = ({ children }) => {
   const [{ user, claims }, loading, error] = useAuthState(auth);
@@ -27,8 +28,6 @@ const DashboardLayout = ({ children }) => {
   if (pathname == "/Admin/Usuarios" && claims?.UsuarioBase) {
     router.replace("/Admin");
   }
-
-  console.log("claims", claims);
 
   const menu = [
     {
@@ -71,7 +70,6 @@ const DashboardLayout = ({ children }) => {
       name: "Expedientes",
       link: "/Admin/Expedientes",
       icon: <MessageCirclePlus className="w-5 h-5" />,
-      hidden: !(claims?.isAdmin || claims?.isSuperAdmin),
     },
     {
       name: "Solicitudes",
@@ -92,6 +90,9 @@ const DashboardLayout = ({ children }) => {
   if (!user) return <Login />;
   return (
     <div>
+      {pathname == "/Admin" && !(claims?.isAdmin || claims?.isSuperAdmin) && (
+        <SoloClientes user={user} />
+      )}
       <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-black">
         <div className="fixed flex flex-col left-0 w-14 hover:w-64 md:w-64 bg-black h-full text-white transition-all duration-300 border-none z-10 sidebar shadow-2xl">
           <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">

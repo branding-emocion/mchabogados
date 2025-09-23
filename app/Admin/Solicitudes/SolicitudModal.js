@@ -46,9 +46,15 @@ const ESTADOS = [
   { value: "Rechazada", label: "Rechazada" },
 ];
 
+const TIPOS_PARTE = [
+  { value: "Demandante", label: "Demandante" },
+  { value: "Demandado", label: "Demandado" },
+];
+
 export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
   const [{ user, claims }, loading, error] = useAuthState(auth);
   const [saving, setSaving] = useState(false);
+  const [showPartyTypeDialog, setShowPartyTypeDialog] = useState(false);
   const [formData, setFormData] = useState({
     tipoServicio: "Arbitraje",
     materia: "",
@@ -60,6 +66,8 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
         nombre: "",
         tipoDocumento: "",
         direccion: "",
+        tipo: "Demandante",
+        Correo: "",
       },
     ],
     estado: "Pendiente",
@@ -76,21 +84,38 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
         descripcion: solicitud.descripcion || "",
         documentos: solicitud.documentos || [],
         anexos: solicitud.anexos || [],
-        partesContratantes: solicitud.partesContratantes || [
-          { nombre: "", tipoDocumento: "", direccion: "" },
+        partesContratantes: solicitud.partesContratantes?.map((parte) => ({
+          ...parte,
+          tipo: parte.tipo || "Demandante",
+          Correo: parte.Correo || "",
+        })) || [
+          {
+            nombre: "",
+            tipoDocumento: "",
+            direccion: "",
+            tipo: "Demandante",
+            Correo: "",
+          },
         ],
         estado: solicitud.estado || "Pendiente",
         comentarios: solicitud.comentarios || "",
       });
     } else {
-      // Reset form for new solicitud
       setFormData({
         tipoServicio: "Arbitraje",
         materia: "",
         descripcion: "",
         documentos: [],
         anexos: [],
-        partesContratantes: [{ nombre: "", tipoDocumento: "", direccion: "" }],
+        partesContratantes: [
+          {
+            nombre: "",
+            tipoDocumento: "",
+            direccion: "",
+            tipo: "Demandante",
+            Correo: "",
+          },
+        ],
         estado: "Pendiente",
         comentarios: "",
       });
@@ -116,14 +141,15 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
     }));
   };
 
-  const addParte = () => {
+  const addParte = (tipo = "Demandante") => {
     setFormData((prev) => ({
       ...prev,
       partesContratantes: [
         ...prev.partesContratantes,
-        { nombre: "", tipoDocumento: "", direccion: "" },
+        { nombre: "", tipoDocumento: "", direccion: "", tipo, Correo: "" },
       ],
     }));
+    setShowPartyTypeDialog(false);
   };
 
   const removeParte = (index) => {
@@ -149,7 +175,8 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
       if (
         !parte.nombre.trim() ||
         !parte.tipoDocumento ||
-        !parte.direccion.trim()
+        !parte.direccion.trim() ||
+        !parte.tipo
       ) {
         toast.error(
           `Complete todos los campos de la parte/contratante ${i + 1}`
@@ -167,7 +194,6 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
     setSaving(true);
     try {
       if (solicitud) {
-        // Update existing solicitud
         await updateSolicitud(solicitud.id, formData);
         toast.success("Solicitud actualizada correctamente");
       } else {
@@ -191,293 +217,339 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
     }
   };
 
-  // Show loading if auth is not ready
   if (loading || !user) {
     return null;
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">
-            {solicitud ? "Editar Solicitud" : "Nueva Solicitud"}
-          </DialogTitle>
-        </DialogHeader>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="h-auto w-[90%] md:w-full max-h-[95vh] overflow-auto sm:max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold">
+              {solicitud ? "Editar Solicitud" : "Nueva Solicitud"}
+            </DialogTitle>
+          </DialogHeader>
 
-        <div className="space-y-6">
-          {/* Basic Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Información General</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="tipoServicio">Tipo de Servicio</Label>
-                  <Select
-                    value={formData.tipoServicio}
-                    onValueChange={(value) =>
-                      handleInputChange("tipoServicio", value)
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Arbitraje">Arbitraje</SelectItem>
-                      <SelectItem value="ArbitrajeEmergencia">
-                        Arbitraje de Emergencia
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="materia">Materia *</Label>
-                  <Input
-                    id="materia"
-                    value={formData.materia}
-                    onChange={(e) =>
-                      handleInputChange("materia", e.target.value)
-                    }
-                    placeholder="Ingrese la materia"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="descripcion">Descripción</Label>
-                <Textarea
-                  id="descripcion"
-                  value={formData.descripcion}
-                  onChange={(e) =>
-                    handleInputChange("descripcion", e.target.value)
-                  }
-                  placeholder="Descripción opcional de la solicitud"
-                  rows={3}
-                />
-              </div>
-
-              {/* Admin only fields */}
-              {isAdmin && (
-                <>
-                  <Separator />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="estado">Estado</Label>
-                      <Select
-                        value={formData.estado}
-                        onValueChange={(value) =>
-                          handleInputChange("estado", value)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ESTADOS.map((estado) => (
-                            <SelectItem key={estado.value} value={estado.value}>
-                              {estado.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Información General</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="tipoServicio">Tipo de Servicio</Label>
+                    <Select
+                      value={formData.tipoServicio}
+                      onValueChange={(value) =>
+                        handleInputChange("tipoServicio", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Arbitraje">Arbitraje</SelectItem>
+                        <SelectItem value="ArbitrajeEmergencia">
+                          Arbitraje de Emergencia
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="comentarios">Comentarios</Label>
-                    <Textarea
-                      id="comentarios"
-                      value={formData.comentarios}
+                    <Label htmlFor="materia">Materia *</Label>
+                    <Input
+                      id="materia"
+                      value={formData.materia}
                       onChange={(e) =>
-                        handleInputChange("comentarios", e.target.value)
+                        handleInputChange("materia", e.target.value)
                       }
-                      placeholder="Comentarios del administrador"
-                      rows={3}
+                      placeholder="Ingrese la materia"
+                      required
                     />
                   </div>
-                </>
-              )}
-            </CardContent>
-          </Card>
+                </div>
 
-          {/* File Uploads */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Documentos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <FileUpload
-                  files={formData.documentos}
-                  onFilesChange={(files) =>
-                    handleInputChange("documentos", files)
-                  }
-                  maxFiles={5}
-                  label="Documentos PDF"
-                  folder="documentos"
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="descripcion">Descripción</Label>
+                  <Textarea
+                    id="descripcion"
+                    value={formData.descripcion}
+                    onChange={(e) =>
+                      handleInputChange("descripcion", e.target.value)
+                    }
+                    placeholder="Descripción opcional de la solicitud"
+                    rows={3}
+                  />
+                </div>
+
+                {isAdmin && (
+                  <>
+                    <Separator />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="estado">Estado</Label>
+                        <Select
+                          value={formData.estado}
+                          onValueChange={(value) =>
+                            handleInputChange("estado", value)
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {ESTADOS.map((estado) => (
+                              <SelectItem
+                                key={estado.value}
+                                value={estado.value}
+                              >
+                                {estado.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="comentarios">Comentarios</Label>
+                      <Textarea
+                        id="comentarios"
+                        value={formData.comentarios}
+                        onChange={(e) =>
+                          handleInputChange("comentarios", e.target.value)
+                        }
+                        placeholder="Comentarios del administrador"
+                        rows={3}
+                      />
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Documentos</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <FileUpload
+                    files={formData.documentos}
+                    onFilesChange={(files) =>
+                      handleInputChange("documentos", files)
+                    }
+                    maxFiles={5}
+                    label="Documentos PDF"
+                    folder="documentos"
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Anexos</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <FileUpload
+                    files={formData.anexos}
+                    onFilesChange={(files) =>
+                      handleInputChange("anexos", files)
+                    }
+                    maxFiles={5}
+                    label="Anexos PDF"
+                    folder="anexos"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Anexos</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg uppercase">
+                    Partes Procesales
+                  </CardTitle>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowPartyTypeDialog(true)}
+                    className="flex items-center gap-2 bg-transparent"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Agregar nuevo
+                  </Button>
+                </div>
               </CardHeader>
-              <CardContent>
-                <FileUpload
-                  files={formData.anexos}
-                  onFilesChange={(files) => handleInputChange("anexos", files)}
-                  maxFiles={5}
-                  label="Anexos PDF"
-                  folder="anexos"
-                />
+              <CardContent className="space-y-4">
+                {formData.partesContratantes.map((parte, index) => (
+                  <div key={index} className="p-4 border rounded-lg space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium">
+                        {parte.tipo}: {index + 1}
+                      </h4>
+                      {formData.partesContratantes.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeParte(index)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2 col-span-2">
+                        <Label htmlFor="tipo">Tipo *</Label>
+                        <Select
+                          value={parte.tipo}
+                          onValueChange={(value) =>
+                            handleParteChange(index, "tipo", value)
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TIPOS_PARTE.map((tipo) => (
+                              <SelectItem key={tipo.value} value={tipo.value}>
+                                {tipo.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Nombre *</Label>
+                        <Input
+                          value={parte.nombre}
+                          onChange={(e) =>
+                            handleParteChange(index, "nombre", e.target.value)
+                          }
+                          placeholder="Nombre completo"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Correo electrónico*</Label>
+                        <Input
+                          value={parte.Correo}
+                          onChange={(e) =>
+                            handleParteChange(index, "Correo", e.target.value)
+                          }
+                          placeholder="john@example.com"
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Tipo de documento *</Label>
+                        <Select
+                          value={parte.tipoDocumento}
+                          onValueChange={(value) =>
+                            handleParteChange(index, "tipoDocumento", value)
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Seleccionar tipo" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {TIPOS_DOCUMENTO.map((tipo) => (
+                              <SelectItem key={tipo.value} value={tipo.value}>
+                                {tipo.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Dirección *</Label>
+                        <Input
+                          value={parte.direccion}
+                          onChange={(e) =>
+                            handleParteChange(
+                              index,
+                              "direccion",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Dirección completa"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </CardContent>
             </Card>
           </div>
 
-          {/* Partes o Contratantes */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg uppercase">
-                  Partes Procesales
-                </CardTitle>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={addParte}
-                  className="flex items-center gap-2 bg-transparent"
-                >
-                  <Plus className="h-4 w-4" />
-                  Agregar nuevo
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {formData.partesContratantes.map((parte, index) => (
-                <div key={index} className="p-4 border rounded-lg space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-medium">Demanante: {index + 1}</h4>
-                    {formData.partesContratantes.length > 1 && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeParte(index)}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
+          <DialogFooter className="flex gap-2">
+            <Button variant="outline" onClick={onClose} disabled={saving}>
+              <X className="h-4 w-4 mr-2" />
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={saving}
+              className="bg-primary hover:bg-primary/90"
+            >
+              {saving ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              ) : (
+                <Save className="h-4 w-4 mr-2" />
+              )}
+              {solicitud ? "Actualizar" : "Crear"} Solicitud
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2 col-span-2">
-                      <Label htmlFor="estado">Tipo </Label>
-                      <Select
-                        value={formData.estado}
-                        onValueChange={(value) =>
-                          handleInputChange("estado", value)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value={"Demandante"}>
-                            Demandante
-                          </SelectItem>
-                          <SelectItem value={"Demandado"}>Demandado</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>Nombre *</Label>
-                      <Input
-                        value={parte.nombre}
-                        onChange={(e) =>
-                          handleParteChange(index, "nombre", e.target.value)
-                        }
-                        placeholder="Nombre completo"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Correo electrónico*</Label>
-                      <Input
-                        value={parte.Correo}
-                        onChange={(e) =>
-                          handleParteChange(index, "Correo", e.target.value)
-                        }
-                        placeholder="john@example.com"
-                        required
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>Tipo de documento *</Label>
-                      <Select
-                        value={parte.tipoDocumento}
-                        onValueChange={(value) =>
-                          handleParteChange(index, "tipoDocumento", value)
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Seleccionar tipo" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {TIPOS_DOCUMENTO.map((tipo) => (
-                            <SelectItem key={tipo.value} value={tipo.value}>
-                              {tipo.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label>Dirección *</Label>
-                      <Input
-                        value={parte.direccion}
-                        onChange={(e) =>
-                          handleParteChange(index, "direccion", e.target.value)
-                        }
-                        placeholder="Dirección completa"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-
-        <DialogFooter className="flex gap-2">
-          <Button variant="outline" onClick={onClose} disabled={saving}>
-            <X className="h-4 w-4 mr-2" />
-            Cancelar
-          </Button>
-          <Button
-            onClick={handleSave}
-            disabled={saving}
-            className="bg-primary hover:bg-primary/90"
-          >
-            {saving ? (
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-            ) : (
-              <Save className="h-4 w-4 mr-2" />
-            )}
-            {solicitud ? "Actualizar" : "Crear"} Solicitud
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <Dialog open={showPartyTypeDialog} onOpenChange={setShowPartyTypeDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Seleccionar Tipo de Parte</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              ¿Qué tipo de parte procesal desea agregar?
+            </p>
+            <div className="flex flex-col gap-2">
+              <Button
+                onClick={() => addParte("Demandante")}
+                variant="outline"
+                className="justify-start"
+              >
+                Demandante
+              </Button>
+              <Button
+                onClick={() => addParte("Demandado")}
+                variant="outline"
+                className="justify-start"
+              >
+                Demandado
+              </Button>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={() => setShowPartyTypeDialog(false)}
+            >
+              Cancelar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

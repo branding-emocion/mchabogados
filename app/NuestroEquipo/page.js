@@ -15,7 +15,7 @@ export default function NuestroEquipo() {
     {
       id: "JuanArmandoMorillasArbildo",
       name: "Juan Armando Morillas Arbildo",
-      position: "GERENTE GENERAL DEL CENTRO",
+      position: "Secretaria Arbitral",
       image: "/equipo/juan.avif",
     },
     {
@@ -99,7 +99,7 @@ export default function NuestroEquipo() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
-              Secretaria Arbitral{" "}
+              Profesionales
             </h2>
             {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Profesionales altamente calificados que lideran nuestro centro de
@@ -123,7 +123,7 @@ export default function NuestroEquipo() {
                   <CardContent className="p-0">
                     <div className="relative overflow-hidden rounded-t-lg">
                       <img
-                        src={member.image || "/placeholder.svg"}
+                        src={member.image || ""}
                         alt={member.name}
                         className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
                       />

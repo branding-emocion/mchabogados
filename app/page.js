@@ -1,3 +1,4 @@
+import NormativaSection from "@/components/NormativaSection";
 import ContactSection from "../components/ContactSection";
 import HeroCarousel from "../components/hero-carousel";
 import ServicesSection from "../components/services-section";
@@ -11,7 +12,8 @@ export default function HomePage() {
       <ServicesSection />
       <StatsSection />
       <TeamSection />
-      <ContactSection />{" "}
+      <ContactSection />
+      <NormativaSection />
     </main>
   );
 }

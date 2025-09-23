@@ -210,7 +210,7 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar por materia o ID..."
+              placeholder="Buscar por materia ..."
               value={filters.search}
               onChange={(e) =>
                 setFilters((prev) => ({ ...prev, search: e.target.value }))
@@ -277,7 +277,7 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>ID</TableHead>
+                  {/* <TableHead>ID</TableHead> */}
                   <TableHead>Materia</TableHead>
                   <TableHead>Tipo de Servicio</TableHead>
                   <TableHead>Estado</TableHead>
@@ -300,9 +300,9 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
                 ) : (
                   filteredSolicitudes.map((solicitud) => (
                     <TableRow key={solicitud.id} className="hover:bg-muted/50">
-                      <TableCell className="font-mono text-sm">
+                      {/* <TableCell className="font-mono text-sm">
                         {solicitud.id.slice(-8)}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell className="font-medium">
                         {solicitud.materia}
                       </TableCell>

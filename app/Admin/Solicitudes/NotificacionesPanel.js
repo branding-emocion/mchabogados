@@ -16,7 +16,7 @@ export function NotificationsPanel({ userId, userRole, onSolicitudClick }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!userId || !userRole) return;
+    if (!userId) return;
 
     loadNotifications();
   }, [userId, userRole]);

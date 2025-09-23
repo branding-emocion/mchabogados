@@ -2,379 +2,387 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus, Edit, Trash2, BookOpen, Upload, Loader2 } from "lucide-react";
-
-import ModalNormativa from "@/components/ModalNormativa";
 import {
-  createISO,
-  getISOs,
-  updateISO,
-  uploadImage,
-  uploadImagePDF,
-} from "@/lib/BlogISOS";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import {
+  Trash2,
+  Edit,
+  Plus,
+  FileText,
+  ImageIcon,
+  Download,
+} from "lucide-react";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import { db, storage } from "@/firebase/firebaseClient";
 
-export default function AdminISO() {
-  const [ISOs, setISOs] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+export default function ISOAdmin() {
+  const [isos, setIsos] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingISO, setEditingISO] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingPDF, setUploadingPDF] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    titulo: "",
-    imagen: "",
-    imagenPath: "", // Agregando imagenPath como en noticias
-    contenido: "",
+    nombre: "",
+    imagenFile: null,
+    pdfFile: null,
   });
-  console.log("formData", formData);
 
+  // Cargar ISOs al montar el componente
   useEffect(() => {
     loadISOs();
   }, []);
 
   const loadISOs = async () => {
     try {
-      setLoading(true);
-      const ISOsData = await getISOs();
-      setISOs(ISOsData);
+      const querySnapshot = await getDocs(collection(db, "isos"));
+      const isosData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setIsos(isosData);
     } catch (error) {
       console.error("Error cargando ISOs:", error);
+    }
+  };
+
+  const handleFileChange = (e, type) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({
+        ...prev,
+        [`${type}File`]: file,
+      }));
+    }
+  };
+
+  const uploadFile = async (file, path) => {
+    const storageRef = ref(storage, path);
+    const snapshot = await uploadBytes(storageRef, file);
+    return await getDownloadURL(snapshot.ref);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.nombre || !formData.imagenFile || !formData.pdfFile) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Subir archivos
+      const imagenURL = await uploadFile(
+        formData.imagenFile,
+        `isos/imagenes/${Date.now()}_${formData.imagenFile.name}`
+      );
+      const pdfURL = await uploadFile(
+        formData.pdfFile,
+        `isos/pdfs/${Date.now()}_${formData.pdfFile.name}`
+      );
+
+      const isoData = {
+        nombre: formData.nombre,
+        imagenURL,
+        pdfURL,
+        fechaCreacion: new Date().toISOString(),
+      };
+
+      if (editingISO) {
+        // Actualizar ISO existente
+        await updateDoc(doc(db, "isos", editingISO.id), isoData);
+      } else {
+        // Crear nuevo ISO
+        await addDoc(collection(db, "isos"), isoData);
+      }
+
+      // Resetear formulario
+      setFormData({ nombre: "", imagenFile: null, pdfFile: null });
+      setIsModalOpen(false);
+      setEditingISO(null);
+      loadISOs();
+    } catch (error) {
+      console.error("Error guardando ISO:", error);
+      alert("Error al guardar el ISO");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      setUploadingImage(true);
-      const imageData = await uploadImage(file, "ISOs");
-      setFormData({
-        ...formData,
-        imagen: imageData.url,
-        imagenPath: imageData.path,
-      });
-    } catch (error) {
-      console.error("Error subiendo imagen:", error);
-      alert("Error al subir la imagen");
-    } finally {
-      setUploadingImage(false);
-    }
-  };
-  const handleImageUploadPDF = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      setUploadingPDF(true);
-      const imageData = await uploadImagePDF(file, "ISOs");
-      setFormData({
-        ...formData,
-        PDFIso: imageData.url,
-        PDFIsoPath: imageData.path,
-      });
-    } catch (error) {
-      console.error("Error subiendo pdf:", error);
-      alert("Error al subir la pdf");
-    } finally {
-      setUploadingPDF(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!formData.titulo.trim()) {
-      alert("Por favor completa todos los campos requeridos");
-      return;
-    }
-
-    try {
-      setSaving(true);
-
-      const ISOData = {
-        titulo: formData.titulo,
-        imagen: formData.imagen,
-        imagenPath: formData.imagenPath,
-        contenido: formData.contenido,
-      };
-
-      if (editingISO) {
-        await updateISO(editingISO.id, ISOData);
-      } else {
-        await createISO(ISOData);
-      }
-
-      await loadISOs();
-      resetForm();
-    } catch (error) {
-      console.error("Error guardando ISO:", error);
-      alert("Error al guardar el ISOS");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleEdit = (ISO) => {
+  const handleEdit = (iso) => {
+    setEditingISO(iso);
     setFormData({
-      titulo: ISO.titulo,
-      imagen: ISO.imagen,
-      imagenPath: ISO.imagenPath || "", // Incluyendo imagenPath
-      contenido: ISO.contenido,
+      nombre: iso.nombre,
+      imagenFile: null,
+      pdfFile: null,
     });
-    setEditingISO(ISO);
-    setShowModal(true);
+    setIsModalOpen(true);
   };
 
-  const handleDelete = async (id) => {
-    if (confirm("¿Estás seguro de eliminar este ISOS del ISO?")) {
-      try {
-        await deleteISO(id);
-        await loadISOs();
-      } catch (error) {
-        console.error("Error eliminando ISO:", error);
-        alert("Error al eliminar el ISOS");
+  const handleDelete = async (iso) => {
+    if (!confirm("¿Estás seguro de eliminar este ISO?")) return;
+
+    try {
+      // Eliminar archivos del storage
+      if (iso.imagenURL) {
+        const imagenRef = ref(storage, iso.imagenURL);
+        await deleteObject(imagenRef);
       }
+      if (iso.pdfURL) {
+        const pdfRef = ref(storage, iso.pdfURL);
+        await deleteObject(pdfRef);
+      }
+
+      // Eliminar documento de Firestore
+      await deleteDoc(doc(db, "isos", iso.id));
+      loadISOs();
+    } catch (error) {
+      console.error("Error eliminando ISO:", error);
+      alert("Error al eliminar el ISO");
     }
   };
 
-  const resetForm = () => {
-    setFormData({ titulo: "", imagen: "", imagenPath: "", contenido: "" }); // Incluyendo imagenPath
+  const openModal = () => {
     setEditingISO(null);
-    setShowModal(false);
+    setFormData({ nombre: "", imagenFile: null, pdfFile: null });
+    setIsModalOpen(true);
   };
-
-  const renderFormattedContent = (content) => {
-    return content
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
-      .replace(/\n/g, "<br />");
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
-          <p className="text-muted-foreground">Cargando ISOS del ISO...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              Administrar ISO
-            </h1>
-            <p className="text-muted-foreground mt-2">
-              Gestiona los ISOS del ISO de la fundación
-            </p>
-          </div>
-          <Button
-            onClick={() => setShowModal(true)}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Nuevo ISOS
-          </Button>
-        </div>
-
-        <ModalNormativa
-          isOpen={showModal}
-          onClose={resetForm}
-          title={editingISO ? "Editar ISOS" : "Nuevo ISOS"}
-          size="lg"
-        >
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="titulo" className="text-card-foreground">
-                Nombre del ISO*
-              </Label>
-              <Input
-                id="titulo"
-                value={formData.titulo}
-                onChange={(e) =>
-                  setFormData({ ...formData, titulo: e.target.value })
-                }
-                placeholder="Ingresa el título del ISOS"
-                required
-                className="bg-input border-border text-foreground"
-              />
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b border-border bg-card">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold text-foreground">
+                Administración de ISOs
+              </h1>
+              <p className="text-sm text-muted-foreground mt-1">
+                Gestiona los documentos ISO de tu organización
+              </p>
             </div>
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  onClick={openModal}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nuevo ISO
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md bg-card border-border">
+                <DialogHeader>
+                  <DialogTitle className="text-foreground">
+                    {editingISO ? "Editar ISO" : "Nuevo ISO"}
+                  </DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="nombre" className="text-foreground">
+                      Nombre del ISO <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="nombre"
+                      placeholder="Ingresa el título del ISO"
+                      value={formData.nombre}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          nombre: e.target.value,
+                        }))
+                      }
+                      className="bg-background border-input text-foreground"
+                      required
+                    />
+                  </div>
 
-            <div className="space-y-2">
-              <Label className="text-card-foreground">Imagen iso</Label>
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="bg-input border-border text-foreground"
-                    disabled={uploadingImage}
-                  />
-                  {uploadingImage && (
-                    <p className="text-sm text-muted-foreground mt-1">
-                      <Upload className="w-4 h-4 inline mr-1" />
-                      Subiendo imagen...
-                    </p>
-                  )}
-                </div>
-              </div>
-              {formData.imagen && (
-                <div className="mt-2">
-                  <img
-                    src={formData.imagen || "/placeholder.svg"}
-                    alt="Preview"
-                    className="w-32 h-24 object-cover rounded-md border border-border"
-                    onError={(e) => {
-                      e.target.src = "/placeholder.svg?height=96&width=128";
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label className="text-card-foreground">PDF iso</Label>
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <Input
-                    type="file"
-                    accept="application/pdf"
-                    onChange={handleImageUploadPDF}
-                    className="bg-input border-border text-foreground"
-                    disabled={uploadingImage}
-                  />
-                  {uploadingPDF && (
-                    <p className="text-sm text-muted-foreground mt-1">
-                      <Upload className="w-4 h-4 inline mr-1" />
-                      Subiendo PDF...
-                    </p>
-                  )}
-                </div>
-              </div>
-              {formData.PDFIsoPath && (
-                <div className="mt-2">
-                  <p>PDFIsoPath: {formData.PDFIsoPath}</p>
-                </div>
-              )}
-            </div>
-
-            <div className="flex gap-4 pt-4 border-t border-border">
-              <Button
-                type="submit"
-                disabled={saving}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                {saving ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    {editingISO ? "Actualizando..." : "Publicando..."}
-                  </>
-                ) : (
-                  <>{editingISO ? "Actualizar" : "Publicar"} ISOS</>
-                )}
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={resetForm}
-                disabled={saving}
-                className="border-border text-foreground hover:bg-muted bg-transparent"
-              >
-                Cancelar
-              </Button>
-            </div>
-          </form>
-        </ModalNormativa>
-
-        <div className="grid gap-6">
-          <h2 className="text-2xl font-semibold text-foreground">
-            ISOS Publicados
-          </h2>
-
-          {ISOs.length === 0 ? (
-            <Card className="border-border">
-              <CardContent className="p-12 text-center bg-card">
-                <BookOpen className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium text-card-foreground mb-2">
-                  No hay ISOS
-                </h3>
-                <p className="text-muted-foreground">
-                  Comienza escribiendo tu primer ISOS del ISO
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-4">
-              {ISOs.map((ISO) => (
-                <Card key={ISO.id} className="border-border">
-                  <CardContent className="p-6 bg-card">
-                    <div className="flex gap-6">
-                      <div className="flex-shrink-0">
-                        <img
-                          src={ISO.imagen || ""}
-                          alt={ISO.titulo}
-                          className="w-40 h-28 object-cover rounded-lg border border-border"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-card-foreground mb-2">
-                          {ISO.titulo}
-                        </h3>
-                        <p className="text-muted-foreground text-sm mb-3">
-                          Publicado el{" "}
-                          {ISO.createdAt?.toLocaleDateString() ||
-                            "Fecha no disponible"}
-                        </p>
-                        <div
-                          className="text-card-foreground line-clamp-3"
-                          dangerouslySetInnerHTML={{
-                            __html: renderFormattedContent(ISO.contenido),
-                          }}
-                        />
-                        <div className="mt-3">
-                          <span className="inline-block bg-secondary/20 text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                            ISOS de ISO
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleEdit(ISO)}
-                          className="border-border text-foreground hover:bg-muted"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleDelete(ISO.id)}
-                          className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="imagen" className="text-foreground">
+                      Imagen ISO
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="imagen"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileChange(e, "imagen")}
+                        className="bg-muted border-input text-foreground file:bg-secondary file:text-secondary-foreground file:border-0 file:rounded-md file:px-3 file:py-1 file:mr-3"
+                        required={!editingISO}
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="pdf" className="text-foreground">
+                      PDF ISO
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="pdf"
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => handleFileChange(e, "pdf")}
+                        className="bg-muted border-input text-foreground file:bg-secondary file:text-secondary-foreground file:border-0 file:rounded-md file:px-3 file:py-1 file:mr-3"
+                        required={!editingISO}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                    >
+                      {loading
+                        ? "Guardando..."
+                        : editingISO
+                        ? "Actualizar ISO"
+                        : "Publicar ISO"}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsModalOpen(false)}
+                      className="flex-1 border-border text-foreground hover:bg-accent"
+                    >
+                      Cancelar
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
+      </div>
+
+      {/* Content */}
+      <div className="container mx-auto px-6 py-8">
+        {isos.length === 0 ? (
+          <Card className="text-center py-12 bg-card border-border">
+            <CardContent>
+              <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
+                No hay ISOs registrados
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Comienza agregando tu primer documento ISO
+              </p>
+              <Button
+                onClick={openModal}
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Crear primer ISO
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {isos.map((iso) => (
+              <Card
+                key={iso.id}
+                className="bg-card border-border hover:shadow-lg transition-shadow"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-lg text-foreground line-clamp-2">
+                      {iso.nombre}
+                    </CardTitle>
+                    <Badge
+                      variant="secondary"
+                      className="bg-secondary text-secondary-foreground"
+                    >
+                      ISO
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {/* Preview de imagen */}
+                  {iso.imagenURL && (
+                    <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                      <img
+                        src={iso.imagenURL || "/placeholder.svg"}
+                        alt={iso.nombre}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+
+                  {/* Información */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <ImageIcon className="w-4 h-4" />
+                      <span>Imagen incluida</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <FileText className="w-4 h-4" />
+                      <span>PDF disponible</span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Creado:{" "}
+                      {new Date(iso.fechaCreacion).toLocaleDateString("es-ES")}
+                    </div>
+                  </div>
+
+                  {/* Acciones */}
+                  <div className="flex gap-2 pt-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(iso.pdfURL, "_blank")}
+                      className="flex-1 border-border text-foreground hover:bg-accent"
+                    >
+                      <Download className="w-4 h-4 mr-1" />
+                      Ver PDF
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleEdit(iso)}
+                      className="border-border text-foreground hover:bg-accent"
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDelete(iso)}
+                      className="border-border text-destructive hover:bg-destructive/10"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

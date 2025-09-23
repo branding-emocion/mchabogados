@@ -25,7 +25,7 @@ import useAuthState from "@/lib/useAuthState";
 import { auth, db } from "@/firebase/firebaseClient";
 
 export function EscritosDataTable() {
-  const [{ user }, loading] = useAuthState(auth);
+  const [{ user, claims }, loading] = useAuthState(auth);
   const [escritos, setEscritos] = useState([]);
   const [expedientes, setExpedientes] = useState([]);
   const [filteredEscritos, setFilteredEscritos] = useState([]);
@@ -39,18 +39,39 @@ export function EscritosDataTable() {
 
     const loadExpedientes = async () => {
       try {
-        const q = query(
-          collection(db, "expedientes"),
-          where("correos", "array-contains", `${user.email}`)
-        );
-        const snapshot = await getDocs(q);
-        const expedientesData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        setLoading(true);
+        const expedientesRef = collection(db, "expedientes");
+
+        let q = null;
+
+        if (claims?.isAdmin || claims?.isSuperAdmin) {
+          q = query(expedientesRef, orderBy("creacion", "desc"));
+        } else {
+          q = query(
+            collection(db, "expedientes"),
+            where("correos", "array-contains", `${user.email}`)
+          );
+        }
+        const querySnapshot = await getDocs(q);
+
+        const expedientesData = [];
+        querySnapshot.forEach((doc) => {
+          expedientesData.push({
+            id: doc.id,
+            ...doc.data(),
+            // Convertir timestamps de Firestore a strings para el frontend
+            creacion:
+              doc.data().creacion?.toDate?.()?.toISOString() ||
+              doc.data().creacion,
+          });
+        });
+
         setExpedientes(expedientesData);
       } catch (error) {
         console.error("Error loading expedientes:", error);
+        toast("No se pudieron cargar los expedientes");
+      } finally {
+        setLoading(false);
       }
     };
 

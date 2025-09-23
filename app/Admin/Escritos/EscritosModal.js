@@ -172,7 +172,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="h-auto w-[90%] md:w-full max-h-[95vh] overflow-auto sm:max-w-4xl">
         <DialogHeader>
           <DialogTitle>Agregar Nuevo Escrito</DialogTitle>
         </DialogHeader>

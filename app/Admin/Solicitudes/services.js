@@ -80,13 +80,10 @@ export const getSolicitudes = async (filters = {}, userRole, userId) => {
   try {
     let q = collection(db, COLLECTION_NAME);
 
-    console.log("userRole", userRole);
-    console.log("filters", filters);
-
     // Apply role-based filtering
     if (userRole == "cliente") {
       // Clients only see their own solicitudes
-      q = query(q, where("userId", "==", userId));
+      q = query(q, where("userId", "==", `${userId}`));
     }
     // superAdmin sees all solicitudes (no additional filter needed)
 
@@ -182,8 +179,9 @@ export const sendNotificationToAdmins = async (message, solicitudId) => {
 export const getNotifications = async (userRole, userId) => {
   try {
     let q = collection(db, "notifications");
+    console.log("userRole", userRole);
 
-    if (userRole === "superAdmin") {
+    if (userRole == "superAdmin" || userRole == "admin") {
       // Admins get notifications targeted to their role
       q = query(
         q,
