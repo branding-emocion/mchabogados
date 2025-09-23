@@ -39,7 +39,7 @@ const NormativaSection = () => {
 
   if (loading) {
     return (
-      <section className="py-16 px-4 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <Skeleton className="h-10 w-80 mx-auto mb-4" />
@@ -85,7 +85,7 @@ const NormativaSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-black mb-4 uppercase">
             Normativas ISO
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

@@ -130,18 +130,18 @@ export default function BannerAdmin() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-cyan-600">
-          Administrar Banners
-        </h1>
-        <Button
-          onClick={() => setIsCreating(true)}
-          className="bg-pink-500 hover:bg-pink-600 text-white"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Nuevo Banner
-        </Button>
-      </div>
+      <header className="bg-[#a57f3e]  shadow-md">
+        <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
+          <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
+            Administrar Banners
+          </h1>
+
+          <Button onClick={() => setIsCreating(true)} className="  text-white">
+            <Plus className="w-4 h-4 mr-2" />
+            Nuevo Banner
+          </Button>
+        </div>
+      </header>
 
       {(isCreating || editingBanner) && (
         <Card className="border-2 border-cyan-200">

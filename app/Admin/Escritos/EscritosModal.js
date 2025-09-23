@@ -166,10 +166,18 @@ export function AddEscritoModal({ onEscritoAdded }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <PlusIcon className="h-4 w-4 mr-2" />
-          Agregar Escrito
-        </Button>
+        <header className="bg-[#a57f3e]  shadow-md">
+          <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
+            <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
+              Escritos{" "}
+            </h1>
+
+            <Button className={"uppercase"}>
+              <PlusIcon className="h-4 w-4 mr-2" />
+              Agregar Escrito
+            </Button>
+          </div>
+        </header>
       </DialogTrigger>
 
       <DialogContent className="h-auto w-[90%] md:w-full max-h-[95vh] overflow-auto sm:max-w-4xl">

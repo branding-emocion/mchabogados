@@ -74,17 +74,23 @@ export default function SolicitudesPage() {
     <div className="min-h-screen bg-background">
       <Toaster position="top-right" richColors />
 
-      <div className="container mx-auto py-8 px-4">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Sistema de Gestión de Solicitudes
+      {/* <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground mb-2">
+          Sistema de Gestión de Solicitudes
+        </h1>
+        <p className="text-muted-foreground">
+          Gestiona solicitudes de arbitraje de manera eficiente y profesional
+          {isAdmin ? " - Panel de Administrador" : " - Panel de Cliente"}
+        </p>
+      </div> */}
+      <header className="bg-[#a57f3e]  shadow-md">
+        <div className="container w-full  mx-auto px-5 py-11 flex items-center ">
+          <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
+            Solicitudes{" "}
           </h1>
-          <p className="text-muted-foreground">
-            Gestiona solicitudes de arbitraje de manera eficiente y profesional
-            {isAdmin ? " - Panel de Administrador" : " - Panel de Cliente"}
-          </p>
         </div>
-
+      </header>
+      <div className="container mx-auto py-8 px-4 ">
         <Tabs defaultValue="solicitudes" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 lg:w-96">
             <TabsTrigger

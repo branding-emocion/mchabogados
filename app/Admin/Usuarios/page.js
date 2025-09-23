@@ -279,33 +279,30 @@ const Usuarios = () => {
         <ModalUsuarios OpenModal={OpenModal} setOpenModal={setOpenModal} />
       )}
       <div className="space-y-6">
-        <Card className="shadow-md">
-          <CardHeader>
-            <CardTitle>Bienvenido al módulo de usuarios</CardTitle>
+        <header className="bg-[#a57f3e]  shadow-md">
+          <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
+            <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
+              usuarios{" "}
+            </h1>
 
-            <CardDescription>
-              En esta sección, puedes ver y modificar usuarios.
-            </CardDescription>
-            <div>
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log(e);
-                  setOpenModal({
-                    Visible: true,
-                    InfoEditar: {},
-                  });
-                }}
-                className="space-x-2"
-              >
-                <BadgePlus />
-                <p>Agregar nuevo </p>
-              </Button>
-            </div>
-          </CardHeader>
-        </Card>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(e);
+                setOpenModal({
+                  Visible: true,
+                  InfoEditar: {},
+                });
+              }}
+              className="space-x-2"
+            >
+              <BadgePlus />
+              <p>Agregar nuevo </p>
+            </Button>
+          </div>
+        </header>
 
-        <Card className="shadow-md">
+        <Card className="shadow-md container mx-auto">
           <CardHeader>
             <CardTitle>Lista de Usuarios</CardTitle>
           </CardHeader>

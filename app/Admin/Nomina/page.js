@@ -180,16 +180,14 @@ export default function NominaAdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-6">
+      <div className="bg-[#a57f3e] shadow-sm border-b">
+        <div className="container mx-auto px-4 py-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Users className="h-8 w-8 text-blue-600 mr-3" />
+              <Users className="h-8 w-8 text-white mr-3" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  Administración de Nómina
-                </h1>
-                <p className="text-gray-600">
+                <h1 className="text-2xl font-bold text-white">Nómina</h1>
+                <p className="text-white">
                   Total de empleados: {totalEmpleados}
                 </p>
               </div>

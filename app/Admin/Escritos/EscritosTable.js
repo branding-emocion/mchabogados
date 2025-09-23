@@ -39,7 +39,7 @@ export function EscritosDataTable() {
 
     const loadExpedientes = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const expedientesRef = collection(db, "expedientes");
 
         let q = null;
@@ -71,7 +71,7 @@ export function EscritosDataTable() {
         console.error("Error loading expedientes:", error);
         toast("No se pudieron cargar los expedientes");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 

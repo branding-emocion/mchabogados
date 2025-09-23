@@ -170,7 +170,7 @@ export default function ExpedientesModule() {
   return (
     <div className="space-y-6">
       {/* Header con botón de nuevo expediente */}
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold">Gestión de Expedientes</h2>
           <p className="text-muted-foreground">
@@ -186,10 +186,25 @@ export default function ExpedientesModule() {
             Nuevo Expediente
           </Button>
         )}
-      </div>
-
+      </div> */}
+      <header className="bg-[#a57f3e]  shadow-md">
+        <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
+          <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
+            Expedientes{" "}
+          </h1>
+          {(claims?.isAdmin || claims?.isSuperAdmin) && (
+            <Button
+              onClick={handleNewExpediente}
+              className="flex items-center gap-2 hover:cursor-pointer  "
+            >
+              <Plus className="h-4 w-4" />
+              Nuevo Expediente
+            </Button>
+          )}
+        </div>
+      </header>
       {/* Filtros */}
-      <Card>
+      <Card className={"container mx-auto"}>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Search className="h-5 w-5" />
@@ -236,7 +251,7 @@ export default function ExpedientesModule() {
       </Card>
 
       {/* Tabla de expedientes */}
-      <Card>
+      <Card className={"container mx-auto"}>
         <CardHeader>
           <CardTitle>Expedientes ({filteredExpedientes.length})</CardTitle>
         </CardHeader>

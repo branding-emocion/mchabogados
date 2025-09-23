@@ -48,8 +48,10 @@ export default function EscritosPage() {
   }
 
   return (
-    <div className="container mx-auto py-8 space-y-6">
-      <div className="flex items-center justify-between">
+    <div>
+      <AddEscritoModal onEscritoAdded={handleEscritoAdded} />
+
+      {/* <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <FileTextIcon className="h-8 w-8 text-primary" />
           <div>
@@ -59,11 +61,11 @@ export default function EscritosPage() {
             </p>
           </div>
         </div>
+      </div> */}
 
-        <AddEscritoModal onEscritoAdded={handleEscritoAdded} />
+      <div className="container mx-auto py-8  ">
+        <EscritosDataTable key={refreshKey} />
       </div>
-
-      <EscritosDataTable key={refreshKey} />
     </div>
   );
 }

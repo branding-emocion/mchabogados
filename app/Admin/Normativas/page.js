@@ -174,16 +174,13 @@ export default function ISOAdmin() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b border-border bg-card">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-semibold text-foreground">
-                Administración de ISOs
+      <div className="border-b border-border bg-[#a57f3e]">
+        <div className="container mx-auto px-6 py-11">
+          <div className="flex  items-center justify-between">
+            <div className="">
+              <h1 className="text-2xl font-semibold  text-white uppercase">
+                Administración de ISOS
               </h1>
-              <p className="text-sm text-muted-foreground mt-1">
-                Gestiona los documentos ISO de tu organización
-              </p>
             </div>
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
               <DialogTrigger asChild>

@@ -18,6 +18,7 @@ import { signOut } from "firebase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePathname, useRouter } from "next/navigation";
 import SoloClientes from "./SoloClients";
+import Image from "next/image";
 
 const DashboardLayout = ({ children }) => {
   const [{ user, claims }, loading, error] = useAuthState(auth);
@@ -98,26 +99,24 @@ const DashboardLayout = ({ children }) => {
           <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
             <ul className="flex flex-col py-6 space-y-1">
               <li>
-                <div className="flex flex-row items-center h-14 focus:outline-none text-white border-l-4 border-transparent px-6 mb-4">
-                  <div className="inline-flex justify-center items-center">
-                    <Avatar className="h-8 w-8 lg:w-10 lg:h-10 ring-2 ring-gray-600">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback className="bg-gray-700 text-white">
-                        {user?.displayName?.charAt(0) || "A"}
-                      </AvatarFallback>
-                    </Avatar>
+                <div className="grid grid-cols-1 gap-y-4 items-center h-14 focus:outline-none text-white border-l-4 border-transparent px-6 mb-4">
+                  <div className="   rounded-full flex items-center justify-center">
+                    <Image
+                      src="/LOGO.png"
+                      alt="logo"
+                      width={372}
+                      height={97}
+                      className="object-cover"
+                    />{" "}
                   </div>
-                  <span className="ml-3 text-sm font-medium tracking-wide truncate">
-                    {user?.displayName || "Admin"}
-                  </span>
                 </div>
               </li>
 
               <li className="px-6 hidden md:block mb-2">
-                <div className="flex flex-row items-center h-8">
-                  <div className="text-xs font-semibold tracking-wider text-gray-400 uppercase border-b border-white pb-2 w-full">
-                    Dashboard
-                  </div>
+                <div className="flex flex-row items-center h-8 border-b border-white">
+                  <p className="text-[15px] font-semibold flex justify-center tracking-wider text-gray-400 uppercase  pb-2 w-full">
+                    {user?.displayName || "Admin"}
+                  </p>
                 </div>
               </li>
 
@@ -135,7 +134,7 @@ const DashboardLayout = ({ children }) => {
                         <span className="inline-flex justify-center items-center text-gray-400 group-hover:text-white">
                           {men.icon}
                         </span>
-                        <span className="ml-3 text-sm font-medium tracking-wide truncate">
+                        <span className="ml-3 text-sm font-medium tracking-wide truncate ">
                           {men.name}
                         </span>
 
@@ -177,7 +176,7 @@ const DashboardLayout = ({ children }) => {
           </div>
         </div>
         {/* ./Sidebar */}
-        <div className="ml-14 mb-6 md:ml-64 p-6">{children}</div>
+        <div className="ml-14  md:ml-64 ">{children}</div>
       </div>
     </div>
   );
