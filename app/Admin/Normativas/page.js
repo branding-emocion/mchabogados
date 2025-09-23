@@ -8,7 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Plus, Edit, Trash2, BookOpen, Upload, Loader2 } from "lucide-react";
 
 import ModalNormativa from "@/components/ModalNormativa";
-import { getISOs, uploadImage, uploadImagePDF } from "@/lib/BlogISOS";
+import {
+  createISO,
+  getISOs,
+  updateISO,
+  uploadImage,
+  uploadImagePDF,
+} from "@/lib/BlogISOS";
 
 export default function AdminISO() {
   const [ISOs, setISOs] = useState([]);
@@ -85,7 +91,7 @@ export default function AdminISO() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.titulo.trim() || !formData.contenido.trim()) {
+    if (!formData.titulo.trim()) {
       alert("Por favor completa todos los campos requeridos");
       return;
     }

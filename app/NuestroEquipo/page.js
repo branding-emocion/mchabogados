@@ -99,7 +99,7 @@ export default function NuestroEquipo() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
-              Consejo Superior de Arbitraje
+              Secretaria Arbitral{" "}
             </h2>
             {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Profesionales altamente calificados que lideran nuestro centro de

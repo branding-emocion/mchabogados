@@ -8,22 +8,27 @@ const Footer = () => {
 
   const footerLinks = {
     servicios: [
-      { name: "Derecho Corporativo", href: "#" },
-      { name: "Derecho Civil", href: "#" },
-      { name: "Derecho Penal", href: "#" },
       { name: "Arbitraje", href: "#" },
+      {
+        name: "Arbitraje de emergencia",
+        href: "/AsesoriaLegal/ArbitrajeEmergencia",
+      },
+      {
+        name: "Arbitraje entre privados",
+        href: "/AsesoriaLegal/EntrePrivados",
+      },
+      { name: "Recusación", href: "/AsesoriaLegal/Recusacion" },
     ],
     empresa: [
-      { name: "Nosotros", href: "#" },
-      { name: "Equipo", href: "#" },
-      { name: "Casos de Éxito", href: "#" },
-      { name: "Blog", href: "#" },
+      { name: "NuestroEquipo", href: "/NuestroEquipo" },
+      { name: "Banco de Laudos", href: "/Laudos" },
+      { name: "Contacto", href: "/Contacto" },
     ],
     legal: [
-      { name: "Política de Privacidad", href: "#" },
-      { name: "Términos de Servicio", href: "#" },
-      { name: "Aviso Legal", href: "#" },
-      { name: "Cookies", href: "#" },
+      // { name: "Política de Privacidad", href: "#" },
+      // { name: "Términos de Servicio", href: "#" },
+      // { name: "Aviso Legal", href: "#" },
+      // { name: "Cookies", href: "#" },
     ],
   };
 
@@ -35,7 +40,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-black text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
