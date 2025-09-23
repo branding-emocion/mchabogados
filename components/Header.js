@@ -38,8 +38,8 @@ const Header = () => {
     },
     { name: "Arbitraje entre privados", href: "/AsesoriaLegal/EntrePrivados" },
     {
-      name: "Recusación",
-      href: "/AsesoriaLegal/Recusacion",
+      name: "Arbitraje Express",
+      href: "/AsesoriaLegal/ArbitrajeExpress",
     },
   ];
 

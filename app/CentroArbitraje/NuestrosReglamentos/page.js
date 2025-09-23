@@ -7,16 +7,16 @@ export default function NuestrosReglamentosPage() {
   const regulations = [
     {
       title: "Reglamento de Arbitraje",
-      href: "/pdfs/reglamento-arbitraje.pdf",
+      href: "/pdfs/Arbitral.pdf",
     },
     {
       title: "Reglamento de Arbitraje de Emergencia",
-      href: "/pdfs/reglamento-arbitraje-emergencia.pdf",
+      href: "/pdfs/Emergencia.pdf",
     },
-    { title: "Código de Ética", href: "/pdfs/codigo-etica.pdf" },
+    { title: "Código de Ética", href: "/pdfs/Etica.pdf" },
     {
       title: "Reglamento de Arbitraje Express",
-      href: "/pdfs/reglamento-arbitraje-express.pdf",
+      href: "/pdfs/Express.pdf",
     },
   ];
 
@@ -24,12 +24,12 @@ export default function NuestrosReglamentosPage() {
     {
       title: "Directiva N°001-2024",
       description: "Regulación sobre la Nómina de Árbitros",
-      href: "/pdfs/directiva-001-2024.pdf",
+      href: "/pdfs/001.pdf",
     },
     {
       title: "Directiva N°002-2024",
       description: "Recusación de Árbitros",
-      href: "/pdfs/directiva-002-2024.pdf",
+      href: "/pdfs/002.pdf",
     },
   ];
 
@@ -93,7 +93,7 @@ export default function NuestrosReglamentosPage() {
                 href={regulation.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-500 text-white py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="bg-[#b39306]   text-white py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -138,7 +138,7 @@ export default function NuestrosReglamentosPage() {
                     href={directive.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-[#0f172b] text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                    className="inline-flex items-center gap-2 bg-[#b39306]  text-white px-4 py-2 rounded-lg transition-colors duration-300"
                   >
                     <Download size={16} />
                     Descargar
@@ -166,10 +166,10 @@ export default function NuestrosReglamentosPage() {
                 arbitrajes en nuestra institución.
               </p>
               <a
-                href="/pdfs/tabla-pagos-aranceles.pdf"
+                href="/pdfs/Tabla.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-[#0f172b] text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                className="inline-flex items-center gap-2 bg-[#b39306]  text-white px-4 py-2 rounded-lg transition-colors duration-300"
               >
                 <Download size={16} />
                 Descargar

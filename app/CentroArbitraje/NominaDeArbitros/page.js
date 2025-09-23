@@ -100,7 +100,7 @@ export default function NominaClient() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
               NÓMINA DE ÁRBITROS
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+            <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
         </div>
       </section>

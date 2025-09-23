@@ -24,11 +24,10 @@ export default function PresentacionPage() {
             className="text-white"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
-              CENTRO DE
+              CENTRO DE PRESENTACIÓN
               <br />
-              <span className="text-primary">ARBITRAJE</span>
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+            <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               MCH ABOGADOS - Resolución especializada de controversias a través
               de arbitraje, brindando un servicio integral y confidencial en

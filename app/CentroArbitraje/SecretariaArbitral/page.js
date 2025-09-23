@@ -1,8 +1,9 @@
 "use client";
 
+import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-export default function ClausulaArbitralPage() {
+export default function SecretariaArbitral() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -22,9 +23,8 @@ export default function ClausulaArbitralPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
-              CLÁUSULA ARBITRAL
-              <br />
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif uppercase">
+              secretaría arbitral <br />
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
@@ -41,17 +41,26 @@ export default function ClausulaArbitralPage() {
             className="text-center"
           >
             <h2 className="text-3xl font-bold mb-8 text-primary uppercase">
-              Cláusula Arbitral Modelo
+              ¿Qué es la Secretaría Arbitral?{" "}
             </h2>
-            <p className="text-lg text-gray-600">
-              &quot;Las partes acuerdan que todo litigio y controversia
-              resultante de este contrato o relativo a éste, se resolverá
-              mediante el arbitraje organizado y administrado por MCH ABOGADOS
-              S.A.C. con numero de RUC: 20613091158, de conformidad con sus
-              reglamentos y directivas vigentes, a los cuales las partes se
-              someten libremente, señalando que el laudo que se emita en el
-              proceso será inapelable y definitivo.”
-            </p>
+            <Card className="mb-8">
+              <CardContent className="p-8">
+                <p className="text-lg leading-relaxed mb-6">
+                  La <strong>Secretaría Arbitral</strong> es el servicio
+                  administrativo especializado que brinda soporte integral a los
+                  procesos de arbitraje. Actúa como el centro operativo que
+                  coordina, gestiona y administra todos los aspectos
+                  procedimentales del arbitraje, desde su inicio hasta la
+                  emisión del laudo arbitral.
+                </p>
+                <p className="text-lg leading-relaxed">
+                  Nuestro equipo de profesionales especializados garantiza que
+                  cada proceso arbitral se desarrolle de manera eficiente,
+                  transparente y conforme a la normativa vigente, proporcionando
+                  el soporte necesario tanto a las partes como a los árbitros.
+                </p>
+              </CardContent>
+            </Card>
           </motion.div>
         </div>
       </main>

@@ -8,7 +8,10 @@ const Footer = () => {
 
   const footerLinks = {
     servicios: [
-      { name: "Arbitraje", href: "#" },
+      {
+        name: "Arbitraje en contratación pública",
+        href: "/AsesoriaLegal/ContratacionPublica",
+      },
       {
         name: "Arbitraje de emergencia",
         href: "/AsesoriaLegal/ArbitrajeEmergencia",
@@ -17,10 +20,10 @@ const Footer = () => {
         name: "Arbitraje entre privados",
         href: "/AsesoriaLegal/EntrePrivados",
       },
-      { name: "Recusación", href: "/AsesoriaLegal/Recusacion" },
+      { name: "Arbitraje Express", href: "/AsesoriaLegal/Express" },
     ],
     empresa: [
-      { name: "NuestroEquipo", href: "/NuestroEquipo" },
+      { name: "Nuestro Equipo", href: "/NuestroEquipo" },
       { name: "Banco de Laudos", href: "/Laudos" },
       { name: "Contacto", href: "/Contacto" },
     ],
