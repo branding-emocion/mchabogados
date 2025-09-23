@@ -214,6 +214,17 @@ const Header = () => {
                   COTIZAR
                 </Button>
               </Link>
+              <Link href="/Cotizar">
+                <Button
+                  className={`px-6 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:cursor-pointer ${
+                    isScrolled
+                      ? "bg-primary text-white hover:bg-primary/90 hover:shadow-xl"
+                      : "bg-white text-primary hover:bg-white/90 hover:shadow-xl  "
+                  }`}
+                >
+                  MESA DE PARTES AURUS
+                </Button>
+              </Link>
 
               {/* Mobile Menu Button */}
               <motion.button

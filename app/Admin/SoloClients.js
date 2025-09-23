@@ -82,7 +82,7 @@ export default function SoloClientes({ user }) {
             <h2 className="text-[#b39306] text-3xl font-bold tracking-wider">
               MESA DE PARTES AURUS
             </h2>
-            <p className="text-amber-400 text-lg">
+            <p className="text-amber-400 text-lg uppercase">
               Bienvenido: {user?.displayName}
             </p>
           </div>

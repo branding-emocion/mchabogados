@@ -41,15 +41,9 @@ const Usuarios = () => {
         },
       }).then((res) => res.json());
 
-      toast({
-        title: "Eliminación de usuario",
-        description: DeleteUser?.body || "",
-      });
+      toast(`Usuario eliminado exitosamente`);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: error?.body || "",
-      });
+      toast(error?.body);
       console.log("error", error);
     }
   };
@@ -71,16 +65,9 @@ const Usuarios = () => {
       // if (InhabilitarUsuario.body) {
       //   fetchData();
       // }
-      toast({
-        title: "Inhabiltar",
-        description: InhabilitarUsuario?.body || "",
-        NombreCompleto: displayName,
-      });
+      toast(`Usuario inhabilitado exitosamente`);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: error?.body || "",
-      });
+      toast(error?.body);
       console.log("error", error);
     }
   };
@@ -102,15 +89,9 @@ const Usuarios = () => {
       if (HabilitarUsuario.body) {
         // fetchData();
       }
-      toast({
-        title: "Habiltar",
-        description: HabilitarUsuario?.body || "",
-      });
+      toast(HabilitarUsuario?.body || "");
     } catch (error) {
-      toast({
-        title: "Error",
-        description: error?.body || "",
-      });
+      toast(error?.body || "");
       console.log("error", error);
     }
   };

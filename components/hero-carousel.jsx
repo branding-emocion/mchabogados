@@ -232,20 +232,20 @@ const HeroCarousel = () => {
                     <Link href="/Contacto">
                       <Button
                         size="lg"
-                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 uppercase"
                       >
                         Solicitar Consulta
                       </Button>
                     </Link>
                   )}
 
-                  <Link href="/NuestroEquipo">
+                  <Link href="/Admin">
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300"
+                      className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:cursor-pointer"
                     >
-                      Nuestro Equipo
+                      MESA DE PARTES AURUS
                     </Button>
                   </Link>
                 </motion.div>

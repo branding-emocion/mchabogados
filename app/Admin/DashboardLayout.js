@@ -114,7 +114,7 @@ const DashboardLayout = ({ children }) => {
 
               <li className="px-6 hidden md:block mb-2">
                 <div className="flex flex-row items-center h-8 border-b border-white">
-                  <p className="text-[15px] font-semibold flex justify-center tracking-wider text-gray-400 uppercase  pb-2 w-full">
+                  <p className="text-[15px] font-semibold flex justify-center tracking-wider text-gray-4100 uppercase  pb-2 w-full">
                     {user?.displayName || "Admin"}
                   </p>
                 </div>
@@ -168,7 +168,7 @@ const DashboardLayout = ({ children }) => {
               <p className="mb-6 px-6 py-2 hidden md:block text-center text-xs text-white font-medium">
                 © {new Date().getFullYear()} - {new Date().getFullYear() + 1}
                 <br />
-                <span className="text-gray-600">
+                <span className="text-gray-100">
                   Todos los derechos reservados
                 </span>
               </p>
