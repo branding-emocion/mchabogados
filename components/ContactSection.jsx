@@ -22,14 +22,13 @@ export function ContactSection() {
             derecho civil. Contáctenos para una consulta personalizada.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary">
+            <Button size="lg" className={"uppercase"} variant="secondary">
               <Link href="/Contacto">Contacto </Link>
             </Button>
             <Button
-              asChild
               size="lg"
               variant="outline"
-              className="bg-transparent border-white text-white hover:bg-white hover:text-primary"
+              className="bg-transparent border-white text-white hover:bg-white hover:text-primary uppercase"
             >
               <Link href="/Cotizar">Cotizar Servicios</Link>
             </Button>

@@ -74,7 +74,7 @@ const ServicesSection = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={
               isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
@@ -97,12 +97,12 @@ const ServicesSection = () => {
 
         {/* Services Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2   gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {services.map((service, index) => (
+          {services?.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
               <Card className="h-full bg-white hover:shadow-xl transition-all duration-300 border-0 shadow-md group cursor-pointer">
                 <CardContent className="p-8 text-center">
@@ -116,7 +116,7 @@ const ServicesSection = () => {
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300 uppercase">
                     {service.title}
                   </h3>
 
@@ -131,7 +131,7 @@ const ServicesSection = () => {
                     initial={{ width: 0 }}
                     whileHover={{ width: 64 }}
                   />
-                  <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4">
+                  <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 uppercase">
                     <span className="text-primary font-medium text-sm">
                       Ver más →
                     </span>
@@ -150,7 +150,7 @@ const ServicesSection = () => {
         >
           <motion.a
             href="/AsesoriaLegal"
-            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors duration-300"
+            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors duration-300 uppercase"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

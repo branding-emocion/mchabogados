@@ -100,7 +100,7 @@ const TeamSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
             Nuestro Equipo
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -117,7 +117,7 @@ const TeamSection = () => {
         >
           <motion.a
             href="/NuestroEquipo"
-            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors duration-300"
+            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors duration-300 uppercase"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -75,20 +75,11 @@ export default function SoloClientes({ user }) {
                 />{" "}
               </div>
             </div>
-
-            <div className="space-y-2">
-              <p className="text-amber-400 text-sm tracking-widest">
-                CENTRO DE ARBITRAJE
-              </p>
-              <p className="text-amber-400 text-sm tracking-widest">
-                Y ASESORÍA LEGAL
-              </p>
-            </div>
           </div>
 
           {/* Main title */}
           <div className="text-center space-y-2">
-            <h2 className="text-amber-500 text-3xl font-bold tracking-wider">
+            <h2 className="text-[#b39306] text-3xl font-bold tracking-wider">
               MESA DE PARTES AURUS
             </h2>
             <p className="text-amber-400 text-lg">
@@ -98,8 +89,8 @@ export default function SoloClientes({ user }) {
 
           {/* Navigation buttons */}
           <div className="space-y-4">
-            <Link href="/solicitudes-arbitraje" className="block">
-              <Button className="w-full bg-amber-500 hover:bg-amber-600 hover:text-white text-black font-semibold py-4 text-lg rounded-lg flex items-center justify-between">
+            <Link href="/Admin/Solicitudes" className="block">
+              <Button className="w-full bg-[#b39306] hover:bg-amber-600 hover:cursor-pointer hover:text-white text-black font-semibold py-6 text-lg rounded-lg flex items-center justify-between">
                 SOLICITUDES DE ARBITRAJE
                 <ChevronRight className="w-5 h-5" />
               </Button>
@@ -108,20 +99,20 @@ export default function SoloClientes({ user }) {
             <Link href="/Admin/Escritos" className="block">
               <Button
                 variant="outline"
-                className="w-full border-amber-500 text-amber-500 hover:text-white hover:bg-amber-500/10 font-semibold py-4 text-lg rounded-lg flex items-center justify-between bg-transparent"
+                className="w-full border-[#b39306] text-[#b39306] hover:cursor-pointer hover:text-white hover:bg-[#b39306]/10 font-semibold py-6 text-lg rounded-lg flex items-center justify-between bg-transparent"
               >
                 ESCRITOS
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-[#b39306] rounded-full"></div>
               </Button>
             </Link>
 
             <Link href="/Admin/Expedientes" className="block">
               <Button
                 variant="outline"
-                className="w-full border-amber-500 text-amber-500 hover:text-white hover:bg-amber-500/10 font-semibold py-4 text-lg rounded-lg flex items-center justify-between bg-transparent"
+                className="w-full border-[#b39306] text-[#b39306] hover:cursor-pointer hover:text-white hover:bg-[#b39306]/10 font-semibold py-6 text-lg rounded-lg flex items-center justify-between bg-transparent"
               >
                 EXPEDIENTES ARBITRALES
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-[#b39306] rounded-full"></div>
               </Button>
             </Link>
           </div>
@@ -131,18 +122,18 @@ export default function SoloClientes({ user }) {
             <Button
               onClick={() => signOut(auth)}
               variant="outline"
-              className="flex-1 border-amber-600 hover:text-white text-amber-500 hover:bg-amber-500/10 py-3 bg-transparent"
+              className="flex-1 border-[#b39306] hover:text-white text-[#b39306] hover:bg-[#b39306]/10 py-6 bg-transparent uppercase"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Cerrar sesión
             </Button>
-            {/* <Button
+            <Button
               variant="outline"
-              className="flex-1 border-amber-600 text-amber-500 hover:bg-amber-500/10 py-3 bg-transparent"
+              className="flex-1 border-[#b39306] text-[#b39306] hover:cursor-pointer hover:text-white hover:bg-[#b39306]/10 py-6 bg-transparent"
             >
               <Settings className="w-4 h-4 mr-2" />
               Cambiar contraseña
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
