@@ -236,11 +236,10 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold mb-2 text-slate-800">
-                      Audiencia Expedita
+                      Audiencia
                     </h4>
                     <p className="text-gray-600 leading-relaxed">
-                      Audiencia virtual o presencial en máximo 5 días para
-                      escuchar a las partes.
+                      Audiencia virtual o presencial para escuchar a las partes.
                     </p>
                   </div>
                 </div>
