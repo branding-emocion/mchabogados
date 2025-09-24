@@ -19,6 +19,8 @@ export default function NominaClient() {
 
   const pageSize = 10;
 
+  console.log("empleados", empleados);
+
   useEffect(() => {
     loadEmpleados();
     loadTotalEmpleados();
@@ -134,7 +136,7 @@ export default function NominaClient() {
         <Card className="shadow-lg">
           <CardHeader className="bg-[#a5803d] text-white">
             <CardTitle className="text-2xl font-bold text-center">
-              REGISTRO DE NÓMINA
+              NÓMINA DE ÁRBITROS
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
@@ -170,36 +172,38 @@ export default function NominaClient() {
                       </tr>
                     </thead>
                     <tbody>
-                      {empleados.map((empleado, index) => (
-                        <tr
-                          key={empleado.id}
-                          className={`border-b hover:bg-amber-50 transition-colors ${
-                            index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                          }`}
-                        >
-                          <td className="px-6 py-4 font-medium text-[#a5803d]">
-                            {(currentPage - 1) * pageSize + index + 1}
-                          </td>
-                          <td className="px-6 py-4 font-medium uppercase">
-                            {empleado.nombre}
-                          </td>
-                          <td className="px-6 py-4">
-                            {empleado.cvUrl ? (
-                              <a
-                                href={empleado.cvUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-[#a5803d] hover:text-[#8a6b32] font-medium"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Descargar CV
-                              </a>
-                            ) : (
-                              <span className="text-gray-400">Sin CV</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                      {empleados
+                        .sort((a, b) => a.nombre.localeCompare(b.nombre)) // orden alfabético por nombre
+                        .map((empleado, index) => (
+                          <tr
+                            key={empleado.id}
+                            className={`border-b hover:bg-amber-50 transition-colors ${
+                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                            }`}
+                          >
+                            <td className="px-6 py-4 font-medium text-[#a5803d]">
+                              {(currentPage - 1) * pageSize + index + 1}
+                            </td>
+                            <td className="px-6 py-4 font-medium uppercase">
+                              {empleado.nombre}
+                            </td>
+                            <td className="px-6 py-4">
+                              {empleado.cvUrl ? (
+                                <a
+                                  href={empleado.cvUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-[#a5803d] hover:text-[#8a6b32] font-medium"
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  Descargar CV
+                                </a>
+                              ) : (
+                                <span className="text-gray-400">Sin CV</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -210,9 +214,9 @@ export default function NominaClient() {
                     <Button
                       onClick={loadMore}
                       disabled={loading}
-                      className="bg-[#a5803d] hover:bg-[#8a6b32]"
+                      className="bg-[#a5803d] hover:bg-[#8a6b32] uppercase hover:cursor-pointer"
                     >
-                      {loading ? "Cargando..." : "Cargar más empleados"}
+                      {loading ? "Cargando..." : "Cargar más"}
                     </Button>
                   </div>
                 )}

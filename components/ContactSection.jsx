@@ -15,22 +15,21 @@ export function ContactSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-6 uppercase">
-            ¿NECESITA ASESORÍA EN ARBITRAJE?
+            Licencia de funcionamiento
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Resuelva sus controversias con el respaldo de nuestros especialistas
-            .
+            Nuestra licencia de funcionamiento es su respaldo: trabajamos con
+            total legalidad, transparencia y compromiso hacia cada cliente. .
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className={"uppercase"} variant="secondary">
-              <Link href="/Contacto">Contacto </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-white text-white hover:bg-white hover:text-primary uppercase"
-            >
-              <Link href="/Cotizar">Cotizar Servicios</Link>
+              <a
+                href="/LicenciaFuncionamiento.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver Licencia
+              </a>
             </Button>
           </div>
         </motion.div>
