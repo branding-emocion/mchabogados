@@ -90,7 +90,7 @@ export default function ArbitrajeContratacionPublicaPage() {
             className="mb-20"
           >
             <div className="text-center mb-16">
-              <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4">
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4 uppercase">
                 Áreas de Especialización
               </h3>
               <div className="w-20 h-1 bg-primary mx-auto" />
@@ -151,7 +151,7 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="bg-slate-50 rounded-2xl p-8 lg:p-16">
               <div className="text-center mb-12">
-                <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4">
+                <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4 uppercase">
                   Ventajas del Arbitraje Público
                 </h3>
                 <div className="w-20 h-1 bg-primary mx-auto" />
@@ -211,55 +211,6 @@ export default function ArbitrajeContratacionPublicaPage() {
                   </ul>
                 </div>
               </div>
-            </div>
-          </motion.section>
-
-          {/* Contact Section */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-slate-900 text-white rounded-2xl p-8 lg:p-16"
-          >
-            <div className="text-center mb-12">
-              <h3 className="text-3xl md:text-4xl font-bold font-serif mb-4">
-                Consulte su Caso de Contratación Pública
-              </h3>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Nuestros especialistas en derecho administrativo están listos
-                para asesorarle en su controversia de contratación estatal.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <div className="text-center">
-                <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Teléfono</h4>
-                <p className="text-gray-300">+51 1 234-5678</p>
-              </div>
-              <div className="text-center">
-                <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Email</h4>
-                <p className="text-gray-300">mchabogados@legalmch.com</p>
-              </div>
-              <div className="text-center">
-                <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h4 className="text-lg font-semibold mb-2">Dirección</h4>
-                <p className="text-gray-300">
-                  Av. Larco 1234, Miraflores, Lima
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg"
-                asChild
-              >
-                <a href="/Contacto">Solicitar Consulta Especializada</a>
-              </Button>
             </div>
           </motion.section>
         </div>

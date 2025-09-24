@@ -58,7 +58,7 @@ export default function RecusacionPage() {
         <section className=" ">
           <div className="container mx-auto px-4">
             <div className="text-center ">
-              <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4 uppercase">
                 ¿Por qué elegir Arbitraje Express?
               </h2>
               <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">
@@ -140,7 +140,7 @@ export default function RecusacionPage() {
         <section className="py-20 lg:py-28 bg-accent/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4 uppercase">
                 Proceso Simple y Eficiente
               </h2>
               <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">

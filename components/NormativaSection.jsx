@@ -106,7 +106,7 @@ const NormativaSection = () => {
                     <img
                       src={iso.imagenURL || ""}
                       alt={iso.nombre}
-                      className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+                      className="w-full h-48 object-contain aspect-square transition-transform duration-300 hover:scale-105"
                     />
                   </div>
                 )}
@@ -133,7 +133,7 @@ const NormativaSection = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 bg-transparent"
+                      className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 bg-transparent hover:cursor-pointer"
                     >
                       Ver detalles
                     </Button>

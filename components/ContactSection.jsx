@@ -14,12 +14,12 @@ export function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Necesita Asesoría en Derecho Civil?
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 uppercase">
+            ¿NECESITA ASESORÍA EN ARBITRAJE?
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Proteja sus derechos con el respaldo de nuestros especialistas en
-            derecho civil. Contáctenos para una consulta personalizada.
+            Resuelva sus controversias con el respaldo de nuestros especialistas
+            .
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className={"uppercase"} variant="secondary">

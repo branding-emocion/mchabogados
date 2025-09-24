@@ -140,7 +140,7 @@ export default function ClausulaArbitralPage() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif uppercase">
               ProcesoA rbitral <br />
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8 " />
+            <div className="w-24 h-1 bg-primary mx-auto mb-8 bg-white " />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               MCH ABOGADOS - Resolución especializada de controversias a través
               de arbitraje, brindando un servicio integral y confidencial en
@@ -264,7 +264,7 @@ export default function ClausulaArbitralPage() {
           animate={isInView ? "visible" : "hidden"}
         >
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold mb-4 text-foreground">
+            <h3 className="text-2xl font-bold mb-4 text-foreground uppercase">
               Flujo del Proceso
             </h3>
             <p className="text-muted-foreground">

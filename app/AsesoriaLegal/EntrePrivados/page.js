@@ -89,7 +89,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             className="mb-20"
           >
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                 Tipos de Controversias
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />
@@ -168,7 +168,7 @@ export default function ArbitrajeEntrePrivadosPage() {
           >
             <div className="bg-slate-50 rounded-2xl p-8 lg:p-16">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                   Ventajas del Arbitraje Privado
                 </h2>
                 <div className="w-24 h-1 bg-primary mx-auto mb-8" />
@@ -265,7 +265,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             className="mb-20"
           >
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                 Proceso Arbitral
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />
@@ -321,60 +321,6 @@ export default function ArbitrajeEntrePrivadosPage() {
                   </p>
                 </motion.div>
               ))}
-            </div>
-          </motion.section>
-
-          {/* Contact Section */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-slate-900 rounded-2xl p-8 lg:p-16 text-white"
-          >
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif">
-                Consulte Su Caso
-              </h2>
-              <div className="w-24 h-1 bg-primary mx-auto mb-8" />
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Nuestros especialistas están listos para asesorarle en su
-                controversia entre privados
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              <div className="text-center">
-                <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="font-bold mb-2">Teléfono</h3>
-                <p className="text-gray-300">+51 1 234-5678</p>
-              </div>
-              <div className="text-center">
-                <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="font-bold mb-2">Email</h3>
-                <p className="text-gray-300">mchabogados@legalmch.com</p>
-              </div>
-              <div className="text-center">
-                <MessageCircle className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="font-bold mb-2">WhatsApp</h3>
-                <p className="text-gray-300">+51 987 654 321</p>
-              </div>
-              <div className="text-center">
-                <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-                <h3 className="font-bold mb-2">Dirección</h3>
-                <p className="text-gray-300">
-                  Av. Larco 1234, Miraflores, Lima
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/Contacto"
-                className="inline-flex items-center px-8 py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                Contactar Ahora
-              </Link>
             </div>
           </motion.section>
         </div>

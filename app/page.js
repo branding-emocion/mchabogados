@@ -11,9 +11,9 @@ export default function HomePage() {
       <HeroCarousel />
       <ServicesSection />
       <StatsSection />
-      <TeamSection />
-      <ContactSection />
       <NormativaSection />
+      <ContactSection />
+      <TeamSection />
     </main>
   );
 }

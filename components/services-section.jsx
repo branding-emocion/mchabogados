@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 const ServicesSection = () => {
   const ref = useRef(null);
@@ -104,40 +105,42 @@ const ServicesSection = () => {
         >
           {services?.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
-              <Card className="h-full bg-white hover:shadow-xl transition-all duration-300 border-0 shadow-md group cursor-pointer">
-                <CardContent className="p-8 text-center">
-                  {/* Icon */}
-                  <motion.div
-                    className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <span className="text-3xl">{service.icon}</span>
-                  </motion.div>
+              <Link href={service.link}>
+                <Card className="h-full bg-white hover:shadow-xl transition-all duration-300 border-0 shadow-md group cursor-pointer">
+                  <CardContent className="p-8 text-center">
+                    {/* Icon */}
+                    <motion.div
+                      className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors duration-300"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <span className="text-3xl">{service.icon}</span>
+                    </motion.div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300 uppercase">
-                    {service.title}
-                  </h3>
+                    {/* Title */}
+                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300 uppercase">
+                      {service.title}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-gray-600 leading-relaxed">
-                    {service.description}
-                  </p>
+                    {/* Description */}
+                    <p className="text-gray-600 leading-relaxed">
+                      {service.description}
+                    </p>
 
-                  {/* Hover Effect Line */}
-                  <motion.div
-                    className="w-0 h-1 bg-primary mx-auto mt-6 group-hover:w-16 transition-all duration-300"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: 64 }}
-                  />
-                  <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 uppercase">
-                    <span className="text-primary font-medium text-sm">
-                      Ver más →
-                    </span>
-                  </motion.div>
-                </CardContent>
-              </Card>
+                    {/* Hover Effect Line */}
+                    <motion.div
+                      className="w-0 h-1 bg-primary mx-auto mt-6 group-hover:w-16 transition-all duration-300"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: 64 }}
+                    />
+                    <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 uppercase">
+                      <span className="text-primary font-medium text-sm">
+                        Ver más →
+                      </span>
+                    </motion.div>
+                  </CardContent>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

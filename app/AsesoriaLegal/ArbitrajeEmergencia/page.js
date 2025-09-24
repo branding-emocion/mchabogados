@@ -278,88 +278,34 @@ export default function ArbitrajeEmergenciaPage() {
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="text-center">
-                  <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <Clock className="w-12 h-12 text-white mx-auto mb-4" />
                   <h4 className="font-semibold mb-2">Rapidez</h4>
                   <p className="text-sm text-gray-300">
                     Decisión en días, no meses
                   </p>
                 </div>
                 <div className="text-center">
-                  <Shield className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <Shield className="w-12 h-12 text-white mx-auto mb-4" />
                   <h4 className="font-semibold mb-2">Protección</h4>
                   <p className="text-sm text-gray-300">
                     Salvaguarda inmediata de derechos
                   </p>
                 </div>
                 <div className="text-center">
-                  <Zap className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <Zap className="w-12 h-12 text-white mx-auto mb-4" />
                   <h4 className="font-semibold mb-2">Eficiencia</h4>
                   <p className="text-sm text-gray-300">
                     Procedimiento simplificado
                   </p>
                 </div>
                 <div className="text-center">
-                  <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <CheckCircle className="w-12 h-12 text-white mx-auto mb-4" />
                   <h4 className="font-semibold mb-2">Ejecutabilidad</h4>
                   <p className="text-sm text-gray-300">
                     Cumplimiento inmediato
                   </p>
                 </div>
               </div>
-            </div>
-          </motion.section>
-
-          {/* Contacto */}
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-slate-50 rounded-lg p-8 lg:p-12"
-          >
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold mb-4 text-slate-800 font-serif">
-                ¿Necesita un Arbitraje de Emergencia?
-              </h3>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Contáctenos inmediatamente para evaluar su situación y activar
-                el procedimiento de emergencia. Nuestro equipo está disponible
-                para atender casos urgentes.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="text-center">
-                <Phone className="w-8 h-8 text-primary mx-auto mb-3" />
-                <h4 className="font-semibold text-slate-800 mb-1">Teléfono</h4>
-                <p className="text-gray-600">+51 1 234-5678</p>
-              </div>
-              <div className="text-center">
-                <Mail className="w-8 h-8 text-primary mx-auto mb-3" />
-                <h4 className="font-semibold text-slate-800 mb-1">Email</h4>
-                <p className="text-gray-600">mchabogados@legalmch.com</p>
-              </div>
-              <div className="text-center">
-                <MessageCircle className="w-8 h-8 text-primary mx-auto mb-3" />
-                <h4 className="font-semibold text-slate-800 mb-1">WhatsApp</h4>
-                <p className="text-gray-600">+51 987 654 321</p>
-              </div>
-              <div className="text-center">
-                <MapPin className="w-8 h-8 text-primary mx-auto mb-3" />
-                <h4 className="font-semibold text-slate-800 mb-1">Dirección</h4>
-                <p className="text-gray-600">
-                  Av. Larco 1234, Miraflores, Lima
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/Contacto"
-                className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                Contactar Ahora
-              </Link>
             </div>
           </motion.section>
         </div>
