@@ -34,11 +34,10 @@ export default function ArbitrajeEmergenciaPage() {
             className="text-white"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif ">
-              ARBITRAJE DE
+              ARBITRAJE DE EMERGENCIA
               <br />
-              <span className="text-primary">EMERGENCIA</span>
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+            <div className="w-24 h-1 bg-primary mx-auto bg-white mb-8" />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Procedimiento acelerado para situaciones urgentes que requieren
               medidas cautelares inmediatas y resolución expedita.
@@ -97,8 +96,7 @@ export default function ArbitrajeEmergenciaPage() {
                   Plazos Acelerados
                 </h4>
                 <p className="text-gray-600 leading-relaxed">
-                  Decisión en máximo 15 días desde la solicitud. Procedimiento
-                  expedito diseñado para situaciones críticas.
+                  Procedimiento expedito diseñado para situaciones críticas.
                 </p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-primary">
