@@ -218,7 +218,7 @@ const Header = () => {
                   COTIZAR
                 </Button>
               </Link>
-              <Link href="/Admin">
+              {/* <Link href="/Admin">
                 <Button
                   className={`px-6 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:cursor-pointer ${
                     isScrolled
@@ -228,10 +228,10 @@ const Header = () => {
                 >
                   MESA DE PARTES AURUS
                 </Button>
-              </Link>
+              </Link> */}
 
               {/* Mobile Menu Button */}
-              <motion.button
+              {/* <motion.button
                 className={`lg:hidden p-2 ${
                   isScrolled ? "text-gray-700" : "text-white"
                 }`}
@@ -250,7 +250,7 @@ const Header = () => {
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
-              </motion.button>
+              </motion.button> */}
             </motion.div>
           </div>
         </div>

@@ -130,7 +130,7 @@ const HeroCarousel = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
           style={{ backgroundImage: `url(${getBackgroundImage()})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/85 to-primary/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/20" />
       </div>
 
