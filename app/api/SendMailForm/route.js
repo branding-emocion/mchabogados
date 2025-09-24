@@ -28,28 +28,23 @@ export async function POST(request) {
       .join(""); // Join para unir todas las filas en un solo string
 
   const mailOptions = {
-    from: '"Reclamos" <notificacion@brandingemocion.net>',
-    to: `clientes@jkinversiones.com,${data?.email}`, // Enviar a la empresa y al cliente
-    subject: `Reclamo recibido - Pedido ${data?.nombres || "N/A"} ${
-      data?.apellidos || "N/A"
-    }`,
+    from: '"MCH ABOGADOS - Notificaciones" <notificacion@brandingemocion.net>',
+    to: `mchabogados@legalmch.com`, // Enviar a la empresa y al cliente
+    subject: `Nuevo contacto recibido - ${data?.Nombre || ""}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 10px; background-color: #f9f9f9;">
-        <h2 style="color: #4CAF50; text-align: center;">Formulario de Reclamos</h2>
+        <h2 style="color: #4CAF50; text-align: center;">Formulario de Contacto MCHABOGADOS</h2>
         <p style="text-align: center; color: #333;">
-          Hemos recibido su reclamo y lo estamos procesando. A continuación, los detalles de su solicitud:
+          Hemos recibido de contacto a continuación, los detalles de su solicitud:
         </p>
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           ${generateTableRows(
             data
           )}  <!-- Aquí se insertan las filas generadas -->
         </table>
-        <p style="text-align: center; color: #555; margin-top: 20px;">
-          Nos pondremos en contacto con usted en un plazo máximo de 48 horas para resolver su queja.
-        </p>
-        <p style="text-align: center; color: #999; font-size: 12px;">
-          Este es un correo generado automáticamente. Por favor, no responda a este mensaje.
-        </p>
+         <p style="text-align: center; color: #888; font-size: 12px; margin-top: 30px;">
+            Este correo ha sido generado automáticamente. Por favor, no lo responda directamente.
+          </p>
       </div>
     `,
   };

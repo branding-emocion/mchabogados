@@ -8,6 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Clock, Phone, Mail, MessageCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { toast } from "sonner";
 
 export default function Contacto() {
   const ref = useRef(null);
@@ -15,11 +23,11 @@ export default function Contacto() {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
+    Nombre: "",
+    Email: "",
+    Telefono: "",
+    Servicio: "",
+    Mensaje: "",
   });
 
   const handleInputChange = (e) => {
@@ -34,12 +42,12 @@ export default function Contacto() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/SendMailPageContacto", {
+      const response = await fetch("/api/SendMailForm", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(InputValues),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -47,10 +55,21 @@ export default function Contacto() {
       }
 
       const data = await response.json();
-      alert(data.body || "Mensaje enviado correctamente ✅");
+      toast.success(data.body || "Mensaje enviado correctamente ");
+
+      e.target.reset();
+      setFormData({
+        Nombre: "",
+        Email: "",
+        Telefono: "",
+        Servicio: "",
+        Mensaje: "",
+      });
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
-      alert("❌ Ocurrió un error al enviar el mensaje. Inténtalo nuevamente.");
+      toast.error(
+        " Ocurrió un error al enviar el mensaje. Inténtalo nuevamente."
+      );
     } finally {
       setLoading(false);
     }
@@ -60,7 +79,7 @@ export default function Contacto() {
     {
       icon: Phone,
       title: "Teléfono",
-      info: "+51 1 234-5678",
+      info: "+51 976 936 5758",
     },
     {
       icon: Mail,
@@ -70,7 +89,7 @@ export default function Contacto() {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      info: "+51 987 654 321",
+      info: "+51 976 936 5751",
     },
   ];
 
@@ -91,11 +110,11 @@ export default function Contacto() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4 uppercase">
               Contáctanos
             </h1>
             <p className="text-lg md:text-xl max-w-2xl mx-auto">
-              Estamos aquí para ayudarte con tus necesidades legales
+              Estamos aquí para ayudarte con tus necesidades legales.
             </p>
           </motion.div>
         </div>
@@ -109,7 +128,7 @@ export default function Contacto() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
               Solicita tu Consulta
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -126,7 +145,7 @@ export default function Contacto() {
             >
               <Card className="shadow-lg border-0 h-full">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-8">
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-8 uppercase">
                     Información de Contacto
                   </h3>
                   <div className="space-y-6">
@@ -156,7 +175,7 @@ export default function Contacto() {
                           Dirección
                         </h4>
                         <p className="text-gray-600">
-                          Av. Larco 1234, Miraflores, Lima
+                          Residencial San Francisco A&apos;-27, Huanchaco.
                         </p>
                       </div>
                     </div>
@@ -189,24 +208,24 @@ export default function Contacto() {
             >
               <Card className="shadow-lg border-0 h-full">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-6">
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-6 uppercase">
                     Formulario de Contacto
                   </h3>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label
-                          htmlFor="name"
+                          htmlFor="Nombre"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
                           Nombre Completo *
                         </label>
                         <Input
-                          id="name"
-                          name="name"
+                          id="Nombre"
+                          name="Nombre"
                           type="text"
                           required
-                          value={formData.name}
+                          value={formData.Nombre}
                           onChange={handleInputChange}
                           className="w-full"
                           placeholder="Tu nombre completo"
@@ -214,17 +233,17 @@ export default function Contacto() {
                       </div>
                       <div>
                         <label
-                          htmlFor="email"
+                          htmlFor="Email"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
                           Email *
                         </label>
                         <Input
-                          id="email"
-                          name="email"
+                          id="Email"
+                          name="Email"
                           type="email"
                           required
-                          value={formData.email}
+                          value={formData.Email}
                           onChange={handleInputChange}
                           className="w-full"
                           placeholder="tu@email.com"
@@ -235,64 +254,75 @@ export default function Contacto() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label
-                          htmlFor="phone"
+                          htmlFor="Telefono"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
-                          Teléfono
+                          Teléfono *
                         </label>
                         <Input
-                          id="phone"
-                          name="phone"
+                          id="Telefono"
+                          name="Telefono"
                           type="tel"
-                          value={formData.phone}
+                          value={formData?.Telefono}
                           onChange={handleInputChange}
                           className="w-full"
                           placeholder="+51 987 654 321"
+                          required
                         />
                       </div>
                       <div>
                         <label
-                          htmlFor="service"
+                          htmlFor="Servicio"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
                           Servicio de Interés
                         </label>
-                        <select
-                          id="service"
-                          name="service"
-                          value={formData.service}
-                          onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+
+                        <Select
+                          value={formData.Servicio}
+                          id="Servicio"
+                          name="Servicio"
+                          className="w-full "
+                          onValueChange={(value) => {
+                            setFormData({
+                              ...formData,
+                              Servicio: value,
+                            });
+                          }}
                         >
-                          <option value="">Seleccionar servicio</option>
-                          <option value="corporativo">
-                            Derecho Corporativo
-                          </option>
-                          <option value="civil">Derecho Civil</option>
-                          <option value="penal">Derecho Penal</option>
-                          <option value="arbitraje">
-                            Arbitraje y Mediación
-                          </option>
-                          <option value="laboral">Derecho Laboral</option>
-                          <option value="administrativo">
-                            Derecho Administrativo
-                          </option>
-                        </select>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder=" seleccione una opción" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Arbitraje en contratación pública">
+                              Arbitraje en contratación pública
+                            </SelectItem>
+                            <SelectItem value="Arbitraje de emergencia">
+                              Arbitraje de emergencia
+                            </SelectItem>
+                            <SelectItem value="Arbitraje entre privados">
+                              Arbitraje entre privados
+                            </SelectItem>
+                            <SelectItem value="Arbitraje Express">
+                              Arbitraje Express
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
 
                     <div>
                       <label
-                        htmlFor="message"
+                        htmlFor="Mensaje"
                         className="block text-sm font-medium text-gray-700 mb-2"
                       >
                         Mensaje *
                       </label>
                       <Textarea
-                        id="message"
-                        name="message"
+                        id="Mensaje"
+                        name="Mensaje"
                         required
-                        value={formData.message}
+                        value={formData?.Mensaje}
                         onChange={handleInputChange}
                         rows={4}
                         className="w-full"
@@ -306,9 +336,10 @@ export default function Contacto() {
                     >
                       <Button
                         type="submit"
-                        className="w-full bg-primary hover:bg-primary/90 text-white py-3 text-lg"
+                        disabled={loading}
+                        className="w-full bg-primary hover:bg-primary/90 hover:cursor-pointer text-white py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary"
                       >
-                        Enviar Consulta
+                        {loading ? "Enviando..." : "Enviar Consulta"}
                       </Button>
                     </motion.div>
                   </form>

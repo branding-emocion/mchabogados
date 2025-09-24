@@ -106,8 +106,7 @@ export default function NuestroEquipo() {
               arbitraje y asesoría legal
             </p> */}
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -119,17 +118,20 @@ export default function NuestroEquipo() {
                 }
                 transition={{ duration: 0.8, delay: index * 0.1 }}
               >
-                <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow duration-300">
-                  <CardContent className="p-0">
-                    <div className="relative overflow-hidden rounded-t-lg">
+                <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow duration-300 p-0">
+                  <CardContent className="p-0 flex items-center">
+                    {/* Imagen a la izquierda */}
+                    <div className="relative overflow-hidden rounded-l-lg min-w-[160px] max-w-[180px]">
                       <img
                         src={member.image || ""}
                         alt={member.name}
-                        className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
                     </div>
-                    <div className="p-6 text-center">
+
+                    {/* Texto a la derecha */}
+                    <div className="p-6 text-left flex-1 uppercase">
                       <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
                         {member.name}
                       </h3>
@@ -154,7 +156,7 @@ export default function NuestroEquipo() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
               Nuestros Valores
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -186,32 +188,6 @@ export default function NuestroEquipo() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-primary">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-              ¿Necesitas Asesoría Legal?
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Nuestro equipo está listo para ayudarte. Contáctanos para una
-              consulta personalizada.
-            </p>
-            <Button
-              size="lg"
-              variant="secondary"
-              className="bg-white text-primary hover:bg-gray-100"
-            >
-              Solicitar Consulta
-            </Button>
-          </motion.div>
         </div>
       </section>
     </main>

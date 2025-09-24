@@ -27,12 +27,6 @@ const Footer = () => {
       { name: "Banco de Laudos", href: "/Laudos" },
       { name: "Contacto", href: "/Contacto" },
     ],
-    legal: [
-      // { name: "Política de Privacidad", href: "#" },
-      // { name: "Términos de Servicio", href: "#" },
-      // { name: "Aviso Legal", href: "#" },
-      // { name: "Cookies", href: "#" },
-    ],
   };
 
   const socialLinks = [
@@ -45,9 +39,9 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center ">
           {/* Company Info */}
-          <div className="lg:col-span-2">
+          <div className="">
             <motion.div
               className="flex items-center space-x-2 mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -64,7 +58,7 @@ const Footer = () => {
               />
             </motion.div>
 
-            <motion.div
+            {/* <motion.div
               className="flex space-x-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +76,7 @@ const Footer = () => {
                   <span className="text-lg">{social.icon}</span>
                 </motion.a>
               ))}
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* Services Links */}

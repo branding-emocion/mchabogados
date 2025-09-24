@@ -67,11 +67,11 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="text-white"
             >
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif uppercase">
                 Banco de Laudos
                 <br />
               </h1>
-              <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+              <div className="w-24 h-1  mx-auto mb-8 bg-white" />
             </motion.div>
           </div>
         </section>
@@ -98,11 +98,11 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif uppercase ">
               Banco de Laudos
               <br />
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8" />
+            <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
         </div>
       </section>
