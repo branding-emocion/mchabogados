@@ -33,6 +33,7 @@ export default function NominaAdminDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingEmpleado, setEditingEmpleado] = useState(null);
   const [formData, setFormData] = useState({
+    apellido: "",
     nombre: "",
     cvFile: null,
     cvUrl: "",
@@ -111,7 +112,13 @@ export default function NominaAdminDashboard() {
 
       setIsModalOpen(false);
       setEditingEmpleado(null);
-      setFormData({ nombre: "", cvFile: null, cvUrl: "", cvFileName: "" });
+      setFormData({
+        nombre: "",
+        cvFile: null,
+        cvUrl: "",
+        cvFileName: "",
+        apellido: "",
+      });
       setFormErrors({});
       loadEmpleados();
       loadTotalEmpleados();
@@ -126,6 +133,7 @@ export default function NominaAdminDashboard() {
     setEditingEmpleado(empleado);
     setFormData({
       nombre: empleado.nombre,
+      apellido: empleado.apellido,
       cvFile: null,
       cvUrl: empleado.cvUrl || "",
       cvFileName: empleado.cvFileName || "",
@@ -150,7 +158,13 @@ export default function NominaAdminDashboard() {
 
   const openAddModal = () => {
     setEditingEmpleado(null);
-    setFormData({ nombre: "", cvFile: null, cvUrl: "", cvFileName: "" });
+    setFormData({
+      nombre: "",
+      cvFile: null,
+      cvUrl: "",
+      cvFileName: "",
+      apellido: "",
+    });
     setFormErrors({});
     setIsModalOpen(true);
   };
@@ -200,18 +214,37 @@ export default function NominaAdminDashboard() {
                   className="bg-blue-600 hover:bg-blue-700"
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  Agregar Empleado
+                  Agregar normina de arbitros
                 </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                   <DialogTitle>
                     {editingEmpleado
-                      ? "Editar Empleado"
-                      : "Agregar Nuevo Empleado"}
+                      ? "Editar arbitro"
+                      : "Agregar Nuevo arbitro"}
                   </DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <Label htmlFor="apellido">Apellido *</Label>
+                    <Input
+                      id="apellido"
+                      type="text"
+                      value={formData.apellido}
+                      onChange={(e) =>
+                        setFormData({ ...formData, apellido: e.target.value })
+                      }
+                      className={formErrors.apellido ? "border-red-500" : ""}
+                      placeholder="Ingrese el apellido completo"
+                    />
+                    {formErrors.apellido && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.apellido}
+                      </p>
+                    )}
+                  </div>
+
                   <div>
                     <Label htmlFor="nombre">Nombre *</Label>
                     <Input
@@ -327,6 +360,10 @@ export default function NominaAdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         ID
                       </th>
+
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Apellidos
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Nombre
                       </th>
@@ -346,6 +383,9 @@ export default function NominaAdminDashboard() {
                       <tr key={empleado.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {index + 1}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {empleado.apellido}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {empleado.nombre}
