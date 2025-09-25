@@ -128,7 +128,7 @@ export default function Contacto() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
               Solicita tu Consulta
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
