@@ -101,7 +101,7 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-primary transition-colors duration-300"
+                    className="text-gray-300 hover:text-white transition-colors duration-300"
                   >
                     {link.name}
                   </a>
@@ -132,7 +132,7 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-primary transition-colors duration-300"
+                    className="text-gray-300 hover:text-white transition-colors duration-300"
                   >
                     {link.name}
                   </a>
