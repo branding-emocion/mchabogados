@@ -56,7 +56,7 @@ export default function NominaClient() {
 
   const loadTotalEmpleados = async (searchQuery = activeSearchTerm) => {
     try {
-      const total = await nominaService.getTotalEmpleados(searchQuery);
+      const total = await nominaService.getEmpleadosOrganzados(searchQuery);
       setTotalEmpleados(total);
     } catch (error) {
       console.error("Error loading total empleados:", error);
@@ -134,8 +134,8 @@ export default function NominaClient() {
 
         {/* Empleados Table */}
         <Card className="shadow-lg">
-          <CardHeader className="bg-[#a5803d] text-white">
-            <CardTitle className="text-2xl font-bold text-center">
+          <CardHeader className="bg-[#a5803d] text-white  ">
+            <CardTitle className="text-2xl font-bold text-center py-2">
               NÓMINA DE ÁRBITROS
             </CardTitle>
           </CardHeader>
@@ -164,6 +164,9 @@ export default function NominaClient() {
                           ID
                         </th>
                         <th className="px-6 py-4 text-left font-semibold">
+                          APELLIDOS
+                        </th>
+                        <th className="px-6 py-4 text-left font-semibold">
                           NOMBRE
                         </th>
                         <th className="px-6 py-4 text-left font-semibold">
@@ -172,38 +175,39 @@ export default function NominaClient() {
                       </tr>
                     </thead>
                     <tbody>
-                      {empleados
-                        .sort((a, b) => a.nombre.localeCompare(b.nombre)) // orden alfabético por nombre
-                        .map((empleado, index) => (
-                          <tr
-                            key={empleado.id}
-                            className={`border-b hover:bg-amber-50 transition-colors ${
-                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                            }`}
-                          >
-                            <td className="px-6 py-4 font-medium text-[#a5803d]">
-                              {(currentPage - 1) * pageSize + index + 1}
-                            </td>
-                            <td className="px-6 py-4 font-medium uppercase">
-                              {empleado.nombre}
-                            </td>
-                            <td className="px-6 py-4">
-                              {empleado.cvUrl ? (
-                                <a
-                                  href={empleado.cvUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center text-[#a5803d] hover:text-[#8a6b32] font-medium"
-                                >
-                                  <Download className="h-4 w-4 mr-2" />
-                                  Descargar CV
-                                </a>
-                              ) : (
-                                <span className="text-gray-400">Sin CV</span>
-                              )}
-                            </td>
-                          </tr>
-                        ))}
+                      {empleados.map((empleado, index) => (
+                        <tr
+                          key={empleado.id}
+                          className={`border-b hover:bg-amber-50 transition-colors ${
+                            index % 2 == 0 ? "bg-white" : "bg-gray-50"
+                          }`}
+                        >
+                          <td className="px-6 py-4 font-medium text-[#a5803d]">
+                            {(currentPage - 1) * pageSize + index + 1}
+                          </td>
+                          <td className="px-6 py-4 font-medium uppercase">
+                            {empleado.apellido || ""}
+                          </td>
+                          <td className="px-6 py-4 font-medium uppercase">
+                            {empleado.nombre}
+                          </td>
+                          <td className="px-6 py-4">
+                            {empleado.cvUrl ? (
+                              <a
+                                href={empleado.cvUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center text-[#a5803d] hover:text-[#8a6b32] font-medium"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Descargar CV
+                              </a>
+                            ) : (
+                              <span className="text-gray-400">Sin CV</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

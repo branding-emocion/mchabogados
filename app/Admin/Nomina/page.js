@@ -339,18 +339,18 @@ export default function NominaAdminDashboard() {
         {/* Empleados Table */}
         <Card>
           <CardHeader>
-            <CardTitle>Lista de Empleados</CardTitle>
+            <CardTitle>Lista de árbitros</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             {loading ? (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Cargando empleados...</p>
+                <p className="mt-4 text-gray-600">Cargando árbitros...</p>
               </div>
             ) : empleados.length === 0 ? (
               <div className="text-center py-12">
                 <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600">No se encontraron empleados</p>
+                <p className="text-gray-600">No se encontraron árbitros</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
