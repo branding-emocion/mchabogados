@@ -67,7 +67,7 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="text-white"
             >
-              <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase uppercase">
+              <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
                 Banco de Laudos
                 <br />
               </h1>

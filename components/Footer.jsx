@@ -20,7 +20,7 @@ const Footer = () => {
         name: "Arbitraje entre privados",
         href: "/AsesoriaLegal/EntrePrivados",
       },
-      { name: "Arbitraje Express", href: "/AsesoriaLegal/Express" },
+      { name: "Arbitraje Express", href: "/AsesoriaLegal/ArbitrajeExpress" },
     ],
     empresa: [
       { name: "Nuestro Equipo", href: "/NuestroEquipo" },

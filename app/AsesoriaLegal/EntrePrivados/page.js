@@ -34,7 +34,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               ARBITRAJE ENTRE
               <br />
               <span className="text-white">PRIVADOS</span>
@@ -59,7 +59,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             className="mb-20"
           >
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12 text-primary font-serif text-center">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 text-primary font-serif text-center">
                 ARBITRAJE ENTRE PRIVADOS
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
@@ -89,7 +89,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             className="mb-20"
           >
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                 Tipos de Controversias
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />
@@ -168,7 +168,7 @@ export default function ArbitrajeEntrePrivadosPage() {
           >
             <div className="bg-slate-50 rounded-2xl p-8 lg:p-16">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                   Ventajas del Arbitraje Privado
                 </h2>
                 <div className="w-24 h-1 bg-primary mx-auto mb-8" />
@@ -265,7 +265,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             className="mb-20"
           >
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-800 font-serif uppercase">
                 Proceso Arbitral
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />

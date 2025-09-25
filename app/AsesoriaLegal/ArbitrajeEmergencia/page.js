@@ -33,7 +33,7 @@ export default function ArbitrajeEmergenciaPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               ARBITRAJE DE EMERGENCIA
               <br />
             </h1>
@@ -57,7 +57,7 @@ export default function ArbitrajeEmergenciaPage() {
             className="mb-20"
           >
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12 text-primary font-serif text-center">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 text-primary font-serif text-center">
                 ARBITRAJE DE EMERGENCIA
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
@@ -131,7 +131,7 @@ export default function ArbitrajeEmergenciaPage() {
             className="mb-20"
           >
             <div className="bg-slate-50 rounded-lg p-8 lg:p-12">
-              <h3 className="text-3xl font-bold mb-8 text-center text-slate-800 font-serif">
+              <h3 className="text-3xl font-bold mb-8 text-center text-slate-800 font-serif uppercase">
                 Casos Típicos de Arbitraje de Emergencia
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
@@ -197,13 +197,13 @@ export default function ArbitrajeEmergenciaPage() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h3 className="text-3xl font-bold mb-12 text-center text-slate-800 font-serif">
+            <h3 className="text-3xl font-bold mb-12 text-center text-slate-800 font-serif uppercase">
               Proceso del Arbitraje de Emergencia
             </h3>
             <div className="max-w-4xl mx-auto">
               <div className="space-y-8">
                 <div className="flex items-start">
-                  <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">
+                  <div className="hidden md:flex bg-primary text-white rounded-full w-8 h-8 items-center justify-center font-bold mr-4 mt-1">
                     1
                   </div>
                   <div>
@@ -217,7 +217,7 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">
+                  <div className="hidden md:flex bg-primary text-white rounded-full w-8 h-8 items-center justify-center font-bold mr-4 mt-1">
                     2
                   </div>
                   <div>
@@ -231,7 +231,7 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">
+                  <div className="hidden md:flex bg-primary text-white rounded-full w-8 h-8 items-center justify-center font-bold mr-4 mt-1">
                     3
                   </div>
                   <div>
@@ -244,7 +244,7 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                 </div>
                 <div className="flex items-start">
-                  <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 mt-1">
+                  <div className="hidden md:flex bg-primary text-white rounded-full w-8 h-8 items-center justify-center font-bold mr-4 mt-1">
                     4
                   </div>
                   <div>

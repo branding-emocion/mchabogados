@@ -41,7 +41,7 @@ export default function RecusacionPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               <span className="text-white">ARBITRAJE EXPRESS</span>
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
