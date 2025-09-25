@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
-export function ContactSection() {
+export function LicenciaFuncionamiento() {
   return (
     <section className="py-20 bg-primary text-white">
       <div className="container mx-auto px-4 text-center">
@@ -37,4 +36,4 @@ export function ContactSection() {
     </section>
   );
 }
-export default ContactSection;
+export default LicenciaFuncionamiento;

@@ -1,9 +1,8 @@
 import NormativaSection from "@/components/NormativaSection";
-import ContactSection from "../components/ContactSection";
 import HeroCarousel from "../components/hero-carousel";
 import ServicesSection from "../components/services-section";
 import StatsSection from "../components/stats-section";
-import TeamSection from "../components/team-section";
+import LicenciaFuncionamiento from "@/components/ContactSection";
 
 export default function HomePage() {
   return (
@@ -12,7 +11,7 @@ export default function HomePage() {
       <ServicesSection />
       <StatsSection />
       <NormativaSection />
-      <ContactSection />
+      <LicenciaFuncionamiento />
       {/* <TeamSection /> */}
     </main>
   );

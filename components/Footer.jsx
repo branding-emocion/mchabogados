@@ -156,7 +156,7 @@ const Footer = () => {
             © {currentYear} MCH Abogados. Todos los derechos reservados.
           </p>
           <p className="text-gray-400 text-sm">
-            Diseñado con ❤️ para brindar la mejor experiencia legal
+            Diseñado con ❤️ para brindar la mejor experiencia
           </p>
         </motion.div>
       </div>

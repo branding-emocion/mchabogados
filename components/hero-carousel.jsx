@@ -245,7 +245,7 @@ const HeroCarousel = () => {
                       variant="outline"
                       className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:cursor-pointer"
                     >
-                      MESA DE PARTES AURUS
+                      MESA DE PARTES ARGUS
                     </Button>
                   </Link>
                 </motion.div>
