@@ -32,7 +32,7 @@ export default function NominaClient() {
   ) => {
     try {
       setLoading(true);
-      const result = await nominaService.getEmpleados(
+      const result = await nominaService.getEmpleadosOrganzados(
         pageSize,
         reset ? null : lastDoc,
         searchQuery
