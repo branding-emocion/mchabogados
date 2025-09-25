@@ -37,7 +37,7 @@ const ServicesSection = () => {
       description:
         "Procedimientos de recusación de árbitros y magistrados para garantizar la imparcialidad en los procesos.",
       icon: "⚖️",
-      link: "/AsesoriaLegal/Express",
+      link: "/AsesoriaLegal/ArbitrajeExpress",
     },
   ];
 

@@ -36,9 +36,6 @@ export default function CotizarPage() {
   useEffect(() => {
     const loadConfigs = async () => {
       try {
-        console.log(
-          "[v0] Loading calculator configs from Firebase with PascalCase IDs..."
-        );
         setLoading(true);
 
         const configs = {};
