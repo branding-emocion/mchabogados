@@ -216,10 +216,10 @@ export default function CotizarPage() {
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
               Calculadora Oficial
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
               Calculadoras de Arbitraje
             </h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
               Calcula los costos de arbitraje de manera precisa según las
               tarifas oficiales
             </p>
@@ -235,7 +235,7 @@ export default function CotizarPage() {
             onValueChange={setActiveCalculator}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3  mb-15 md:mb-8">
               <TabsTrigger
                 value="CalculadoraGastosAdministrativos"
                 className="flex items-center gap-2"
