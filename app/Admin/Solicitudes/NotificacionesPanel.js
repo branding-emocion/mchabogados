@@ -15,6 +15,8 @@ export function NotificationsPanel({ userId, userRole, onSolicitudClick }) {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log("notifications", notifications);
+
   useEffect(() => {
     if (!userId) return;
 

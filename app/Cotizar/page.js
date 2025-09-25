@@ -164,90 +164,78 @@ export default function CotizarPage() {
   //   }
   // };
 
- const exportToPDF = async (result) => {
-  if (!result) return;
+  const exportToPDF = async () => {
+    if (!result) return;
 
-  const doc = new jsPDF({
-    orientation: "portrait",
-    unit: "mm",
-    format: "a4",
-  });
+    setIsGeneratingPDF(true);
 
-  // =====================
-  // Encabezado
-  // =====================
-  doc.setFontSize(16);
-  doc.setFont("helvetica", "bold");
-  doc.text("DESPACHO DE ABOGADOS", 20, 20);
+    try {
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
 
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  doc.text("Cotización de Arbitraje", 20, 28);
-  doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 34);
-  doc.text(`Cliente: ${result.calculatorName}`, 20, 40);
+      doc.setFontSize(20);
+      doc.text("Cotización de Arbitraje", 20, 30);
 
-  // =====================
-  // Datos de la tabla
-  // =====================
-  const tableData = [
-    ["Concepto", "Monto (S/.)"],
-    ["Cuantía", `${result.amount.toLocaleString()}`],
-    ["Tasa de Presentación", `${result.presentationFee.toFixed(2)}`],
-    ["Tarifa Calculada", `${result.calculatedFee.toFixed(2)}`],
-    ["Subtotal", `${result.subtotal.toFixed(2)}`],
-    ["IGV (18%)", `${result.igv.toFixed(2)}`],
-    ["Retención (8%)", `${result.renta.toFixed(2)}`],
-    ["Total con IGV", `${result.totalWithIGV.toFixed(2)}`],
-    ["Total con Retención", `${result.totalWithRenta.toFixed(2)}`],
-  ];
+      doc.setFontSize(12);
+      doc.text(`Calculadora: ${result.calculatorName}`, 20, 45);
+      doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 55);
 
-  // =====================
-  // Tabla profesional
-  // =====================
-  autoTable(doc, {
-    head: [tableData[0]],
-    body: tableData.slice(1),
-    startY: 50,
-    theme: "grid",
-    headStyles: {
-      fillColor: [0, 0, 0],       // negro
-      textColor: [255, 255, 255], // blanco
-      fontSize: 11,
-      fontStyle: "bold",
-      halign: "center",
-    },
-    bodyStyles: {
-      fontSize: 10,
-      textColor: [40, 40, 40],   // gris oscuro
-    },
-    columnStyles: {
-      0: { cellWidth: 100, halign: "left" },
-      1: { cellWidth: 60, halign: "right" },
-    },
-    styles: {
-      lineWidth: 0.2,
-      lineColor: [180, 180, 180], // bordes suaves
-    },
-    margin: { left: 20, right: 20 },
-  });
+      const tableData = [
+        ["Concepto", "Monto"],
+        ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
+        ["Tasa de Presentación", `S/ ${result.presentationFee.toFixed(2)}`],
+        ["Tarifa Calculada", `S/ ${result.calculatedFee.toFixed(2)}`],
+        ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
+        ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
+        ["Retención (8%)", `S/ ${result.renta.toFixed(2)}`],
+        ["Total con IGV", `S/ ${result.totalWithIGV.toFixed(2)}`],
+        ["Total con Retención", `S/ ${result.totalWithRenta.toFixed(2)}`],
+      ];
 
-  // =====================
-  // Pie de página
-  // =====================
-  const pageHeight = doc.internal.pageSize.height;
-  doc.setFontSize(9);
-  doc.setFont("helvetica", "italic");
-  doc.text(
-    "Documento confidencial - Uso exclusivo del cliente",
-    20,
-    pageHeight - 15
-  );
-  doc.text("Tel: +51 999 999 999 | Email: contacto@despacho.com", 20, pageHeight - 10);
+      autoTable(doc, {
+        head: [tableData[0]],
+        body: tableData.slice(1),
+        startY: 70,
+        theme: "grid",
+        headStyles: {
+          fillColor: [41, 128, 185],
+          textColor: [255, 255, 255],
+          fontSize: 12,
+          fontStyle: "bold",
+        },
+        bodyStyles: {
+          fontSize: 11,
+        },
+        columnStyles: {
+          0: { cellWidth: 80 },
+          1: { cellWidth: 60, halign: "right" },
+        },
+        margin: { top: 70, left: 20, right: 20 },
+      });
 
-  // =====================
-  // Guardar PDF
-  // =====================
-  doc.save(`cotizacion-arbitraje-${Date.now()}.pdf`);
+      const pageHeight = doc.internal.pageSize.height;
+      doc.setFontSize(8);
+      doc.text(
+        `Generado el ${new Date().toLocaleString()}`,
+        20,
+        pageHeight - 10
+      );
+
+      doc.save(`cotizacion-arbitraje-${Date.now()}.pdf`);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert(
+        `Error al generar el PDF: ${
+          error instanceof Error ? error.message : "Error desconocido"
+        }`
+      );
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
 
   const resetCalculation = () => {
     setResult(null);

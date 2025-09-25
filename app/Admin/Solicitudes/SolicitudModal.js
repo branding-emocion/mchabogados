@@ -65,7 +65,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
       {
         nombre: "",
         tipoDocumento: "",
-        direccion: "",
+        nDocumento: "",
         tipo: "Demandante",
         Correo: "",
       },
@@ -92,7 +92,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
           {
             nombre: "",
             tipoDocumento: "",
-            direccion: "",
+            nDocumento: "",
             tipo: "Demandante",
             Correo: "",
           },
@@ -111,7 +111,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
           {
             nombre: "",
             tipoDocumento: "",
-            direccion: "",
+            nDocumento: "",
             tipo: "Demandante",
             Correo: "",
           },
@@ -146,7 +146,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
       ...prev,
       partesContratantes: [
         ...prev.partesContratantes,
-        { nombre: "", tipoDocumento: "", direccion: "", tipo, Correo: "" },
+        { nombre: "", tipoDocumento: "", nDocumento: "", tipo, Correo: "" },
       ],
     }));
     setShowPartyTypeDialog(false);
@@ -175,7 +175,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
       if (
         !parte.nombre.trim() ||
         !parte.tipoDocumento ||
-        !parte.direccion.trim() ||
+        !parte.nDocumento.trim() ||
         !parte.tipo
       ) {
         toast.error(
@@ -472,17 +472,17 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                       </div>
 
                       <div className="space-y-2">
-                        <Label>Dirección *</Label>
+                        <Label>N° Documento *</Label>
                         <Input
-                          value={parte.direccion}
+                          value={parte.nDocumento}
                           onChange={(e) =>
                             handleParteChange(
                               index,
-                              "direccion",
+                              "nDocumento",
                               e.target.value
                             )
                           }
-                          placeholder="Dirección completa"
+                          placeholder="N° Documento"
                           required
                         />
                       </div>
