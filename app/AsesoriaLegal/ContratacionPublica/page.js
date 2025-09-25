@@ -33,13 +33,13 @@ export default function ArbitrajeContratacionPublicaPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               ARBITRAJE EN
               <br />
               <span className="text-white">CONTRATACIÓN PÚBLICA</span>
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Resolución especializada de controversias en procesos de
               contratación estatal, garantizando transparencia y eficiencia en
               la administración pública.

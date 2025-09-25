@@ -33,12 +33,12 @@ export default function ArbitrajeEmergenciaPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif ">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               ARBITRAJE DE EMERGENCIA
               <br />
             </h1>
-            <div className="w-24 h-1 bg-primary mx-auto bg-white mb-8" />
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
+            <div className="w-24 h-1  mx-auto bg-white mb-8" />
+            <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Procedimiento acelerado para situaciones urgentes que requieren
               medidas cautelares inmediatas y resolución expedita.
             </p>

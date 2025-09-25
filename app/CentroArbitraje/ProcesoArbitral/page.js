@@ -137,11 +137,11 @@ export default function ClausulaArbitralPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               Proceso Arbitral <br />
             </h1>
             <div className="w-24 h-1  mx-auto mb-8 bg-white" />
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
               MCH ABOGADOS - Resolución especializada de controversias a través
               de arbitraje, brindando un servicio integral y confidencial en
               procesos arbitrales de alta complejidad.

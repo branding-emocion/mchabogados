@@ -77,10 +77,10 @@ export default function NuestroEquipo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
               Nuestro Equipo
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Profesionales altamente calificados con décadas de experiencia
               combinada, comprometidos con brindar el mejor servicio legal a
               nuestros clientes

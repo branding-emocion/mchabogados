@@ -184,10 +184,10 @@ export default function CotizarPage() {
               <Badge className="mb-4 bg-white/20 text-white border-white/30 uppercase">
                 Calculadora Oficial
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
+              <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
                 Calculadoras de Arbitraje
               </h1>
-              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+              <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
                 Calcula los costos de arbitraje de manera precisa según las
                 tarifas oficiales
               </p>

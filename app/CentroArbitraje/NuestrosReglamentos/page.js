@@ -52,7 +52,7 @@ export default function NuestrosReglamentosPage() {
             className="text-white"
             viewport={{ once: true }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
               NUESTROS REGLAMENTOS
               <br />
             </h1>

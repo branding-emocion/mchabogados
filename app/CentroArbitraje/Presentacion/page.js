@@ -22,7 +22,7 @@ export default function PresentacionPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               CENTRO DE PRESENTACIÓN
               <br />
             </h1>
