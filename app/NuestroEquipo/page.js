@@ -77,7 +77,7 @@ export default function NuestroEquipo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase uppercase">
               Nuestro Equipo
             </h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">

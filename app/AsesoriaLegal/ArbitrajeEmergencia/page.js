@@ -33,7 +33,7 @@ export default function ArbitrajeEmergenciaPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
               ARBITRAJE DE EMERGENCIA
               <br />
             </h1>
