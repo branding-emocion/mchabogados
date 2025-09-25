@@ -16,17 +16,17 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: {
-    default: "MCH Abogados - Asesoría Legal Especializada en Perú",
+    default: "MCH Abogados - Asesoría Legal Especializada",
     template: "%s | MCH Abogados",
   },
   description:
     "Estudio jurídico especializado en arbitraje, derecho administrativo, penal y conciliación extrajudicial. Más de 10 años de experiencia brindando asesoría legal integral en Lima, Perú.",
   keywords: [
-    "abogados Lima",
-    "asesoría legal Perú",
+    "arbitraje emergencia",
+    "arbitraje express",
     "arbitraje comercial",
-    "derecho administrativo",
-    "derecho penal",
+    "arbitraje contratacion publica",
+    "arbitraje entre privados",
     "conciliación extrajudicial",
     "defensa arbitral",
     "estudio jurídico",
@@ -55,7 +55,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/Banner.avif",
+        url: "/QuienesSomos1.jpg",
         width: 1200,
         height: 630,
         alt: "MCH Abogados - Asesoría Legal Especializada",
@@ -67,7 +67,7 @@ export const metadata = {
     title: "MCH Abogados - Asesoría Legal Especializada",
     description:
       "Estudio jurídico especializado en arbitraje, derecho administrativo, penal y conciliación extrajudicial.",
-    images: ["/Banner.avif"],
+    images: ["/QuienesSomos1.jpg"],
   },
 
   category: "Legal Services",
