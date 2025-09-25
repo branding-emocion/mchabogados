@@ -207,7 +207,7 @@ const Usuarios = () => {
               <DropdownMenuItem>
                 <div
                   className="hover:cursor-pointer w-full h-full"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault();
 
                     if (
@@ -215,7 +215,7 @@ const Usuarios = () => {
                         `¿Está seguro de eliminar la cuenta del usuario ${row?.original?.displayName}?`
                       )
                     ) {
-                      DeleteUser(row?.original?.uid);
+                      await DeleteUser(row?.original?.uid);
                     }
                   }}
                 >
