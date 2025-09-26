@@ -118,64 +118,15 @@ export default function CotizarPage() {
     setShowResult(true);
   };
 
-  // const exportToPDF = async () => {
-  //   if (!result) return;
-
-  //   setIsGeneratingPDF(true);
-
-  //   try {
-  //     const doc = new jsPDF();
-
-  //     // Header
-  //     doc.setFontSize(20);
-  //     doc.text("Cotización de Arbitraje", 20, 30);
-
-  //     doc.setFontSize(12);
-  //     doc.text(`Calculadora: ${result.calculatorName}`, 20, 45);
-  //     doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 55);
-
-  //     // Results table
-  //     const tableData = [
-  //       ["Concepto", "Monto"],
-  //       ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
-  //       ["Tasa de Presentación", `S/ ${result.presentationFee.toFixed(2)}`],
-  //       ["Tarifa Calculada", `S/ ${result.calculatedFee.toFixed(2)}`],
-  //       ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
-  //       ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
-  //       ["Retención (8%)", `S/ ${result.renta.toFixed(2)}`],
-  //       ["Total con IGV", `S/ ${result.totalWithIGV.toFixed(2)}`],
-  //       ["Total con Retención", `S/ ${result.totalWithRenta.toFixed(2)}`],
-  //     ];
-
-  //     doc.autoTable({
-  //       head: [tableData[0]],
-  //       body: tableData.slice(1),
-  //       startY: 70,
-  //       theme: "grid",
-  //       headStyles: { fillColor: [41, 128, 185] },
-  //     });
-
-  //     doc.save(`cotizacion-arbitraje-${Date.now()}.pdf`);
-  //   } catch (error) {
-  //     console.error("Error generating PDF:", error);
-  //     alert("Error al generar el PDF");
-  //   } finally {
-  //     setIsGeneratingPDF(false);
-  //   }
-  // };
-
   const exportToPDF = async () => {
     if (!result) return;
 
     setIsGeneratingPDF(true);
 
     try {
-      const doc = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-      });
+      const doc = new jsPDF();
 
+      // Header
       doc.setFontSize(20);
       doc.text("Cotización de Arbitraje", 20, 30);
 
@@ -183,6 +134,7 @@ export default function CotizarPage() {
       doc.text(`Calculadora: ${result.calculatorName}`, 20, 45);
       doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 55);
 
+      // Results table
       const tableData = [
         ["Concepto", "Monto"],
         ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
@@ -195,43 +147,18 @@ export default function CotizarPage() {
         ["Total con Retención", `S/ ${result.totalWithRenta.toFixed(2)}`],
       ];
 
-      autoTable(doc, {
+      doc.autoTable({
         head: [tableData[0]],
         body: tableData.slice(1),
         startY: 70,
         theme: "grid",
-        headStyles: {
-          fillColor: [41, 128, 185],
-          textColor: [255, 255, 255],
-          fontSize: 12,
-          fontStyle: "bold",
-        },
-        bodyStyles: {
-          fontSize: 11,
-        },
-        columnStyles: {
-          0: { cellWidth: 80 },
-          1: { cellWidth: 60, halign: "right" },
-        },
-        margin: { top: 70, left: 20, right: 20 },
+        headStyles: { fillColor: [41, 128, 185] },
       });
-
-      const pageHeight = doc.internal.pageSize.height;
-      doc.setFontSize(8);
-      doc.text(
-        `Generado el ${new Date().toLocaleString()}`,
-        20,
-        pageHeight - 10
-      );
 
       doc.save(`cotizacion-arbitraje-${Date.now()}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      alert(
-        `Error al generar el PDF: ${
-          error instanceof Error ? error.message : "Error desconocido"
-        }`
-      );
+      alert("Error al generar el PDF");
     } finally {
       setIsGeneratingPDF(false);
     }
@@ -445,7 +372,7 @@ export default function CotizarPage() {
                             <span>Total con IGV:</span>
                             <span>S/ {result.totalWithIGV.toFixed(2)}</span>
                           </div>
-                          <div className="flex justify-between text-lg font-bold text-secondary">
+                          <div className="flex justify-between text-lg font-bold text-primary">
                             <span>Total con Retención:</span>
                             <span>S/ {result.totalWithRenta.toFixed(2)}</span>
                           </div>

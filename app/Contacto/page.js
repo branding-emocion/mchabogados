@@ -79,7 +79,7 @@ export default function Contacto() {
     {
       icon: Phone,
       title: "Teléfono",
-      info: "+51 976 936 5758",
+      info: "+51 976 936 575",
     },
     {
       icon: Mail,
@@ -89,7 +89,7 @@ export default function Contacto() {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      info: "+51 976 936 5751",
+      info: "+51 976 936 575",
     },
   ];
 
