@@ -23,18 +23,21 @@ export default function NuestroEquipo() {
       name: "Vacner Valverde Jara",
       position: "PRESIDENTE DEL CONSEJO SUPERIOR DE ARBITRAJE",
       image: "/equipo/vacner.avif",
+      cv: "/pdfs/Vacner.pdf",
     },
     {
       id: "PabloAlbertoMorilloAguilar",
       name: "Pablo Alberto Morillo Aguilar",
       position: "PRIMER VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
       image: "/equipo/pablo.avif",
+      cv: "/pdfs/Pablo.pdf",
     },
     {
       id: "EduardoAlexisRuizSanMartin",
       name: "Eduardo Alexis Ruiz San Martin",
       position: "SEGUNDO VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
       image: "/equipo/eduardo.avif",
+      cv: "/pdfs/Eduardo.pdf",
     },
   ];
 
@@ -108,15 +111,16 @@ export default function NuestroEquipo() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
             {teamMembers.map((member, index) => (
-              <motion.div
+              <motion.a
                 key={member.id}
                 id={member.id}
-                className="group"
+                className="group hover:cursor-pointer hover:scale-105"
                 initial={{ opacity: 0, y: 50 }}
                 animate={
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
                 }
                 transition={{ duration: 0.8, delay: index * 0.1 }}
+                href={member.cv}
               >
                 <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow duration-300 p-0">
                   <CardContent className="p-0 flex items-center">
@@ -135,13 +139,13 @@ export default function NuestroEquipo() {
                       <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
                         {member.name}
                       </h3>
-                      <p className="text-sm text-primary font-semibold uppercase tracking-wide">
+                      <p className="text-sm text-primary font-semibold  tracking-wide">
                         {member.position}
                       </p>
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
         </div>

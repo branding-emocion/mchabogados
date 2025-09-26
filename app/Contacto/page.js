@@ -266,7 +266,7 @@ export default function Contacto() {
                           value={formData?.Telefono}
                           onChange={handleInputChange}
                           className="w-full"
-                          placeholder="+51 987 654 321"
+                          placeholder="+51 976 936 575"
                           required
                         />
                       </div>
