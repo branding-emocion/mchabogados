@@ -163,7 +163,7 @@ const Header = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <Link href="/Laudos">
                     <NavigationMenuLink
                       className={cn(
@@ -174,13 +174,14 @@ const Header = () => {
                       Laudos
                     </NavigationMenuLink>
                   </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={cn(
-                      "group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                      "group uppercase inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",
                       isScrolled ? "text-gray-700" : "text-white bg-transparent"
                     )}
+                    k
                   >
                     Laudos{" "}
                   </NavigationMenuTrigger>
