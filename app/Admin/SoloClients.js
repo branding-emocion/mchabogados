@@ -127,13 +127,13 @@ export default function SoloClientes({ user }) {
               <LogOut className="w-4 h-4 mr-2" />
               Cerrar sesión
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               className="flex-1 border-[#b39306] text-[#b39306] hover:cursor-pointer hover:text-white hover:bg-[#b39306]/10 py-6 bg-transparent"
             >
               <Settings className="w-4 h-4 mr-2" />
               Cambiar contraseña
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

@@ -25,6 +25,13 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { laudosService } from "@/lib/LaudosService";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function AdminDashboard() {
   const [laudos, setLaudos] = useState([]);
@@ -38,6 +45,7 @@ export default function AdminDashboard() {
     entidad: "",
     controversia: "",
     laudo: null,
+    tipoLaudo: "",
   });
 
   useEffect(() => {
@@ -70,6 +78,7 @@ export default function AdminDashboard() {
           contratista: formData.contratista,
           entidad: formData.entidad,
           controversia: formData.controversia,
+          tipoLaudo: formData.tipoLaudo,
         },
         formData.laudo
       );
@@ -80,6 +89,7 @@ export default function AdminDashboard() {
         entidad: "",
         controversia: "",
         laudo: null,
+        tipoLaudo: "",
       });
       setIsAddModalOpen(false);
     } catch (error) {
@@ -96,6 +106,7 @@ export default function AdminDashboard() {
           contratista: formData.contratista,
           entidad: formData.entidad,
           controversia: formData.controversia,
+          tipoLaudo: formData.tipoLaudo,
         },
         formData.laudo
       );
@@ -106,6 +117,7 @@ export default function AdminDashboard() {
         entidad: "",
         controversia: "",
         laudo: null,
+        tipoLaudo: "",
       });
       setIsEditModalOpen(false);
       setEditingLaudo(null);
@@ -132,6 +144,7 @@ export default function AdminDashboard() {
       entidad: laudo.entidad,
       controversia: laudo.controversia,
       laudo: null,
+      tipoLaudo: laudo.tipoLaudo,
     });
     setIsEditModalOpen(true);
   };
@@ -178,6 +191,31 @@ export default function AdminDashboard() {
                   <DialogTitle>Agregar Nuevo Laudo</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="edit-contratista">Tipo Laudo</Label>
+                    <Select
+                      value={formData.tipoLaudo}
+                      onValueChange={(value) =>
+                        setFormData({
+                          ...formData,
+                          tipoLaudo: value,
+                        })
+                      }
+                      className="w-full"
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Tipo Laudo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Laudos emitidos">
+                          Laudos emitidos
+                        </SelectItem>
+                        <SelectItem value="Banco de decisiones">
+                          Banco de decisiones
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <div className="grid gap-2">
                     <Label htmlFor="contratista">Contratista</Label>
                     <Input
@@ -274,6 +312,9 @@ export default function AdminDashboard() {
                     ID
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Tipo Laudo
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Contratista
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -298,6 +339,9 @@ export default function AdminDashboard() {
                   <tr key={laudo.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {index + 1}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900 ">
+                      {laudo.tipoLaudo}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       {laudo.contratista}
@@ -382,6 +426,30 @@ export default function AdminDashboard() {
               <DialogTitle>Editar Laudo</DialogTitle>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="edit-contratista">Tipo Laudo</Label>
+                <Select
+                  value={formData.tipoLaudo}
+                  onValueChange={(value) =>
+                    setFormData({
+                      ...formData,
+                      tipoLaudo: value,
+                    })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Laudos emitidos">
+                      Laudos emitidos
+                    </SelectItem>
+                    <SelectItem value="Banco de decisiones">
+                      Banco de decisiones
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="edit-contratista">Contratista</Label>
                 <Input
