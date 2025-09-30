@@ -56,14 +56,23 @@ export default function SecretariaArbitral() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 ">
-                  <Button href="/pdfs/SECRETARIOGENERAL.pdf">
+                  <Button
+                    href="/pdfs/SECRETARIOGENERAL.pdf"
+                    className={"hover:cursor-pointer"}
+                  >
                     Secretario General{" "}
                   </Button>
 
-                  <Button href="/pdfs/EduardoAdolfo.pdf">
+                  <Button
+                    href="/pdfs/EduardoAdolfo.pdf"
+                    className={"hover:cursor-pointer"}
+                  >
                     Secretario Arbitral
                   </Button>
-                  <Button href="/pdfs/JuanArmando.pdf">
+                  <Button
+                    href="/pdfs/JuanArmando.pdf"
+                    className={"hover:cursor-pointer"}
+                  >
                     {" "}
                     Secretario Arbitral
                   </Button>
