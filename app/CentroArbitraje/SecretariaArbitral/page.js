@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
@@ -53,12 +54,20 @@ export default function SecretariaArbitral() {
                   procedimentales del arbitraje, desde su inicio hasta la
                   emisión del laudo arbitral.
                 </p>
-                <p className="text-lg leading-relaxed">
-                  Nuestro equipo de profesionales especializados garantiza que
-                  cada proceso arbitral se desarrolle de manera eficiente,
-                  transparente y conforme a la normativa vigente, proporcionando
-                  el soporte necesario tanto a las partes como a los árbitros.
-                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 ">
+                  <Button href="/pdfs/SECRETARIOGENERAL.pdf">
+                    Secretario General{" "}
+                  </Button>
+
+                  <Button href="/pdfs/EduardoAdolfo.pdf">
+                    Secretario Arbitral
+                  </Button>
+                  <Button href="/pdfs/JuanArmando.pdf">
+                    {" "}
+                    Secretario Arbitral
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
