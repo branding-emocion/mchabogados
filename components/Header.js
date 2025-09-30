@@ -67,7 +67,7 @@ const Header = () => {
   ];
 
   const laudos = [
-    { name: "Laudos emitidos", href: "/Laudos/Emitidos" },
+    { name: "Banco de Laudos", href: "/Laudos/Emitidos" },
     { name: "Banco de decisiones", href: "/Laudos/Decisiones" },
   ];
 
