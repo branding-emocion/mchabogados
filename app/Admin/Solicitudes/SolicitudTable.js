@@ -162,7 +162,7 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
       loadSolicitudes();
     } catch (error) {
       console.error("Error deleting solicitud:", error);
-      toast.error("Error al eliminar la solicitud");
+      toast.error(`Error al eliminar la solicitud: ${error.message}`);
     }
   };
 
