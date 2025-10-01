@@ -68,7 +68,7 @@ export default function LaudosDecisionesEmitidosPage() {
               className="text-white"
             >
               <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
-                Banco de Laudos emitidos
+                Banco de Banco Laudos
                 <br />
               </h1>
               <div className="w-24 h-1  mx-auto mb-8 bg-white" />

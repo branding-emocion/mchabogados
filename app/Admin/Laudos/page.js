@@ -207,8 +207,8 @@ export default function AdminDashboard() {
                         <SelectValue placeholder="Tipo Laudo" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Laudos emitidos">
-                          Laudos emitidos
+                        <SelectItem value="Banco Laudos">
+                          Banco Laudos
                         </SelectItem>
                         <SelectItem value="Banco de decisiones">
                           Banco de decisiones
@@ -441,9 +441,7 @@ export default function AdminDashboard() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Laudos emitidos">
-                      Laudos emitidos
-                    </SelectItem>
+                    <SelectItem value="Banco Laudos">Banco Laudos</SelectItem>
                     <SelectItem value="Banco de decisiones">
                       Banco de decisiones
                     </SelectItem>
