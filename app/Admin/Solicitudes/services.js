@@ -145,7 +145,7 @@ export const getSolicitud = async (id, userRole, userId) => {
 // Delete solicitud (admin only)
 export const deleteSolicitud = async (id, userRole) => {
   try {
-    if (userRole !== "superAdmin") {
+    if (userRole != "superAdmin") {
       throw new Error("No tienes permisos para eliminar solicitudes");
     }
 
