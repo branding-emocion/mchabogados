@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Scale, Shield, Play, ImageIcon } from "lucide-react";
 import Link from "next/link";
 import { useBanners } from "@/hooks/useBanners";
+import Image from "next/image";
 
 const CarouselSkeleton = () => {
   return (
@@ -271,7 +272,13 @@ const HeroCarousel = () => {
                     exit={{ opacity: 0, rotate: 180 }}
                     transition={{ duration: 0.8 }}
                   >
-                    <IconComponent className="w-32 h-32 text-white" />
+                    {/* <IconComponent className="w-32 h-32 text-white" /> */}
+                    <Image
+                      src={"/LogoSolo.png"}
+                      alt="banner"
+                      width={128}
+                      height={128}
+                    />
                   </motion.div>
                 </AnimatePresence>
 
