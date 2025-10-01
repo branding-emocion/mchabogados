@@ -156,7 +156,7 @@ const HeroCarousel = () => {
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 {/* Badge with Media Type */}
-                <motion.div
+                {/* <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 }}
@@ -173,7 +173,7 @@ const HeroCarousel = () => {
                       ? "Imagen"
                       : "Contenido"}
                   </Badge>
-                </motion.div>
+                </motion.div> */}
 
                 {/* Main Title */}
                 <motion.h1
