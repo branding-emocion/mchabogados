@@ -55,31 +55,34 @@ export default function SecretariaArbitral() {
                   emisión del laudo arbitral.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 ">
-                  <Button className={"hover:cursor-pointer"}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3  ">
+                  <Button>
                     <a
                       href="/pdfs/SECRETARIOGENERAL.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className={"hover:cursor-pointer uppercase"}
                     >
                       Secretario General{" "}
                     </a>
                   </Button>
 
-                  <Button className={"hover:cursor-pointer"}>
+                  <Button>
                     <a
                       href="/pdfs/EduardoAdolfo.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className={"hover:cursor-pointer uppercase"}
                     >
                       Secretario Arbitral
                     </a>
                   </Button>
-                  <Button className={"hover:cursor-pointer"}>
+                  <Button>
                     <a
                       href="/pdfs/JuanArmando.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      className={"hover:cursor-pointer uppercase"}
                     >
                       Secretario Arbitral
                     </a>{" "}
