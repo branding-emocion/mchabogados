@@ -157,21 +157,55 @@ export default function CalculatorAdmin() {
               />
             </div>
             {config?.name == "Calculadora de gastos administrativos" && (
-              <div>
-                <Label>Pretensiones indeterminadas %</Label>
-                <Input
-                  type="number"
-                  step="0.01"
-                  value={config.Pretensiones || 0}
-                  onChange={(e) =>
-                    updateConfig(
-                      type,
-                      "Pretensiones",
-                      Number.parseFloat(e.target.value) || 0
-                    )
-                  }
-                />
-              </div>
+              <>
+                <div>
+                  <Label>Pretensiones indeterminadas %</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={config.Pretensiones || 0}
+                    onChange={(e) =>
+                      updateConfig(
+                        type,
+                        "Pretensiones",
+                        Number.parseFloat(e.target.value) || 0
+                      )
+                    }
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Para Gastos de Arbitraje %</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      value={config.GastosArbitraje || 0}
+                      onChange={(e) =>
+                        updateConfig(
+                          type,
+                          "GastosArbitraje",
+                          Number.parseFloat(e.target.value) || 0
+                        )
+                      }
+                    />
+                  </div>{" "}
+                  <div>
+                    <Label>Para Arbitraje de Emergencia %</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      value={config.ArbitrajeEmergencia || 0}
+                      onChange={(e) =>
+                        updateConfig(
+                          type,
+                          "ArbitrajeEmergencia",
+                          Number.parseFloat(e.target.value) || 0
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
