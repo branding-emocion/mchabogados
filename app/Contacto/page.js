@@ -95,7 +95,7 @@ export default function Contacto() {
 
   return (
     <main className="min-h-screen">
-      <section className="relative h-[30vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -111,7 +111,7 @@ export default function Contacto() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
-              Contáctanos
+              Contáctanos{" "}
             </h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Estamos aquí para ayudarte con tus necesidades legales.
@@ -119,7 +119,6 @@ export default function Contacto() {
           </motion.div>
         </div>
       </section>
-
       <section className="py-20 bg-gray-50" ref={ref}>
         <div className="container mx-auto px-4 lg:px-8">
           <motion.div
