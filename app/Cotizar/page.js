@@ -127,7 +127,7 @@ export default function CotizarPage() {
     if (config.name === "Calculadora de gastos administrativos") {
       const baseParaCargos = calculatedFee;
 
-      if (tipoArbitraje === "Gastos de Arbitraje") {
+      if (tipoArbitraje === "Arbitraje de Contratación Pública") {
         cargosArbitraje = baseParaCargos * (config.GastosArbitraje / 100);
       } else if (tipoArbitraje === "Arbitraje de Emergencia") {
         cargosArbitraje = baseParaCargos * (config.ArbitrajeEmergencia / 100);
@@ -449,8 +449,8 @@ export default function CotizarPage() {
                               <SelectValue placeholder="Seleccione una opción" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="Gastos de Arbitraje">
-                                Gastos de Arbitraje
+                              <SelectItem value="Arbitraje de Contratación Pública">
+                                Arbitraje de Contratación Pública
                               </SelectItem>
                               <SelectItem value="Arbitraje de Emergencia">
                                 Arbitraje de Emergencia
