@@ -56,25 +56,33 @@ export default function SecretariaArbitral() {
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 ">
-                  <Button
-                    href="/pdfs/SECRETARIOGENERAL.pdf"
-                    className={"hover:cursor-pointer"}
-                  >
-                    Secretario General{" "}
+                  <Button className={"hover:cursor-pointer"}>
+                    <a
+                      href="/pdfs/SECRETARIOGENERAL.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Secretario General{" "}
+                    </a>
                   </Button>
 
-                  <Button
-                    href="/pdfs/EduardoAdolfo.pdf"
-                    className={"hover:cursor-pointer"}
-                  >
-                    Secretario Arbitral
+                  <Button className={"hover:cursor-pointer"}>
+                    <a
+                      href="/pdfs/EduardoAdolfo.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Secretario Arbitral
+                    </a>
                   </Button>
-                  <Button
-                    href="/pdfs/JuanArmando.pdf"
-                    className={"hover:cursor-pointer"}
-                  >
-                    {" "}
-                    Secretario Arbitral
+                  <Button className={"hover:cursor-pointer"}>
+                    <a
+                      href="/pdfs/JuanArmando.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Secretario Arbitral
+                    </a>{" "}
                   </Button>
                 </div>
               </CardContent>
