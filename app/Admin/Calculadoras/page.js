@@ -117,6 +117,9 @@ export default function CalculatorAdmin() {
 
   const renderFeeTable = (type) => {
     const config = configs[type];
+
+    console.log("config", config);
+
     if (!config) {
       console.log(`[v0] No config found for type: ${type}`);
       return <div>Cargando configuración...</div>;
@@ -137,6 +140,7 @@ export default function CalculatorAdmin() {
                 onChange={(e) => updateConfig(type, "name", e.target.value)}
               />
             </div>
+
             <div>
               <Label>Tasa de Presentación (S/)</Label>
               <Input
@@ -152,6 +156,23 @@ export default function CalculatorAdmin() {
                 }
               />
             </div>
+            {config?.name == "Calculadora de gastos administrativos" && (
+              <div>
+                <Label>Pretensiones indeterminadas %</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={config.Pretensiones || 0}
+                  onChange={(e) =>
+                    updateConfig(
+                      type,
+                      "Pretensiones",
+                      Number.parseFloat(e.target.value) || 0
+                    )
+                  }
+                />
+              </div>
+            )}
           </CardContent>
         </Card>
 
