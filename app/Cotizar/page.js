@@ -176,6 +176,37 @@ export default function CotizarPage() {
     setShowResult(true);
   };
 
+  // Helper function to add images to the document
+  const addImageToDoc = async (doc, imagePath, x, y, width, height = null) => {
+    try {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+
+      return new Promise((resolve, reject) => {
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          const imgData = canvas.toDataURL("image/png");
+          const finalHeight = height || (width * img.height) / img.width;
+
+          doc.addImage(imgData, "PNG", x, y, width, finalHeight);
+          resolve();
+        };
+
+        img.onerror = () =>
+          reject(new Error(`Failed to load image: ${imagePath}`));
+        img.src = imagePath;
+      });
+    } catch (error) {
+      console.error("Error adding image:", error);
+    }
+  };
+
   const exportToPDF = async () => {
     if (!result) return;
 
@@ -183,12 +214,21 @@ export default function CotizarPage() {
 
     try {
       const doc = new jsPDF();
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const logoWidth = 40;
+      const logoX = (pageWidth - logoWidth) / 2;
+      await addImageToDoc(doc, "/LOGO.png", 15, 10, 50);
 
-      doc.setFontSize(20);
-      doc.text("Cotización de Arbitraje", 20, 30);
+      doc.setFontSize(22);
+      doc.setFont(undefined, "bold");
+      doc.text("COTIZACIÓN DE ARBITRAJE", pageWidth / 2, 35, {
+        align: "center",
+      });
 
       doc.setFontSize(12);
-      doc.text(`Calculadora: ${result.calculatorName}`, 20, 45);
+      doc.text(`${result.calculatorName.toUpperCase()}`, pageWidth / 2, 45, {
+        align: "center",
+      });
       doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 55);
 
       const tableData = [
