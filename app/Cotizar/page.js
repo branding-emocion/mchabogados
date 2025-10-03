@@ -100,7 +100,7 @@ export default function CotizarPage() {
     const config = calculatorConfigs[activeCalculator];
     if (!config) return;
 
-    if (config.name === "Calculadora de gastos administrativos") {
+    if (config.name === "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
       if (!tipoPretensiones || !tipoArbitraje) {
         alert(
           "Por favor seleccione el tipo de pretensiones y tipo de arbitraje"
@@ -124,7 +124,7 @@ export default function CotizarPage() {
     let cargosPretensiones = 0;
     let cargosArbitraje = 0;
 
-    if (config.name === "Calculadora de gastos administrativos") {
+    if (config.name === "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
       const baseParaCargos = calculatedFee;
 
       if (tipoArbitraje === "Arbitraje de Contratación Pública") {
@@ -238,7 +238,7 @@ export default function CotizarPage() {
         ["Tarifa Calculada", `S/ ${result.calculatedFee.toFixed(2)}`],
       ];
 
-      if (result.calculatorName === "Calculadora de gastos administrativos") {
+      if (result.calculatorName == "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
         if (result.cargosArbitraje > 0) {
           tableData.push([
             `Cargo ${result.tipoArbitraje}`,
@@ -395,7 +395,7 @@ export default function CotizarPage() {
                 <CardContent className="space-y-6">
                   <div className="space-y-4">
                     {currentConfig?.name ==
-                      "Calculadora de gastos administrativos" && (
+                      "ARBITRAJE DE CONTRATACIÓN PÚBLICA" && (
                       <>
                         <div className="space-y-2">
                           <Label className="text-base font-bold uppercase">
@@ -419,7 +419,7 @@ export default function CotizarPage() {
                           </Select>
                         </div>
 
-                        {tipoPretensiones === "Pretenciones indeterminadas" && (
+                        {tipoPretensiones == "Pretenciones indeterminadas" && (
                           <div className="space-y-2">
                             <Label className="text-base font-bold uppercase">
                               Número de pretensiones indeterminadas
@@ -531,7 +531,7 @@ export default function CotizarPage() {
                           </div>
 
                           {result.calculatorName ===
-                            "Calculadora de gastos administrativos" && (
+                            "ARBITRAJE DE CONTRATACIÓN PÚBLICA" && (
                             <>
                               {result.cargosArbitraje > 0 && (
                                 <div className="flex justify-between">
