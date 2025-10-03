@@ -375,13 +375,16 @@ export default function CotizarPage() {
                 <Users className="w-4 h-4" />
                 Árbitro Único
               </TabsTrigger>
-              <TabsTrigger
-                value="CalculadoraTribunalArbitral"
-                className="flex items-center gap-2"
-              >
-                <FileText className="w-4 h-4" />
-                Tribunal Arbitral
-              </TabsTrigger>
+              {tipoArbitraje != "Arbitraje de Emergencia" && (
+                <TabsTrigger
+                  value="CalculadoraTribunalArbitral"
+                  className="flex items-center gap-2"
+                  disabled={true}
+                >
+                  <FileText className="w-4 h-4" />
+                  Tribunal Arbitral
+                </TabsTrigger>
+              )}
             </TabsList>
 
             <TabsContent value={activeCalculator}>

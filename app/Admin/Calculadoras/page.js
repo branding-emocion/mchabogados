@@ -117,6 +117,7 @@ export default function CalculatorAdmin() {
 
   const renderFeeTable = (type) => {
     const config = configs[type];
+    console.log(config);
 
     if (!config) {
       console.log(`[v0] No config found for type: ${type}`);
@@ -205,6 +206,25 @@ export default function CalculatorAdmin() {
                 </div>
               </>
             )}
+            {config?.name == "Tribunal Emergencia" && (
+              <>
+                <div>
+                  <Label>Pretensiones indeterminadas %</Label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    value={config.Pretensiones || 0}
+                    onChange={(e) =>
+                      updateConfig(
+                        type,
+                        "Pretensiones",
+                        Number.parseFloat(e.target.value) || 0
+                      )
+                    }
+                  />
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -256,67 +276,107 @@ export default function CalculatorAdmin() {
                         }}
                       />
                     </div>
-                    <div>
-                      <Label>Tasa (%)</Label>
-                      <Input
-                        type="number"
-                        step="0.001"
-                        value={(fee.rate || 0) * 100}
-                        onChange={(e) =>
-                          updateFeeRange(
-                            type,
-                            index,
-                            "rate",
-                            (Number.parseFloat(e.target.value) || 0) / 100
-                          )
-                        }
-                      />
-                    </div>
-                    <div>
-                      <Label>Tarifa Mín (S/)</Label>
-                      <Input
-                        type="number"
-                        value={fee.minFee || 0}
-                        onChange={(e) =>
-                          updateFeeRange(
-                            type,
-                            index,
-                            "minFee",
-                            Number.parseFloat(e.target.value) || 0
-                          )
-                        }
-                      />
-                    </div>
-                    <div>
-                      <Label>Tarifa Máx (S/)</Label>
-                      <Input
-                        type="number"
-                        value={fee.maxFee || ""}
-                        placeholder="Sin límite"
-                        onChange={(e) => {
-                          const value =
-                            e.target.value === ""
-                              ? null
-                              : Number.parseFloat(e.target.value) || 0;
-                          updateFeeRange(type, index, "maxFee", value);
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <Label>Base (S/)</Label>
-                      <Input
-                        type="number"
-                        value={fee.baseAmount || 0}
-                        onChange={(e) =>
-                          updateFeeRange(
-                            type,
-                            index,
-                            "baseAmount",
-                            Number.parseInt(e.target.value) || 0
-                          )
-                        }
-                      />
-                    </div>
+
+                    {type === "CalculadoraTribunalEmergencia" ? (
+                      <>
+                        <div>
+                          <Label>Arbitro de Emergencia</Label>
+                          <Input
+                            type="number"
+                            step="0.001"
+                            value={(fee.ArbitroEmergencia || 0) * 100}
+                            onChange={(e) =>
+                              updateFeeRange(
+                                type,
+                                index,
+                                "ArbitroEmergencia",
+                                (Number.parseFloat(e.target.value) || 0) / 100
+                              )
+                            }
+                          />
+                        </div>{" "}
+                        <div>
+                          <Label>Servicio de Arbitraje Emergencia</Label>
+                          <Input
+                            type="number"
+                            step="0.001"
+                            value={(fee.ServicioArbitrajeEmergencia || 0) * 100}
+                            onChange={(e) =>
+                              updateFeeRange(
+                                type,
+                                index,
+                                "ServicioArbitrajeEmergencia",
+                                (Number.parseFloat(e.target.value) || 0) / 100
+                              )
+                            }
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <Label>Tasa (%)</Label>
+                          <Input
+                            type="number"
+                            step="0.001"
+                            value={(fee.rate || 0) * 100}
+                            onChange={(e) =>
+                              updateFeeRange(
+                                type,
+                                index,
+                                "rate",
+                                (Number.parseFloat(e.target.value) || 0) / 100
+                              )
+                            }
+                          />
+                        </div>
+                        <div>
+                          <Label>Tarifa Mín (S/)</Label>
+                          <Input
+                            type="number"
+                            value={fee.minFee || 0}
+                            onChange={(e) =>
+                              updateFeeRange(
+                                type,
+                                index,
+                                "minFee",
+                                Number.parseFloat(e.target.value) || 0
+                              )
+                            }
+                          />
+                        </div>
+                        <div>
+                          <Label>Tarifa Máx (S/)</Label>
+                          <Input
+                            type="number"
+                            value={fee.maxFee || ""}
+                            placeholder="Sin límite"
+                            onChange={(e) => {
+                              const value =
+                                e.target.value === ""
+                                  ? null
+                                  : Number.parseFloat(e.target.value) || 0;
+                              updateFeeRange(type, index, "maxFee", value);
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <Label>Base (S/)</Label>
+                          <Input
+                            type="number"
+                            value={fee.baseAmount || 0}
+                            onChange={(e) =>
+                              updateFeeRange(
+                                type,
+                                index,
+                                "baseAmount",
+                                Number.parseInt(e.target.value) || 0
+                              )
+                            }
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                   <div className="flex justify-end mt-4">
                     <Button
@@ -369,7 +429,7 @@ export default function CalculatorAdmin() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3 mb-8">
+        <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
           <TabsTrigger value="CalculadoraGastosAdministrativos">
             Gastos Administrativos
           </TabsTrigger>
@@ -378,6 +438,9 @@ export default function CalculatorAdmin() {
           </TabsTrigger>
           <TabsTrigger value="CalculadoraTribunalArbitral">
             Tribunal Arbitral
+          </TabsTrigger>
+          <TabsTrigger value="CalculadoraTribunalEmergencia">
+            Tribunal de Emergencia
           </TabsTrigger>
         </TabsList>
 
@@ -391,6 +454,9 @@ export default function CalculatorAdmin() {
 
         <TabsContent value="CalculadoraTribunalArbitral">
           {renderFeeTable("CalculadoraTribunalArbitral")}
+        </TabsContent>
+        <TabsContent value="CalculadoraTribunalEmergencia">
+          {renderFeeTable("CalculadoraTribunalEmergencia")}
         </TabsContent>
       </Tabs>
     </div>
