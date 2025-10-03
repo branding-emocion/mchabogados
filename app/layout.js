@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | MCH Abogados",
   },
   description:
-    "Estudio jurídico especializado en arbitraje, derecho administrativo, penal y conciliación extrajudicial. Más de 10 años de experiencia brindando asesoría legal integral en Lima, Perú.",
+    "Centro de Arbitraje y Asesoría Legal, especializado en arbitraje, derecho administrativo, penal y conciliación extrajudicial, brindado un servicio de calidad y eficacia.",
   keywords: [
     "arbitraje emergencia",
     "arbitraje express",

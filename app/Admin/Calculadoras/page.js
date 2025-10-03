@@ -118,8 +118,6 @@ export default function CalculatorAdmin() {
   const renderFeeTable = (type) => {
     const config = configs[type];
 
-    console.log("config", config);
-
     if (!config) {
       console.log(`[v0] No config found for type: ${type}`);
       return <div>Cargando configuración...</div>;
@@ -156,7 +154,7 @@ export default function CalculatorAdmin() {
                 }
               />
             </div>
-            {config?.name == "Calculadora de gastos administrativos" && (
+            {config?.name == "ARBITRAJE DE CONTRATACIÓN PÚBLICA" && (
               <>
                 <div>
                   <Label>Pretensiones indeterminadas %</Label>
