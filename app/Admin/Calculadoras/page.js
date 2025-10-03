@@ -206,18 +206,18 @@ export default function CalculatorAdmin() {
                 </div>
               </>
             )}
-            {config?.name == "Tribunal Emergencia" && (
+            {config?.name == "ARBITRAJE DE EMERGENCIA" && (
               <>
                 <div>
                   <Label>Pretensiones indeterminadas %</Label>
                   <Input
                     type="number"
                     step="0.01"
-                    value={config.Pretensiones || 0}
+                    value={config.PretensionesEmergencia || 0}
                     onChange={(e) =>
                       updateConfig(
                         type,
-                        "Pretensiones",
+                        "PretensionesEmergencia",
                         Number.parseFloat(e.target.value) || 0
                       )
                     }
