@@ -95,8 +95,10 @@ export default function CotizarPage() {
     if (!config) return;
 
     if (config.name === "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
-      if (!tipoPretensiones) {
-        alert("Por favor seleccione el tipo de pretensiones");
+      if (!tipoPretensiones || !tipoArbitraje) {
+        alert(
+          "Por favor seleccione el tipo de pretensiones y tipo de arbitraje"
+        );
         return;
       }
       if (
@@ -151,29 +153,35 @@ export default function CotizarPage() {
         return;
       }
 
-      const servicioEmergencia = emergencyTier.ServicioArbitrajeEmergencia || 0;
-      const arbitroEmergencia = emergencyTier.ArbitroEmergencia || 0;
+      const presentationFee = config.presentationFee || 0;
 
-      const igvServicio = servicioEmergencia * 0.18;
-      const igvArbitro = arbitroEmergencia * 0.18;
+      // Calculate each concept separately with IGV
+      const servicioEmergenciaBase =
+        emergencyTier.ServicioArbitrajeEmergencia || 0;
+      const arbitroEmergenciaBase = emergencyTier.ArbitroEmergencia || 0;
 
-      const totalServicio = servicioEmergencia + igvServicio;
-      const totalArbitro = arbitroEmergencia + igvArbitro;
+      const igvServicio = servicioEmergenciaBase * 0.18;
+      const igvArbitro = arbitroEmergenciaBase * 0.18;
 
-      const subtotal = servicioEmergencia + arbitroEmergencia;
-      const totalIGV = igvServicio + igvArbitro;
-      const totalGeneral = totalServicio + totalArbitro;
+      const totalServicio = servicioEmergenciaBase + igvServicio;
+      const totalArbitro = arbitroEmergenciaBase + igvArbitro;
+
+      // Subtotal is the sum of both totals
+      const subtotal = totalServicio + totalArbitro;
+
+      // Add presentation fee once to the subtotal
+      const totalGeneral = subtotal + presentationFee;
 
       const calculationResult = {
         amount: numAmount,
-        servicioEmergencia,
-        arbitroEmergencia,
+        presentationFee,
+        servicioEmergenciaBase,
+        arbitroEmergenciaBase,
         igvServicio,
         igvArbitro,
         totalServicio,
         totalArbitro,
         subtotal,
-        totalIGV,
         totalGeneral,
         currency,
         calculatorType: activeCalculator,
@@ -308,7 +316,10 @@ export default function CotizarPage() {
           ["Concepto", "Monto"],
           ["Monto del Contrato", `S/ ${result.amount.toLocaleString()}`],
           ["Número de Pretensiones", result.numeroPretensiones],
-          [" Sub Total)", `S/ ${result.baseCalculation.toFixed(2)}`],
+          [
+            "Cálculo Base (Monto × 6.2 × Pretensiones)",
+            `S/ ${result.baseCalculation.toFixed(2)}`,
+          ],
           ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
           ["TOTAL GENERAL", `S/ ${result.totalGeneral.toFixed(2)}`],
         ];
@@ -316,17 +327,19 @@ export default function CotizarPage() {
         tableData = [
           ["Concepto", "Monto"],
           ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
-          [
-            "Servicio Arbitraje Emergencia",
-            `S/ ${result.servicioEmergencia.toFixed(2)}`,
-          ],
+          ["", ""],
+          ["SERVICIO ARBITRAJE EMERGENCIA", ""],
+          ["Monto Base", `S/ ${result.servicioEmergenciaBase.toFixed(2)}`],
           ["IGV Servicio (18%)", `S/ ${result.igvServicio.toFixed(2)}`],
           ["Total Servicio", `S/ ${result.totalServicio.toFixed(2)}`],
-          ["Árbitro Emergencia", `S/ ${result.arbitroEmergencia.toFixed(2)}`],
+          ["", ""],
+          ["ÁRBITRO EMERGENCIA", ""],
+          ["Monto Base", `S/ ${result.arbitroEmergenciaBase.toFixed(2)}`],
           ["IGV Árbitro (18%)", `S/ ${result.igvArbitro.toFixed(2)}`],
           ["Total Árbitro", `S/ ${result.totalArbitro.toFixed(2)}`],
+          ["", ""],
           ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
-          ["IGV Total (18%)", `S/ ${result.totalIGV.toFixed(2)}`],
+          ["Tasa de Presentación", `S/ ${result.presentationFee.toFixed(2)}`],
           ["TOTAL GENERAL", `S/ ${result.totalGeneral.toFixed(2)}`],
         ];
       } else {
@@ -679,7 +692,9 @@ export default function CotizarPage() {
                           </div>
                           <div className="border-t pt-4">
                             <div className="flex justify-between">
-                              <span>Sub Total:</span>
+                              <span>
+                                Cálculo Base (Monto × 6.2 × Pretensiones):
+                              </span>
                               <span className="font-medium">
                                 S/ {result.baseCalculation.toFixed(2)}
                               </span>
@@ -712,7 +727,7 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Monto Base:</span>
                               <span className="font-medium">
-                                S/ {result.servicioEmergencia.toFixed(2)}
+                                S/ {result.servicioEmergenciaBase.toFixed(2)}
                               </span>
                             </div>
                             <div className="flex justify-between">
@@ -734,7 +749,7 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Monto Base:</span>
                               <span className="font-medium">
-                                S/ {result.arbitroEmergencia.toFixed(2)}
+                                S/ {result.arbitroEmergenciaBase.toFixed(2)}
                               </span>
                             </div>
                             <div className="flex justify-between">
@@ -757,9 +772,9 @@ export default function CotizarPage() {
                               </span>
                             </div>
                             <div className="flex justify-between text-lg">
-                              <span>IGV Total (18%):</span>
+                              <span>Tasa de Presentación:</span>
                               <span className="font-medium">
-                                S/ {result.totalIGV.toFixed(2)}
+                                S/ {result.presentationFee.toFixed(2)}
                               </span>
                             </div>
                             <div className="flex justify-between text-xl font-bold text-primary mt-4">
