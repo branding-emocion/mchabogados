@@ -172,7 +172,7 @@ export default function CalculatorAdmin() {
                     }
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                {/* <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>Para Gastos de Arbitraje %</Label>
                     <Input
@@ -203,7 +203,7 @@ export default function CalculatorAdmin() {
                       }
                     />
                   </div>
-                </div>
+                </div> */}
               </>
             )}
             {config?.name == "ARBITRAJE DE EMERGENCIA" && (
@@ -284,13 +284,13 @@ export default function CalculatorAdmin() {
                           <Input
                             type="number"
                             step="0.001"
-                            value={(fee.ArbitroEmergencia || 0) * 100}
+                            value={fee.ArbitroEmergencia || 0}
                             onChange={(e) =>
                               updateFeeRange(
                                 type,
                                 index,
                                 "ArbitroEmergencia",
-                                (Number.parseFloat(e.target.value) || 0) / 100
+                                Number.parseFloat(e.target.value) || 0
                               )
                             }
                           />
@@ -300,13 +300,13 @@ export default function CalculatorAdmin() {
                           <Input
                             type="number"
                             step="0.001"
-                            value={(fee.ServicioArbitrajeEmergencia || 0) * 100}
+                            value={fee.ServicioArbitrajeEmergencia || 0}
                             onChange={(e) =>
                               updateFeeRange(
                                 type,
                                 index,
                                 "ServicioArbitrajeEmergencia",
-                                (Number.parseFloat(e.target.value) || 0) / 100
+                                Number.parseFloat(e.target.value) || 0
                               )
                             }
                           />
@@ -440,7 +440,7 @@ export default function CalculatorAdmin() {
             Tribunal Arbitral
           </TabsTrigger>
           <TabsTrigger value="CalculadoraTribunalEmergencia">
-            Tribunal de Emergencia
+            Arbitraje de Emergencia
           </TabsTrigger>
         </TabsList>
 

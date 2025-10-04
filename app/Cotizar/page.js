@@ -7,14 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
-import {
-  Calculator,
-  Download,
-  FileText,
-  Users,
-  Scale,
-  Badge,
-} from "lucide-react";
+import { Calculator, FileText, Users, Scale, Badge } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -53,6 +46,7 @@ export default function CotizarPage() {
           "CalculadoraGastosAdministrativos",
           "CalculadoraArbitroUnico",
           "CalculadoraTribunalArbitral",
+          "CalculadoraTribunalEmergencia",
         ];
 
         for (const type of calculatorTypes) {
@@ -101,10 +95,8 @@ export default function CotizarPage() {
     if (!config) return;
 
     if (config.name === "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
-      if (!tipoPretensiones || !tipoArbitraje) {
-        alert(
-          "Por favor seleccione el tipo de pretensiones y tipo de arbitraje"
-        );
+      if (!tipoPretensiones) {
+        alert("Por favor seleccione el tipo de pretensiones");
         return;
       }
       if (
@@ -114,6 +106,84 @@ export default function CotizarPage() {
         alert("Por favor ingrese el número de pretensiones indeterminadas");
         return;
       }
+    }
+
+    if (
+      activeCalculator === "CalculadoraTribunalEmergencia" &&
+      tipoPretensiones === "Pretenciones indeterminadas"
+    ) {
+      const numPretensiones = Number.parseFloat(numeroPretensiones);
+      if (!numPretensiones || numPretensiones <= 0) {
+        alert("Por favor ingrese un número válido de pretensiones");
+        return;
+      }
+
+      // Formula: (Monto del contrato * 6.2 * Número de pretensiones) + IGV 18%
+      const baseCalculation = numAmount * 6.2 * numPretensiones;
+      const igv = baseCalculation * 0.18;
+      const totalGeneral = baseCalculation + igv;
+
+      const calculationResult = {
+        amount: numAmount,
+        numeroPretensiones: numPretensiones,
+        baseCalculation,
+        igv,
+        totalGeneral,
+        currency,
+        calculatorType: activeCalculator,
+        calculatorName: config.name,
+        isPretensionesIndeterminadas: true,
+        tipoPretensiones,
+      };
+
+      setResult(calculationResult);
+      setShowResult(true);
+      return;
+    }
+
+    if (activeCalculator === "CalculadoraTribunalEmergencia") {
+      const emergencyTier = config.fees.find(
+        (t) => numAmount >= t.min && numAmount <= t.max
+      );
+
+      if (!emergencyTier) {
+        alert("No se encontró una tarifa válida para este monto");
+        return;
+      }
+
+      const servicioEmergencia = emergencyTier.ServicioArbitrajeEmergencia || 0;
+      const arbitroEmergencia = emergencyTier.ArbitroEmergencia || 0;
+
+      const igvServicio = servicioEmergencia * 0.18;
+      const igvArbitro = arbitroEmergencia * 0.18;
+
+      const totalServicio = servicioEmergencia + igvServicio;
+      const totalArbitro = arbitroEmergencia + igvArbitro;
+
+      const subtotal = servicioEmergencia + arbitroEmergencia;
+      const totalIGV = igvServicio + igvArbitro;
+      const totalGeneral = totalServicio + totalArbitro;
+
+      const calculationResult = {
+        amount: numAmount,
+        servicioEmergencia,
+        arbitroEmergencia,
+        igvServicio,
+        igvArbitro,
+        totalServicio,
+        totalArbitro,
+        subtotal,
+        totalIGV,
+        totalGeneral,
+        currency,
+        calculatorType: activeCalculator,
+        calculatorName: config.name,
+        isEmergencyArbitrator: true,
+      };
+
+      setResult(calculationResult);
+      setShowResult(true);
+      return;
     }
 
     const presentationFee = config.presentationFee;
@@ -231,35 +301,65 @@ export default function CotizarPage() {
       });
       doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 55);
 
-      const tableData = [
-        ["Concepto", "Monto"],
-        ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
-        ["Tasa de Presentación", `S/ ${result.presentationFee.toFixed(2)}`],
-        ["Tarifa Calculada", `S/ ${result.calculatedFee.toFixed(2)}`],
-      ];
+      let tableData = [];
 
-      if (result.calculatorName == "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
-        if (result.cargosArbitraje > 0) {
-          tableData.push([
-            `Cargo ${result.tipoArbitraje}`,
-            `S/ ${result.cargosArbitraje.toFixed(2)}`,
-          ]);
+      if (result.isPretensionesIndeterminadas) {
+        tableData = [
+          ["Concepto", "Monto"],
+          ["Monto del Contrato", `S/ ${result.amount.toLocaleString()}`],
+          ["Número de Pretensiones", result.numeroPretensiones],
+          [" Sub Total)", `S/ ${result.baseCalculation.toFixed(2)}`],
+          ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
+          ["TOTAL GENERAL", `S/ ${result.totalGeneral.toFixed(2)}`],
+        ];
+      } else if (result.isEmergencyArbitrator) {
+        tableData = [
+          ["Concepto", "Monto"],
+          ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
+          [
+            "Servicio Arbitraje Emergencia",
+            `S/ ${result.servicioEmergencia.toFixed(2)}`,
+          ],
+          ["IGV Servicio (18%)", `S/ ${result.igvServicio.toFixed(2)}`],
+          ["Total Servicio", `S/ ${result.totalServicio.toFixed(2)}`],
+          ["Árbitro Emergencia", `S/ ${result.arbitroEmergencia.toFixed(2)}`],
+          ["IGV Árbitro (18%)", `S/ ${result.igvArbitro.toFixed(2)}`],
+          ["Total Árbitro", `S/ ${result.totalArbitro.toFixed(2)}`],
+          ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
+          ["IGV Total (18%)", `S/ ${result.totalIGV.toFixed(2)}`],
+          ["TOTAL GENERAL", `S/ ${result.totalGeneral.toFixed(2)}`],
+        ];
+      } else {
+        tableData = [
+          ["Concepto", "Monto"],
+          ["Cuantía", `S/ ${result.amount.toLocaleString()}`],
+          ["Tasa de Presentación", `S/ ${result.presentationFee.toFixed(2)}`],
+          ["Tarifa Calculada", `S/ ${result.calculatedFee.toFixed(2)}`],
+        ];
+
+        if (result.calculatorName == "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
+          if (result.cargosArbitraje > 0) {
+            tableData.push([
+              `Cargo ${result.tipoArbitraje}`,
+              `S/ ${result.cargosArbitraje.toFixed(2)}`,
+            ]);
+          }
+          if (result.cargosPretensiones > 0) {
+            tableData.push([
+              `Cargo Pretensiones Indeterminadas (${result.numeroPretensiones})`,
+              `S/ ${result.cargosPretensiones.toFixed(2)}`,
+            ]);
+          }
         }
-        if (result.cargosPretensiones > 0) {
-          tableData.push([
-            `Cargo Pretensiones Indeterminadas (${result.numeroPretensiones})`,
-            `S/ ${result.cargosPretensiones.toFixed(2)}`,
-          ]);
-        }
+
+        tableData.push(
+          ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
+          ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
+          ["Retención (8%)", `S/ ${result.renta.toFixed(2)}`],
+          ["Total con IGV", `S/ ${result.totalWithIGV.toFixed(2)}`],
+          ["Total con Retención", `S/ ${result.totalWithRenta.toFixed(2)}`]
+        );
       }
-
-      tableData.push(
-        ["Subtotal", `S/ ${result.subtotal.toFixed(2)}`],
-        ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
-        ["Retención (8%)", `S/ ${result.renta.toFixed(2)}`],
-        ["Total con IGV", `S/ ${result.totalWithIGV.toFixed(2)}`],
-        ["Total con Retención", `S/ ${result.totalWithRenta.toFixed(2)}`]
-      );
 
       autoTable(doc, {
         head: [tableData[0]],
@@ -360,13 +460,13 @@ export default function CotizarPage() {
             onValueChange={setActiveCalculator}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-15 md:mb-8">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-2 mb-15 md:mb-8">
               <TabsTrigger
                 value="CalculadoraGastosAdministrativos"
                 className="flex items-center gap-2"
               >
                 <Calculator className="w-4 h-4" />
-                Gastos Administrativos
+                Gastos Administrativos de Arbitraje
               </TabsTrigger>
               <TabsTrigger
                 value="CalculadoraArbitroUnico"
@@ -379,12 +479,19 @@ export default function CotizarPage() {
                 <TabsTrigger
                   value="CalculadoraTribunalArbitral"
                   className="flex items-center gap-2"
-                  disabled={true}
                 >
                   <FileText className="w-4 h-4" />
                   Tribunal Arbitral
                 </TabsTrigger>
               )}
+
+              <TabsTrigger
+                value="CalculadoraTribunalEmergencia"
+                className="flex items-center gap-2"
+              >
+                <Users className="w-4 h-4" />
+                Arbitraje de Emergencia
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value={activeCalculator}>
@@ -441,7 +548,7 @@ export default function CotizarPage() {
                         )}
 
                         <div className="space-y-2">
-                          <Label className="text-base font-bold uppercase ">
+                          <Label className="text-base font-bold uppercase">
                             Tipo de Arbitraje
                           </Label>
                           <Select
@@ -463,10 +570,54 @@ export default function CotizarPage() {
                         </div>
                       </>
                     )}
+                    {currentConfig?.name == "Arbitraje de Emergencia" && (
+                      <>
+                        <div className="space-y-2">
+                          <Label className="text-base font-bold uppercase">
+                            Pretensiones
+                          </Label>
+                          <Select
+                            value={tipoPretensiones}
+                            onValueChange={setTipoPretensiones}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Seleccione una opción" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Pretenciones indeterminadas">
+                                Pretenciones indeterminadas
+                              </SelectItem>
+                              <SelectItem value="Pretenciones Determinadas">
+                                Pretenciones Determinadas
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        {tipoPretensiones == "Pretenciones indeterminadas" && (
+                          <div className="space-y-2">
+                            <Label className="text-base font-bold uppercase">
+                              Número de pretensiones indeterminadas
+                            </Label>
+                            <Input
+                              type="number"
+                              placeholder="Ingrese el número"
+                              value={numeroPretensiones}
+                              onChange={(e) =>
+                                setNumeroPretensiones(e.target.value)
+                              }
+                              className="text-lg h-12"
+                              min="1"
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
 
                     <div className="space-y-2">
                       <Label className="text-base font-bold uppercase">
-                        {tipoPretensiones == "Pretenciones indeterminadas"
+                        {tipoPretensiones == "Pretenciones indeterminadas" &&
+                        activeCalculator === "CalculadoraTribunalEmergencia"
                           ? "Monto del contrato"
                           : "Cuantía"}
                       </Label>
@@ -512,97 +663,206 @@ export default function CotizarPage() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                      {result.isPretensionesIndeterminadas ? (
+                        <div className="space-y-4">
+                          <div className="flex justify-between">
+                            <span>Monto del Contrato:</span>
+                            <span className="font-medium">
+                              S/ {result.amount.toLocaleString()}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Número de Pretensiones:</span>
+                            <span className="font-medium">
+                              {result.numeroPretensiones}
+                            </span>
+                          </div>
+                          <div className="border-t pt-4">
+                            <div className="flex justify-between">
+                              <span>Sub Total:</span>
+                              <span className="font-medium">
+                                S/ {result.baseCalculation.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>IGV (18%):</span>
+                              <span className="font-medium">
+                                S/ {result.igv.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xl font-bold text-primary mt-4">
+                              <span>TOTAL GENERAL:</span>
+                              <span>S/ {result.totalGeneral.toFixed(2)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : result.isEmergencyArbitrator ? (
+                        <div className="space-y-4">
                           <div className="flex justify-between">
                             <span>Cuantía:</span>
                             <span className="font-medium">
                               S/ {result.amount.toLocaleString()}
                             </span>
                           </div>
-                          <div className="flex justify-between">
-                            <span>Tasa de Presentación:</span>
-                            <span className="font-medium">
-                              S/ {result.presentationFee.toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Tarifa Calculada:</span>
-                            <span className="font-medium">
-                              S/ {result.calculatedFee.toFixed(2)}
-                            </span>
+
+                          <div className="border-t pt-4">
+                            <h3 className="font-bold mb-2">
+                              Servicio Arbitraje Emergencia
+                            </h3>
+                            <div className="flex justify-between">
+                              <span>Monto Base:</span>
+                              <span className="font-medium">
+                                S/ {result.servicioEmergencia.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>IGV (18%):</span>
+                              <span className="font-medium">
+                                S/ {result.igvServicio.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between font-bold">
+                              <span>Total Servicio:</span>
+                              <span>S/ {result.totalServicio.toFixed(2)}</span>
+                            </div>
                           </div>
 
-                          {result.calculatorName ===
-                            "ARBITRAJE DE CONTRATACIÓN PÚBLICA" && (
-                            <>
-                              {result.cargosArbitraje > 0 && (
-                                <div className="flex justify-between">
-                                  <span>Cargo {result.tipoArbitraje}:</span>
-                                  <span className="font-medium">
-                                    S/ {result.cargosArbitraje.toFixed(2)}
-                                  </span>
-                                </div>
-                              )}
-                              {result.cargosPretensiones > 0 && (
-                                <div className="flex justify-between">
-                                  <span>
-                                    Cargo Pretensiones (
-                                    {result.numeroPretensiones}):
-                                  </span>
-                                  <span className="font-medium">
-                                    S/ {result.cargosPretensiones.toFixed(2)}
-                                  </span>
-                                </div>
-                              )}
-                            </>
-                          )}
-                          <div className="flex justify-between">
-                            <span>Subtotal:</span>
-                            <span className="font-medium">
-                              S/ {result.subtotal.toFixed(2)}
-                            </span>
+                          <div className="border-t pt-4">
+                            <h3 className="font-bold mb-2">
+                              Árbitro Emergencia
+                            </h3>
+                            <div className="flex justify-between">
+                              <span>Monto Base:</span>
+                              <span className="font-medium">
+                                S/ {result.arbitroEmergencia.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>IGV (18%):</span>
+                              <span className="font-medium">
+                                S/ {result.igvArbitro.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between font-bold">
+                              <span>Total Árbitro:</span>
+                              <span>S/ {result.totalArbitro.toFixed(2)}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span>IGV (18%):</span>
-                            <span className="font-medium">
-                              S/ {result.igv.toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Retención (8%):</span>
-                            <span className="font-medium">
-                              S/ {result.renta.toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-lg font-bold text-primary">
-                            <span>Total con IGV:</span>
-                            <span>S/ {result.totalWithIGV.toFixed(2)}</span>
-                          </div>
-                          <div className="flex justify-between text-lg font-bold text-primary">
-                            <span>Total con Retención:</span>
-                            <span>S/ {result.totalWithRenta.toFixed(2)}</span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div className="flex gap-4 pt-4">
+                          <div className="border-t pt-4">
+                            <div className="flex justify-between text-lg">
+                              <span>Subtotal:</span>
+                              <span className="font-medium">
+                                S/ {result.subtotal.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-lg">
+                              <span>IGV Total (18%):</span>
+                              <span className="font-medium">
+                                S/ {result.totalIGV.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xl font-bold text-primary mt-4">
+                              <span>TOTAL GENERAL:</span>
+                              <span>S/ {result.totalGeneral.toFixed(2)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span>Cuantía:</span>
+                              <span className="font-medium">
+                                S/ {result.amount.toLocaleString()}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Tasa de Presentación:</span>
+                              <span className="font-medium">
+                                S/ {result.presentationFee.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Tarifa Calculada:</span>
+                              <span className="font-medium">
+                                S/ {result.calculatedFee.toFixed(2)}
+                              </span>
+                            </div>
+
+                            {result.calculatorName ===
+                              "ARBITRAJE DE CONTRATACIÓN PÚBLICA" && (
+                              <>
+                                {result.cargosArbitraje > 0 && (
+                                  <div className="flex justify-between">
+                                    <span>Cargo {result.tipoArbitraje}:</span>
+                                    <span className="font-medium">
+                                      S/ {result.cargosArbitraje.toFixed(2)}
+                                    </span>
+                                  </div>
+                                )}
+                                {result.cargosPretensiones > 0 && (
+                                  <div className="flex justify-between">
+                                    <span>
+                                      Cargo Pretensiones (
+                                      {result.numeroPretensiones}):
+                                    </span>
+                                    <span className="font-medium">
+                                      S/ {result.cargosPretensiones.toFixed(2)}
+                                    </span>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                            <div className="flex justify-between">
+                              <span>Subtotal:</span>
+                              <span className="font-medium">
+                                S/ {result.subtotal.toFixed(2)}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between">
+                              <span>IGV (18%):</span>
+                              <span className="font-medium">
+                                S/ {result.igv.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Retención (8%):</span>
+                              <span className="font-medium">
+                                S/ {result.renta.toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-lg font-bold text-primary">
+                              <span>Total con IGV:</span>
+                              <span>S/ {result.totalWithIGV.toFixed(2)}</span>
+                            </div>
+                            <div className="flex justify-between text-lg font-bold text-primary">
+                              <span>Total con Retención:</span>
+                              <span>S/ {result.totalWithRenta.toFixed(2)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      <div className="flex gap-4 mt-6">
                         <Button
                           onClick={exportToPDF}
-                          disabled={isGeneratingPDF}
                           className="flex-1"
+                          disabled={isGeneratingPDF}
                         >
-                          <Download className="mr-2 h-4 w-4" />
-                          {isGeneratingPDF ? "GENERANDO..." : "DESCARGAR PDF"}
+                          <FileText className="mr-2 h-4 w-4" />
+                          {isGeneratingPDF
+                            ? "Generando PDF..."
+                            : "Exportar a PDF"}
                         </Button>
                         <Button
                           onClick={resetCalculation}
                           variant="outline"
                           className="flex-1 bg-transparent"
                         >
-                          REALIZAR NUEVO CÁLCULO
+                          <Calculator className="mr-2 h-4 w-4" />
+                          Nueva Cotización
                         </Button>
                       </div>
                     </CardContent>
