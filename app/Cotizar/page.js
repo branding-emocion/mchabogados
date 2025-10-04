@@ -95,10 +95,8 @@ export default function CotizarPage() {
     if (!config) return;
 
     if (config.name === "ARBITRAJE DE CONTRATACIÓN PÚBLICA") {
-      if (!tipoPretensiones || !tipoArbitraje) {
-        alert(
-          "Por favor seleccione el tipo de pretensiones y tipo de arbitraje"
-        );
+      if (!tipoPretensiones) {
+        alert("Por favor seleccione el tipo de pretensiones  ");
         return;
       }
       if (
@@ -557,7 +555,7 @@ export default function CotizarPage() {
                           </div>
                         )}
 
-                        <div className="space-y-2">
+                        {/* <div className="space-y-2">
                           <Label className="text-base font-bold uppercase">
                             Tipo de Arbitraje
                           </Label>
@@ -577,7 +575,7 @@ export default function CotizarPage() {
                               </SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
+                        </div> */}
                       </>
                     )}
                     {currentConfig?.name == "Arbitraje de Emergencia" && (
@@ -971,7 +969,7 @@ export default function CotizarPage() {
                                   style: "currency",
                                   currency: "PEN",
                                   minimumFractionDigits: 2,
-                                }).format(result.retotalWithIGVnta)}
+                                }).format(result.totalWithIGV)}
                               </span>
                             </div>
                             <div className="flex justify-between text-lg font-bold text-primary">
