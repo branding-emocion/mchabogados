@@ -316,10 +316,7 @@ export default function CotizarPage() {
           ["Concepto", "Monto"],
           ["Monto del Contrato", `S/ ${result.amount.toLocaleString()}`],
           ["Número de Pretensiones", result.numeroPretensiones],
-          [
-            "Cálculo Base (Monto × 6.2 × Pretensiones)",
-            `S/ ${result.baseCalculation.toFixed(2)}`,
-          ],
+          [" Sub Total", `S/ ${result.baseCalculation.toFixed(2)}`],
           ["IGV (18%)", `S/ ${result.igv.toFixed(2)}`],
           ["TOTAL GENERAL", `S/ ${result.totalGeneral.toFixed(2)}`],
         ];
@@ -681,7 +678,12 @@ export default function CotizarPage() {
                           <div className="flex justify-between">
                             <span>Monto del Contrato:</span>
                             <span className="font-medium">
-                              S/ {result.amount.toLocaleString()}
+                              {/* S/ {result.amount.toLocaleString()} */}
+                              {new Intl.NumberFormat("es-PE", {
+                                style: "currency",
+                                currency: "PEN",
+                                minimumFractionDigits: 2,
+                              }).format(result.amount)}
                             </span>
                           </div>
                           <div className="flex justify-between">
@@ -692,22 +694,36 @@ export default function CotizarPage() {
                           </div>
                           <div className="border-t pt-4">
                             <div className="flex justify-between">
-                              <span>
-                                Cálculo Base (Monto × 6.2 × Pretensiones):
-                              </span>
+                              <span>Sub Total:</span>
                               <span className="font-medium">
-                                S/ {result.baseCalculation.toFixed(2)}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.baseCalculation)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>IGV (18%):</span>
                               <span className="font-medium">
-                                S/ {result.igv.toFixed(2)}
+                                {/* S/ {result.igv.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.igv)}
                               </span>
                             </div>
                             <div className="flex justify-between text-xl font-bold text-primary mt-4">
                               <span>TOTAL GENERAL:</span>
-                              <span>S/ {result.totalGeneral.toFixed(2)}</span>
+                              {/* <span>S/ {result.totalGeneral.toFixed(2)}</span> */}
+                              <span>
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.totalGeneral)}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -716,7 +732,12 @@ export default function CotizarPage() {
                           <div className="flex justify-between">
                             <span>Cuantía:</span>
                             <span className="font-medium">
-                              S/ {result.amount.toLocaleString()}
+                              {new Intl.NumberFormat("es-PE", {
+                                style: "currency",
+                                currency: "PEN",
+                                minimumFractionDigits: 2,
+                              }).format(result.amount)}
+                              {/* S/ {result.amount.toLocaleString()} */}
                             </span>
                           </div>
 
@@ -727,18 +748,35 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Monto Base:</span>
                               <span className="font-medium">
-                                S/ {result.servicioEmergenciaBase.toFixed(2)}
+                                {/* S/ {result.servicioEmergenciaBase.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.servicioEmergenciaBase)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>IGV (18%):</span>
                               <span className="font-medium">
-                                S/ {result.igvServicio.toFixed(2)}
+                                {/* S/ {result.igvServicio.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.igvServicio)}
                               </span>
                             </div>
                             <div className="flex justify-between font-bold">
                               <span>Total Servicio:</span>
-                              <span>S/ {result.totalServicio.toFixed(2)}</span>
+                              <span>
+                                {/* S/ {result.totalServicio.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.totalServicio)}
+                              </span>
                             </div>
                           </div>
 
@@ -749,18 +787,36 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Monto Base:</span>
                               <span className="font-medium">
-                                S/ {result.arbitroEmergenciaBase.toFixed(2)}
+                                {/* S/ {result.arbitroEmergenciaBase.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.arbitroEmergenciaBase)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>IGV (18%):</span>
                               <span className="font-medium">
-                                S/ {result.igvArbitro.toFixed(2)}
+                                {/* S/ {result.igvArbitro.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.igvArbitro)}
                               </span>
                             </div>
                             <div className="flex justify-between font-bold">
                               <span>Total Árbitro:</span>
-                              <span>S/ {result.totalArbitro.toFixed(2)}</span>
+                              <span>
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.totalArbitro)}
+
+                                {/* S/ {result.totalArbitro.toFixed(2)} */}
+                              </span>
                             </div>
                           </div>
 
@@ -768,18 +824,36 @@ export default function CotizarPage() {
                             <div className="flex justify-between text-lg">
                               <span>Subtotal:</span>
                               <span className="font-medium">
-                                S/ {result.subtotal.toFixed(2)}
+                                {/* S/ {result.subtotal.toFixed(2)} */}
+
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.subtotal)}
                               </span>
                             </div>
                             <div className="flex justify-between text-lg">
                               <span>Tasa de Presentación:</span>
                               <span className="font-medium">
-                                S/ {result.presentationFee.toFixed(2)}
+                                {/* S/ {result.presentationFee.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.presentationFee)}
                               </span>
                             </div>
                             <div className="flex justify-between text-xl font-bold text-primary mt-4">
                               <span>TOTAL GENERAL:</span>
-                              <span>S/ {result.totalGeneral.toFixed(2)}</span>
+                              <span>
+                                {/* S/ {result.totalGeneral.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.totalGeneral)}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -789,19 +863,34 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Cuantía:</span>
                               <span className="font-medium">
-                                S/ {result.amount.toLocaleString()}
+                                {/* S/ {result.amount.toLocaleString()} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.amount)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>Tasa de Presentación:</span>
                               <span className="font-medium">
-                                S/ {result.presentationFee.toFixed(2)}
+                                {/* S/ {result.presentationFee.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.presentationFee)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>Tarifa Calculada:</span>
                               <span className="font-medium">
-                                S/ {result.calculatedFee.toFixed(2)}
+                                {/* S/ {result.calculatedFee.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.calculatedFee)}
                               </span>
                             </div>
 
@@ -812,7 +901,12 @@ export default function CotizarPage() {
                                   <div className="flex justify-between">
                                     <span>Cargo {result.tipoArbitraje}:</span>
                                     <span className="font-medium">
-                                      S/ {result.cargosArbitraje.toFixed(2)}
+                                      {/* S/ {result.cargosArbitraje.toFixed(2)} */}
+                                      {new Intl.NumberFormat("es-PE", {
+                                        style: "currency",
+                                        currency: "PEN",
+                                        minimumFractionDigits: 2,
+                                      }).format(result.cargosArbitraje)}
                                     </span>
                                   </div>
                                 )}
@@ -823,7 +917,12 @@ export default function CotizarPage() {
                                       {result.numeroPretensiones}):
                                     </span>
                                     <span className="font-medium">
-                                      S/ {result.cargosPretensiones.toFixed(2)}
+                                      {/* S/ {result.cargosPretensiones.toFixed(2)} */}
+                                      {new Intl.NumberFormat("es-PE", {
+                                        style: "currency",
+                                        currency: "PEN",
+                                        minimumFractionDigits: 2,
+                                      }).format(result.cargosPretensiones)}
                                     </span>
                                   </div>
                                 )}
@@ -832,7 +931,12 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>Subtotal:</span>
                               <span className="font-medium">
-                                S/ {result.subtotal.toFixed(2)}
+                                {/* S/ {result.subtotal.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.subtotal)}
                               </span>
                             </div>
                           </div>
@@ -840,22 +944,46 @@ export default function CotizarPage() {
                             <div className="flex justify-between">
                               <span>IGV (18%):</span>
                               <span className="font-medium">
-                                S/ {result.igv.toFixed(2)}
+                                {/* S/ {result.igv.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.igv)}
                               </span>
                             </div>
                             <div className="flex justify-between">
                               <span>Retención (8%):</span>
                               <span className="font-medium">
-                                S/ {result.renta.toFixed(2)}
+                                {/* S/ {result.renta.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.renta)}
                               </span>
                             </div>
                             <div className="flex justify-between text-lg font-bold text-primary">
                               <span>Total con IGV:</span>
-                              <span>S/ {result.totalWithIGV.toFixed(2)}</span>
+                              <span>
+                                {/* S/ {result.totalWithIGV.toFixed(2)} */}
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.retotalWithIGVnta)}
+                              </span>
                             </div>
                             <div className="flex justify-between text-lg font-bold text-primary">
                               <span>Total con Retención:</span>
-                              <span>S/ {result.totalWithRenta.toFixed(2)}</span>
+                              <span>
+                                {new Intl.NumberFormat("es-PE", {
+                                  style: "currency",
+                                  currency: "PEN",
+                                  minimumFractionDigits: 2,
+                                }).format(result.totalWithRenta)}
+                                {/* S/ {result.totalWithRenta.toFixed(2)} */}
+                              </span>
                             </div>
                           </div>
                         </div>
