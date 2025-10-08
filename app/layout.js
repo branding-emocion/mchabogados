@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | MCH Abogados",
   },
   description:
-    "Centro de Arbitraje y Asesoría Legal, especializado en arbitraje, derecho administrativo, penal y conciliación extrajudicial, brindado un servicio de calidad y eficacia.",
+    "Es Centro de Árbitro Especializado en el Arbitraje en Contratación Pública, con enfoque, dedicado y eficaz.",
   keywords: [
     "arbitraje emergencia",
     "arbitraje express",
