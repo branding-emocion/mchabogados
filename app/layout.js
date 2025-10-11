@@ -20,7 +20,7 @@ export const metadata = {
     template: "%s | MCH Abogados",
   },
   description:
-    "Es Centro de Árbitro Especializado en el Arbitraje en Contratación Pública, con enfoque, dedicado y eficaz.",
+    "Centro de Árbitro Especializado en el Arbitraje en Contratación Pública, con enfoque, dedicado y eficaz.",
   keywords: [
     "arbitraje emergencia",
     "arbitraje express",
