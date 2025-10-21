@@ -22,8 +22,8 @@ export default function PresentacionPage() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
-              CENTRO DE PRESENTACIÓN
+            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
+              Órgano de Dirección
               <br />
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
@@ -35,7 +35,7 @@ export default function PresentacionPage() {
       </section>
 
       {/* Main Content */}
-      <main className="py-16">
+      <main className="py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Centro de Arbitraje Section */}
           <motion.section
@@ -47,20 +47,18 @@ export default function PresentacionPage() {
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1">
-                <h2 className="text-4xl md:text-4xl font-bold mb-8 text-primary font-serif text-center">
-                  CENTRO DE ARBITRAJE &quot;MCH ABOGADOS&quot;{" "}
+                <h2 className="text-4xl md:text-4xl font-bold mb-4 text-primary font-serif text-center">
+                  PATRICIA JUDIHT CHUMPITAZI PAREDES
                 </h2>
-                <p className="text-lg leading-relaxed text-gray-700 mb-8">
-                  MCH Abogados es un centro especializado en la resolución de
-                  controversias a través de arbitraje, brindando un servicio
-                  integral y confidencial en procesos arbitrales de alta
-                  complejidad. Nuestro equipo de árbitros está compuesto por
-                  profesionales altamente calificados, garantizando
-                  imparcialidad y celeridad en la emisión de laudos arbitrales
-                  vinculantes. Contamos con una estructura diseñada para la
-                  administración eficiente de los procedimientos, desde la
-                  constitución del tribunal hasta la ejecución del laudo,
-                  cumpliendo con los más altos estándares técnicos y legales.
+                <p className="text-lg leading-relaxed text-gray-700 mb-4 text-center">
+                  DIRECTOR(A) DEL CENTRO DE ARBITRAJE{" "}
+                </p>
+                <p className="text-lg leading-relaxed text-gray-700 mb-8 text-justify">
+                  El cargo de Director(a) constituye la denominación del Órgano
+                  Directivo de la institución. Este cargo representa la máxima
+                  autoridad ejecutiva, encargada de conducir las estrategias y
+                  planes institucionales, asegurando su adecuada implementación
+                  y cumplimiento.
                 </p>
               </div>
 
@@ -85,7 +83,7 @@ export default function PresentacionPage() {
           </motion.section>
 
           {/* Importancia del Arbitraje Section */}
-          <motion.section
+          {/* <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -112,7 +110,7 @@ export default function PresentacionPage() {
                 </p>
               </div>
             </div>
-          </motion.section>
+          </motion.section> */}
         </div>
       </main>
     </div>

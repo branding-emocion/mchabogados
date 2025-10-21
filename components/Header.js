@@ -52,7 +52,7 @@ const Header = () => {
   ];
 
   const arbitrationCenter = [
-    { name: "Presentación", href: "/CentroArbitraje/Presentacion" },
+    { name: "Órgano de Dirección", href: "/CentroArbitraje/Presentacion" },
     { name: "Proceso Arbitral", href: "/CentroArbitraje/ProcesoArbitral" },
     {
       name: "Nuestros Reglamentos",

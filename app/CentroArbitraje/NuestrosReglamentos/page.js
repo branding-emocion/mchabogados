@@ -10,13 +10,18 @@ export default function NuestrosReglamentosPage() {
       href: "/pdfs/Arbitral.pdf",
     },
     {
-      title: "Reglamento de Arbitraje de Emergencia",
-      href: "/pdfs/Emergencia.pdf",
+      title: "REGLAMENTO INTERNO DEL CENTRO",
+      href: "/pdfs/REGLAMENTOINTERNODELCENTRO.pdf",
     },
+
     { title: "Código de Ética", href: "/pdfs/Etica.pdf" },
     {
       title: "Reglamento de Arbitraje Express",
       href: "/pdfs/Express.pdf",
+    },
+    {
+      title: "Reglamento de Arbitraje de Emergencia",
+      href: "/pdfs/Emergencia.pdf",
     },
   ];
 
@@ -85,7 +90,7 @@ export default function NuestrosReglamentosPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-16"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10"
           >
             {regulations.map((regulation, index) => (
               <motion.a
@@ -93,7 +98,9 @@ export default function NuestrosReglamentosPage() {
                 href={regulation.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#b39306]   text-white py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className={`bg-[#b39306]   text-white py-6 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg uppercase ${
+                  index == 4 && "md:col-span-2 text-center"
+                }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
