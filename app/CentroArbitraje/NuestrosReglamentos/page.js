@@ -145,7 +145,7 @@ export default function NuestrosReglamentosPage() {
                     href={directive.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#b39306]  text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                    className="inline-flex items-center gap-2 bg-[#b39306]  text-white px-4 py-2 rounded-lg transition-colors duration-300 uppercase"
                   >
                     <Download size={16} />
                     Descargar

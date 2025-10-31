@@ -126,7 +126,7 @@ export default function NominaClient() {
             className="text-white"
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
-              NÓMINA DE ÁRBITROS
+              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLiCA{" "}
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
@@ -172,7 +172,7 @@ export default function NominaClient() {
         <Card className="shadow-lg">
           <CardHeader className="bg-[#a5803d] text-white  ">
             <CardTitle className="text-2xl font-bold text-center py-2">
-              NÓMINA DE ÁRBITROS
+              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLiCA{" "}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">

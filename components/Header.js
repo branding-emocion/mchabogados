@@ -58,7 +58,10 @@ const Header = () => {
       name: "Nuestros Reglamentos",
       href: "/CentroArbitraje/NuestrosReglamentos",
     },
-    { name: "Nómina de Árbitros", href: "/CentroArbitraje/NominaDeArbitros" },
+    {
+      name: "Nómina de Árbitros en Contratación Pública",
+      href: "/CentroArbitraje/NominaDeArbitros",
+    },
     { name: "Cláusula Arbitral", href: "/CentroArbitraje/ClausulaArbitral" },
     {
       name: "Secretaria Arbitral ",
@@ -149,11 +152,11 @@ const Header = () => {
                     Centro de Arbitraje
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-80 p-2">
+                    <div className="w-60 p-2">
                       {arbitrationCenter.map((item) => (
                         <Link key={item.name} href={item.href}>
-                          <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                            <div className="text-sm font-medium leading-none">
+                          <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full">
+                            <div className="text-sm font-medium leading-none w.">
                               {item.name}
                             </div>
                           </NavigationMenuLink>
@@ -186,7 +189,7 @@ const Header = () => {
                     Laudos{" "}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-80 p-2">
+                    <div className="w-60 p-2">
                       {laudos?.map((laudo) => (
                         <Link key={laudo.name} href={laudo.href}>
                           <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
