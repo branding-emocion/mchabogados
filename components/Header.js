@@ -152,10 +152,10 @@ const Header = () => {
                     Centro de Arbitraje
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-60 p-2">
+                    <div className="w-80 ">
                       {arbitrationCenter.map((item) => (
                         <Link key={item.name} href={item.href}>
-                          <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full">
+                          <NavigationMenuLink className="block select-none text-center space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full">
                             <div className="text-sm font-medium leading-none w.">
                               {item.name}
                             </div>
@@ -181,17 +181,17 @@ const Header = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={cn(
-                      "group uppercase inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                      "group uppercase inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary focus:text-primary focus:outline-none disabled:pointer-events-none disabled:opacity-50 ",
                       isScrolled ? "text-gray-700" : "text-white bg-transparent"
                     )}
                     k
                   >
                     Laudos{" "}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-60 p-2">
+                  <NavigationMenuContent className={""}>
+                    <div className="w-80 p-2">
                       {laudos?.map((laudo) => (
-                        <Link key={laudo.name} href={laudo.href}>
+                        <Link key={`${laudo.name}`} href={`${laudo.href}`}>
                           <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
                             <div className="text-sm font-medium leading-none uppercase">
                               {laudo.name}

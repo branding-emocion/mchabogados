@@ -27,7 +27,7 @@ export default function NuestrosReglamentosPage() {
 
   const directives = [
     {
-      title: "Directiva N°001-2024",
+      title: `Directiva N°001-${new Date().getFullYear()}`,
       description: "Regulación sobre la Nómina de Árbitros",
       href: "/pdfs/001.pdf",
     },
@@ -137,7 +137,7 @@ export default function NuestrosReglamentosPage() {
                   viewport={{ once: true }}
                   className="bg-white p-6 rounded-lg shadow-md"
                 >
-                  <h3 className="text-xl font-bold text-[#0f172b] mb-2">
+                  <h3 className="text-xl font-bold text-[#0f172b] mb-2 uppercase">
                     {directive.title}
                   </h3>
                   <p className="text-gray-600 mb-4">{directive.description}</p>
@@ -162,7 +162,7 @@ export default function NuestrosReglamentosPage() {
               viewport={{ once: true }}
               className="bg-white p-6 rounded-lg shadow-md"
             >
-              <h3 className="text-xl font-bold text-[#0f172b] mb-2">
+              <h3 className="text-xl font-bold text-[#0f172b] mb-2 uppercase">
                 Tabla de Pagos y Aranceles
               </h3>
               <p className="text-gray-600 mb-4">
