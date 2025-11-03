@@ -616,7 +616,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
+                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary uppercase",
                     isScrolled ? "text-gray-700" : "text-white"
                   )}
                 >
@@ -628,7 +628,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
+                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary uppercase",
                     isScrolled ? "text-gray-700" : "text-white"
                   )}
                 >
