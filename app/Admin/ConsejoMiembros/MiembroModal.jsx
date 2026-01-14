@@ -99,8 +99,8 @@ export function MiembroModal({ isOpen, onClose, miembro, onSave }) {
     }
 
     // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("El CV no debe superar los 10MB");
+    if (file.size > 15 * 1024 * 1024) {
+      toast.error("El CV no debe superar los 15MB");
       return;
     }
 
@@ -309,7 +309,7 @@ export function MiembroModal({ isOpen, onClose, miembro, onSave }) {
               )}
             </div>
             <p className="text-xs text-muted-foreground">
-              Tamaño máximo: 10MB. Solo archivos PDF
+              Tamaño máximo: 15MB. Solo archivos PDF
             </p>
           </div>
 
