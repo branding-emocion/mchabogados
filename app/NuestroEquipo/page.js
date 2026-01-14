@@ -2,44 +2,36 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Scale, Award, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function NuestroEquipo() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const teamMembers = [
-    // {
-    //   id: "JuanArmandoMorillasArbildo",
-    //   name: "Juan Armando Morillas Arbildo",
-    //   position: "Secretaria Arbitral",
-    //   image: "/equipo/juan.avif",
-    // },
-    {
-      id: "VacnerValverdeJara",
-      name: "Vacner Valverde Jara",
-      position: "PRESIDENTE DEL CONSEJO SUPERIOR DE ARBITRAJE",
-      image: "/equipo/vacner.avif",
-      cv: "/pdfs/Vacner2.pdf",
-    },
-    {
-      id: "PabloAlbertoMorilloAguilar",
-      name: "Manuel Vértiz Sanchez",
-      position: "PRIMER VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
-      image: "/equipo/manuel.png",
-      cv: "/pdfs/Manuel.pdf",
-    },
-    {
-      id: "EduardoAlexisRuizSanMartin",
-      name: "Estuardo Adolfo Gerstein Gonzales",
-      position: "SEGUNDO VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
-      image: "/equipo/estuardo.png",
-      cv: "/pdfs/Estuardo.pdf",
-    },
-  ];
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
+    try {
+      const response = await fetch("/api/consejo-miembros");
+      const data = await response.json();
+
+      if (data.success) {
+        // Filter only active members
+        const activeMembers = data.members.filter((member) => member.active);
+        setTeamMembers(activeMembers);
+      }
+    } catch (error) {
+      console.error("Error fetching members:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const values = [
     {
@@ -104,50 +96,60 @@ export default function NuestroEquipo() {
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase">
               Consejo superior de arbitraje
             </h2>
-            {/* <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Profesionales altamente calificados que lideran nuestro centro de
-              arbitraje y asesoría legal
-            </p> */}
           </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
-            {teamMembers.map((member, index) => (
-              <motion.a
-                key={member.id}
-                id={member.id}
-                className="group hover:cursor-pointer hover:scale-105"
-                initial={{ opacity: 0, y: 50 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-                }
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                href={member.cv}
-              >
-                <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow duration-300 p-0">
-                  <CardContent className="p-0 flex items-center">
-                    {/* Imagen a la izquierda */}
-                    <div className="relative overflow-hidden rounded-l-lg min-w-[160px] max-w-[180px]">
-                      <img
-                        src={member.image || ""}
-                        alt={member.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
-                    </div>
 
-                    {/* Texto a la derecha */}
-                    <div className="p-6 text-left flex-1 uppercase">
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
-                        {member.name}
-                      </h3>
-                      <p className="text-sm text-primary font-semibold  tracking-wide">
-                        {member.position}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.a>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              <p className="text-muted-foreground mt-4">Cargando miembros...</p>
+            </div>
+          ) : teamMembers.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              No hay miembros disponibles en este momento.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
+              {teamMembers.map((member, index) => (
+                <motion.a
+                  key={member.id}
+                  id={member.id}
+                  className="group hover:cursor-pointer hover:scale-105"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+                  }
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  href={member.cv || "#"}
+                  target={member.cv ? "_blank" : undefined}
+                  rel={member.cv ? "noopener noreferrer" : undefined}
+                >
+                  <Card className="shadow-lg border-0 h-full hover:shadow-xl transition-shadow duration-300 p-0">
+                    <CardContent className="p-0 flex items-center">
+                      {/* Imagen a la izquierda */}
+                      <div className="relative overflow-hidden rounded-l-lg min-w-[160px] max-w-[180px]">
+                        <img
+                          src={member.image || ""}
+                          alt={member.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+                      </div>
+
+                      {/* Texto a la derecha */}
+                      <div className="p-6 text-left flex-1 uppercase">
+                        <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
+                          {member.name}
+                        </h3>
+                        <p className="text-sm text-primary font-semibold tracking-wide">
+                          {member.position}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.a>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
