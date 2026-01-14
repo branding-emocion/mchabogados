@@ -23,21 +23,21 @@ export default function NuestroEquipo() {
       name: "Vacner Valverde Jara",
       position: "PRESIDENTE DEL CONSEJO SUPERIOR DE ARBITRAJE",
       image: "/equipo/vacner.avif",
-      cv: "/pdfs/Vacner.pdf",
+      cv: "/pdfs/Vacner2.pdf",
     },
     {
       id: "PabloAlbertoMorilloAguilar",
-      name: "Pablo Alberto Morillo Aguilar",
+      name: "Manuel Vértiz Sanchez",
       position: "PRIMER VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
-      image: "/equipo/pablo.avif",
-      cv: "/pdfs/Pablo.pdf",
+      image: "/equipo/manuel.png",
+      cv: "/pdfs/Manuel.pdf",
     },
     {
       id: "EduardoAlexisRuizSanMartin",
-      name: "Eduardo Alexis Ruiz San Martin",
+      name: "Estuardo Adolfo Gerstein Gonzales",
       position: "SEGUNDO VOCAL DEL CONSEJO SUPERIOR DE ARBITRAJE",
-      image: "/equipo/eduardo.avif",
-      cv: "/pdfs/Eduardo.pdf",
+      image: "/equipo/estuardo.png",
+      cv: "/pdfs/Estuardo.pdf",
     },
   ];
 

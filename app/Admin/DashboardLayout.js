@@ -13,6 +13,7 @@ import {
   Users,
   WallpaperIcon,
   Warehouse,
+  UsersRound, // Nuevo icono para Consejo
 } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { usePathname, useRouter } from "next/navigation";
@@ -34,6 +35,12 @@ const DashboardLayout = ({ children }) => {
       name: "Usuarios",
       link: "/Admin/Usuarios",
       icon: <Users className="w-5 h-5" />,
+      hidden: !claims?.isSuperAdmin,
+    },
+    {
+      name: "Consejo Miembros",
+      link: "/Admin/ConsejoMiembros",
+      icon: <UsersRound className="w-5 h-5" />,
       hidden: !claims?.isSuperAdmin,
     },
     {
@@ -81,6 +88,12 @@ const DashboardLayout = ({ children }) => {
       name: "Escritos",
       link: "/Admin/Escritos",
       icon: <File className="w-5 h-5" />,
+    },
+    {
+      name: "Consejo Miembros",
+      link: "/Admin/ConsejoMiembros",
+      icon: <UsersRound className="w-5 h-5" />,
+      hidden: !(claims?.isAdmin || claims?.isSuperAdmin), 
     },
   ];
 

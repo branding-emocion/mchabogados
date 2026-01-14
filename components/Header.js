@@ -466,10 +466,10 @@ const Header = () => {
       href: "/CentroArbitraje/NominaDeArbitros",
     },
     { name: "Cláusula Arbitral", href: "/CentroArbitraje/ClausulaArbitral" },
-    {
-      name: "Secretaria Arbitral ",
-      href: "/CentroArbitraje/SecretariaArbitral",
-    },
+    // {
+    //   name: "Secretaria Arbitral ",
+    //   href: "/CentroArbitraje/SecretariaArbitral",
+    // },
   ];
 
   const laudos = [
