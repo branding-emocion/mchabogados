@@ -15,6 +15,7 @@ import { NotificationsPanel } from "./NotificacionesPanel";
 
 export default function SolicitudesPage() {
   const [{ user, claims }, loading, error] = useAuthState(auth);
+  console.log("Claims completos:", JSON.stringify(claims));
   const [selectedSolicitud, setSelectedSolicitud] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
@@ -110,12 +111,13 @@ export default function SolicitudesPage() {
           </TabsList>
 
           <TabsContent value="solicitudes" className="space-y-6">
-            <SolicitudesTable
-              key={refreshTable}
-              onNew={handleNewSolicitud}
-              onEdit={handleEditSolicitud}
-              onView={handleViewSolicitud}
-            />
+              <SolicitudesTable
+                key={refreshTable}
+                onNew={handleNewSolicitud}
+                onEdit={handleEditSolicitud}
+                onView={handleViewSolicitud}
+                userRole={claims?.role}  
+              />
           </TabsContent>
 
           <TabsContent value="notifications" className="space-y-6">

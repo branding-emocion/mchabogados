@@ -21,7 +21,7 @@ export default function NuestrosReglamentosPage() {
     },
     {
       title: "Reglamento de Arbitraje de Emergencia",
-      href: "/pdfs/Emergencia.pdf",
+      href: "/pdfs/EMERGENCA2.pdf",
     },
   ];
 

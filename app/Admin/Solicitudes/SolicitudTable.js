@@ -58,7 +58,7 @@ const ESTADOS = [
   { value: "Rechazada", label: "Rechazada", color: "bg-red-100 text-red-800" },
 ];
 
-export function SolicitudesTable({ onEdit, onView, onNew }) {
+export function SolicitudesTable({ onEdit, onView, onNew, userRole }) {
   const [{ user, claims }, loading, error] = useAuthState(auth);
   const [solicitudes, setSolicitudes] = useState([]);
   const [loadingSolicitudes, setLoadingSolicitudes] = useState(true);
@@ -153,9 +153,10 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
     );
   };
 
-  const handleDelete = async (solicitud) => {
-    try {
-      await deleteSolicitud(solicitud.id);
+const handleDelete = async (solicitud) => {
+  console.log("Role actual:", userRole);
+  try {
+    await deleteSolicitud(solicitud.id, userRole); 
       toast.success("Solicitud eliminada exitosamente");
       loadSolicitudes();
     } catch (error) {
