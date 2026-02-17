@@ -1,4 +1,3 @@
-// Script para inicializar las 3 calculadoras en Firebase
 import { db } from "@/firebase/firebaseClient";
 import { doc, setDoc } from "firebase/firestore";
 

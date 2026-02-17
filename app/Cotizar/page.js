@@ -72,19 +72,20 @@ export default function CotizarPage() {
   }, []);
 
   const calculateFee = (amount, feeTable) => {
-    const currentTier = feeTable.find(
-      (t) => amount >= t.min && amount <= t.max
-    );
-
-    if (!currentTier) {
-      return 0;
-    }
+    const currentTier = feeTable.find(t => amount >= t.min && amount <= t.max);
+    if (!currentTier) return 0;
 
     const excessAmount = amount - currentTier.baseAmount;
     const excessFee = excessAmount * currentTier.rate;
     const totalFee = excessFee + currentTier.minFee;
 
-    return Math.max(totalFee, currentTier.minFee);
+    const clampedMin = Math.max(totalFee, currentTier.minFee);
+    
+    if (currentTier.maxFee !== null && currentTier.maxFee !== undefined) {
+      return Math.min(clampedMin, currentTier.maxFee); 
+    }
+
+    return clampedMin;
   };
 
   const handleCalculate = () => {

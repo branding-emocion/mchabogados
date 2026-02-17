@@ -90,9 +90,7 @@ export function SolicitudesTable({ onEdit, onView, onNew }) {
   const filteredSolicitudes = solicitudes.filter((solicitud) => {
     const matchesSearch =
       !filters.search ||
-      solicitud.materia
-        ?.toLowerCase()
-        .Dincludes(filters.search.toLowerCase()) ||
+      solicitud.materia?.toLowerCase().includes(filters.search.toLowerCase()) ||
       solicitud.id.toLowerCase().includes(filters.search.toLowerCase());
 
     const matchesEstado =

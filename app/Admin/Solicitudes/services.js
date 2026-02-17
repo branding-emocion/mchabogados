@@ -80,18 +80,11 @@ export const getSolicitudes = async (filters = {}, userRole, userId) => {
   try {
     let q = collection(db, COLLECTION_NAME);
 
-    // Apply role-based filtering
     if (userRole == "cliente") {
-      // Clients only see their own solicitudes
       q = query(q, where("userId", "==", `${userId}`));
     }
-    // superAdmin sees all solicitudes (no additional filter needed)
 
-    // Apply other filters
-
-    if (filters.estado == "Todos los estados") {
-      q = query(q, where("tipoServicio", "==", "Arbitraje"));
-    } else if (filters.estado) {
+    if (filters.estado && filters.estado !== "Todos los estados") {
       q = query(q, where("estado", "==", filters.estado));
     }
 
