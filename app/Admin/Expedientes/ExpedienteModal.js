@@ -277,6 +277,7 @@ export default function ExpedienteModal({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Arbitraje">Arbitraje</SelectItem>
+                  <SelectItem value="ArbitrajeEmergencia">Arbitraje de Emergencia</SelectItem>
                 </SelectContent>
               </Select>
             </div>
