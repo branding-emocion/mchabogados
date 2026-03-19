@@ -17,7 +17,6 @@ import {
   serverTimestamp,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import { toast } from "sonner";
 import ExpedientesTable from "./ExpedientesTable";
@@ -38,33 +37,23 @@ export default function ExpedientesModule() {
     numeroExpediente: "",
   });
 
-  // Cargar expedientes al montar el componente
   useEffect(() => {
     if (!user?.email) return;
-
     loadExpedientes();
   }, [claims, user]);
 
-  // Aplicar filtros cuando cambien
   useEffect(() => {
     applyFilters();
   }, [expedientes, filters]);
 
+  // Todos los usuarios ven todos los expedientes sin filtro por rol
   const loadExpedientes = async () => {
     try {
       setLoading(true);
-      const expedientesRef = collection(db, "expedientes");
-
-      let q = null;
-
-      if (claims?.isAdmin || claims?.isSuperAdmin) {
-        q = query(expedientesRef, orderBy("creacion", "desc"));
-      } else {
-        q = query(
-          collection(db, "expedientes"),
-          where("correos", "array-contains", `${user.email}`)
-        );
-      }
+      const q = query(
+        collection(db, "expedientes"),
+        orderBy("creacion", "desc")
+      );
       const querySnapshot = await getDocs(q);
 
       const expedientesData = [];
@@ -72,7 +61,6 @@ export default function ExpedientesModule() {
         expedientesData.push({
           id: doc.id,
           ...doc.data(),
-          // Convertir timestamps de Firestore a strings para el frontend
           creacion:
             doc.data().creacion?.toDate?.()?.toISOString() ||
             doc.data().creacion,
@@ -111,7 +99,6 @@ export default function ExpedientesModule() {
   const handleSaveExpediente = async (expedienteData) => {
     try {
       if (editingExpediente) {
-        // Actualizar expediente existente
         const expedienteRef = doc(db, "expedientes", editingExpediente.id);
         await updateDoc(expedienteRef, {
           ...expedienteData,
@@ -119,7 +106,6 @@ export default function ExpedientesModule() {
         });
         toast("Expediente actualizado correctamente");
       } else {
-        // Crear nuevo expediente
         await addDoc(collection(db, "expedientes"), {
           ...expedienteData,
           creacion: serverTimestamp(),
@@ -169,33 +155,15 @@ export default function ExpedientesModule() {
 
   return (
     <div className="space-y-6">
-      {/* Header con botón de nuevo expediente */}
-      {/* <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold">Gestión de Expedientes</h2>
-          <p className="text-muted-foreground">
-            Administra los expedientes de arbitraje
-          </p>
-        </div>
-        {(claims?.isAdmin || claims?.isSuperAdmin) && (
-          <Button
-            onClick={handleNewExpediente}
-            className="flex items-center gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            Nuevo Expediente
-          </Button>
-        )}
-      </div> */}
-      <header className="bg-[#a57f3e]  shadow-md">
-        <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
-          <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
-            Expedientes{" "}
+      <header className="bg-[#a57f3e] shadow-md">
+        <div className="container w-full mx-auto px-5 py-11 flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-white tracking-wide uppercase">
+            Expedientes
           </h1>
-          {(claims?.isAdmin || claims?.isSuperAdmin) && (
+          {user && (
             <Button
               onClick={handleNewExpediente}
-              className="flex items-center gap-2 hover:cursor-pointer  "
+              className="flex items-center gap-2 hover:cursor-pointer uppercase"
             >
               <Plus className="h-4 w-4" />
               Nuevo Expediente
@@ -203,6 +171,7 @@ export default function ExpedientesModule() {
           )}
         </div>
       </header>
+
       {/* Filtros */}
       <Card className={"container mx-auto"}>
         <CardHeader>

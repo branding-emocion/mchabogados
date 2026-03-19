@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import {
   collection,
   query,
-  where,
   getDocs,
   addDoc,
   serverTimestamp,
+  orderBy,
 } from "firebase/firestore";
 import {
   Dialog,
@@ -48,10 +48,9 @@ export function AddEscritoModal({ onEscritoAdded }) {
   const [{ user }, loading] = useAuthState(auth);
   const [open, setOpen] = useState(false);
   const [expedientes, setExpedientes] = useState([]);
+  const [loadingExpedientes, setLoadingExpedientes] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-
-  console.log("expedientes", expedientes);
 
   const [formData, setFormData] = useState({
     expedienteId: "",
@@ -61,30 +60,34 @@ export function AddEscritoModal({ onEscritoAdded }) {
     contenido: "",
   });
 
-  // Load expedientes when modal opens
+  // Todos los usuarios ven todos los expedientes sin filtro por rol
   useEffect(() => {
     if (!open || !user?.email) return;
 
     const loadExpedientes = async () => {
+      setLoadingExpedientes(true);
       try {
         const q = query(
           collection(db, "expedientes"),
-          where("correos", "array-contains", `${user.email}`)
+          orderBy("creacion", "desc")
         );
         const snapshot = await getDocs(q);
         const expedientesData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
+        console.log("expedientes cargados:", expedientesData.length);
         setExpedientes(expedientesData);
       } catch (error) {
         console.error("Error loading expedientes:", error);
         toast.error("Error al cargar expedientes");
+      } finally {
+        setLoadingExpedientes(false);
       }
     };
 
     loadExpedientes();
-  }, [open, user]);
+  }, [open, user?.email]);
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({
@@ -117,7 +120,6 @@ export function AddEscritoModal({ onEscritoAdded }) {
     );
 
     try {
-      // Create escrito document
       const escritoData = {
         userEmail: user.email,
         expedienteId: formData.expedienteId,
@@ -136,11 +138,10 @@ export function AddEscritoModal({ onEscritoAdded }) {
         expedienteData: InfoExpediente,
       };
 
-      const docRef = await addDoc(collection(db, "escritos"), escritoData);
+      await addDoc(collection(db, "escritos"), escritoData);
 
       toast.success("Escrito creado exitosamente");
 
-      // Reset form
       setFormData({
         expedienteId: "",
         numeroEscrito: "",
@@ -151,7 +152,6 @@ export function AddEscritoModal({ onEscritoAdded }) {
       setUploadedFiles([]);
       setOpen(false);
 
-      // Notify parent component
       onEscritoAdded?.();
     } catch (error) {
       console.error("Error creating escrito:", error);
@@ -166,12 +166,11 @@ export function AddEscritoModal({ onEscritoAdded }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <header className="bg-[#a57f3e]  shadow-md">
-          <div className="container  w-full  mx-auto px-5 py-11 flex items-center justify-between ">
-            <h1 className="text-4xl font-bold text-white tracking-wide uppercase ">
-              Escritos{" "}
+        <header className="bg-[#a57f3e] shadow-md">
+          <div className="container w-full mx-auto px-5 py-11 flex items-center justify-between">
+            <h1 className="text-4xl font-bold text-white tracking-wide uppercase">
+              Escritos
             </h1>
-
             <Button className={"uppercase"}>
               <PlusIcon className="h-4 w-4 mr-2" />
               Agregar Escrito
@@ -194,9 +193,18 @@ export function AddEscritoModal({ onEscritoAdded }) {
                 onValueChange={(value) =>
                   handleInputChange("expedienteId", value)
                 }
+                disabled={loadingExpedientes}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar expediente" />
+                  <SelectValue
+                    placeholder={
+                      loadingExpedientes
+                        ? "Cargando expedientes..."
+                        : expedientes.length === 0
+                        ? "No hay expedientes disponibles"
+                        : "Seleccionar expediente"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   {expedientes.map((expediente) => (
