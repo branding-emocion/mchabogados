@@ -24,16 +24,15 @@ import { CalendarIcon, FileTextIcon } from "lucide-react";
 import useAuthState from "@/lib/useAuthState";
 import { auth, db } from "@/firebase/firebaseClient";
 
-export function EscritosDataTable() {
-  const [{ user, claims }, loading] = useAuthState(auth);
+export function EscritosDataTable({ claims }) {
+  const [{ user }, loading] = useAuthState(auth);
   const [escritos, setEscritos] = useState([]);
   const [expedientes, setExpedientes] = useState([]);
   const [filteredEscritos, setFilteredEscritos] = useState([]);
-  const [selectedExpediente, setSelectedExpediente] = useState("all"); // Updated default value
+  const [selectedExpediente, setSelectedExpediente] = useState("all");
   const [dateFilter, setDateFilter] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load expedientes for filter
   useEffect(() => {
     if (!user?.email) return;
 
@@ -59,7 +58,6 @@ export function EscritosDataTable() {
           expedientesData.push({
             id: doc.id,
             ...doc.data(),
-            // Convertir timestamps de Firestore a strings para el frontend
             creacion:
               doc.data().creacion?.toDate?.()?.toISOString() ||
               doc.data().creacion,
@@ -69,27 +67,36 @@ export function EscritosDataTable() {
         setExpedientes(expedientesData);
       } catch (error) {
         console.error("Error loading expedientes:", error);
-        toast("No se pudieron cargar los expedientes");
       } finally {
         setIsLoading(false);
       }
     };
 
     loadExpedientes();
-  }, [user]);
+  }, [user, claims]);
 
-  // Load escritos
   useEffect(() => {
     if (!user?.email) return;
 
     const loadEscritos = async () => {
       try {
         setIsLoading(true);
-        const q = query(
-          collection(db, "escritos"),
-          where("userEmail", "==", `${user.email}`),
-          orderBy("fechaCreacion", "desc")
-        );
+
+        let q;
+
+        if (claims?.isAdmin || claims?.isSuperAdmin) {
+          q = query(
+            collection(db, "escritos"),
+            orderBy("fechaCreacion", "desc")
+          );
+        } else {
+          q = query(
+            collection(db, "escritos"),
+            where("userEmail", "==", user.email),
+            orderBy("fechaCreacion", "desc")
+          );
+        }
+
         const snapshot = await getDocs(q);
         const escritosData = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -105,9 +112,8 @@ export function EscritosDataTable() {
     };
 
     loadEscritos();
-  }, [user]);
+  }, [user, claims]);
 
-  // Apply filters
   useEffect(() => {
     let filtered = [...escritos];
 
@@ -164,7 +170,6 @@ export function EscritosDataTable() {
           Historial de Escritos
         </CardTitle>
 
-        {/* Filters */}
         <div className="flex gap-4 mt-4">
           <Select
             value={selectedExpediente}
@@ -174,8 +179,7 @@ export function EscritosDataTable() {
               <SelectValue placeholder="Filtrar por expediente" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todos los expedientes</SelectItem>{" "}
-              {/* Updated value prop */}
+              <SelectItem value="all">Todos los expedientes</SelectItem>
               {expedientes.map((expediente) => (
                 <SelectItem key={expediente.id} value={expediente.id}>
                   {expediente.numeroExpediente}
@@ -238,9 +242,25 @@ export function EscritosDataTable() {
                     {escrito.descripcion || "-"}
                   </TableCell>
                   <TableCell>
-                    <Badge variant="secondary">
-                      {escrito.documentos?.length || 0} archivos
-                    </Badge>
+                    <div className="flex flex-col gap-1">
+                      {escrito.documentos?.length > 0 ? (
+                        escrito.documentos.map((doc, index) => (
+                          <a
+                            key={index}
+                            href={doc.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-blue-600 hover:underline flex items-center gap-1"
+                          >
+                            📄 {doc.name}
+                          </a>
+                        ))
+                      ) : (
+                        <span className="text-muted-foreground text-sm">
+                          Sin archivos
+                        </span>
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               ))
