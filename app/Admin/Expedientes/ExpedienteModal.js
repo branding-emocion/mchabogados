@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Plus, Upload, X } from "lucide-react";
+import { Trash2, Plus, Upload, X, ArrowUp, ArrowDown } from "lucide-react";
 
 import {
   ref,
@@ -170,24 +170,33 @@ export default function ExpedienteModal({
   const removeArchivo = async (index) => {
     const archivo = formData.archivos[index];
 
-    try {
-      // Si el archivo tiene storagePath, eliminarlo de Firebase Storage
-      if (archivo.storagePath) {
+    if (archivo.storagePath) {
+      try {
         const storageRef = ref(storage, archivo.storagePath);
         await deleteObject(storageRef);
+      } catch (error) {
+        console.warn("No se pudo eliminar de Storage (probablemente ya no existe):", error);
       }
-
-      const newArchivos = formData.archivos.filter((_, i) => i !== index);
-      setFormData((prev) => ({
-        ...prev,
-        archivos: newArchivos,
-      }));
-
-      toast("Archivo eliminado correctamente");
-    } catch (error) {
-      console.error("Error deleting file:", error);
-      toast("Error al eliminar el archivo");
     }
+
+    const newArchivos = formData.archivos.filter((_, i) => i !== index);
+    setFormData((prev) => ({
+      ...prev,
+      archivos: newArchivos,
+    }));
+
+    toast("Archivo eliminado correctamente");
+  };
+
+  const moveArchivo = (index, direction) => {
+    const newArchivos = [...formData.archivos];
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= newArchivos.length) return;
+    [newArchivos[index], newArchivos[targetIndex]] = [newArchivos[targetIndex], newArchivos[index]];
+    setFormData((prev) => ({
+      ...prev,
+      archivos: newArchivos,
+    }));
   };
 
   const validateForm = () => {
@@ -452,20 +461,41 @@ export default function ExpedienteModal({
                       className="flex items-center justify-between p-2 border rounded"
                     >
                       <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground w-5">{index + 1}.</span>
                         <Upload className="h-4 w-4" />
                         <span className="text-sm">{archivo.name}</span>
                         <Badge variant="secondary">
                           {(archivo.size / 1024 / 1024).toFixed(2)} MB
                         </Badge>
                       </div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => removeArchivo(index)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          disabled={index === 0}
+                          onClick={() => moveArchivo(index, -1)}
+                        >
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          disabled={index === formData.archivos.length - 1}
+                          onClick={() => moveArchivo(index, 1)}
+                        >
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => removeArchivo(index)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
