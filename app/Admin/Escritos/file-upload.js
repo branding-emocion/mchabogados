@@ -12,7 +12,7 @@ import { storage } from "@/firebase/firebaseClient";
 
 export function FileUpload({
   onFilesChange,
-  maxFiles = 5,
+  maxFiles = 20,
   maxSizePerFile = 200 * 1024 * 1024,
 }) {
   const [files, setFiles] = useState([]);

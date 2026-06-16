@@ -342,7 +342,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                     onFilesChange={(files) =>
                       handleInputChange("documentos", files)
                     }
-                    maxFiles={5}
+                    maxFiles={20}
                     label="Documentos PDF"
                     folder="documentos"
                   />
@@ -359,7 +359,7 @@ export function SolicitudModal({ isOpen, onClose, solicitud = null, onSave }) {
                     onFilesChange={(files) =>
                       handleInputChange("anexos", files)
                     }
-                    maxFiles={5}
+                    maxFiles={20}
                     label="Anexos PDF"
                     folder="anexos"
                   />

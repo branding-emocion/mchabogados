@@ -125,8 +125,8 @@ export default function ExpedienteModal({
       toast("Solo se permiten archivos PDF");
     }
 
-    if (formData.archivos.length + pdfFiles.length > 5) {
-      toast("Máximo 5 archivos permitidos");
+    if (formData.archivos.length + pdfFiles.length > 20) {
+      toast("Máximo 20 archivos permitidos");
       return;
     }
 
@@ -424,7 +424,7 @@ export default function ExpedienteModal({
           </div>
           {/* Archivos Adjuntos */}
           <div className="space-y-2">
-            <Label>Archivos Adjuntos (Máximo 5 PDFs)</Label>
+            <Label>Archivos Adjuntos (Máximo 20 PDFs)</Label>
             <div className="space-y-2">
               <Input
                 type="file"
@@ -444,7 +444,7 @@ export default function ExpedienteModal({
               {formData.archivos.length > 0 && (
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">
-                    Archivos seleccionados ({formData.archivos.length}/5):
+                    Archivos seleccionados ({formData.archivos.length}/20):
                   </p>
                   {formData.archivos.map((archivo, index) => (
                     <div

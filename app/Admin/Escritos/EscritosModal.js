@@ -277,11 +277,11 @@ export function AddEscritoModal({ onEscritoAdded }) {
             <CardContent className="p-4">
               <Label className="text-sm font-medium">Documentos y Anexos</Label>
               <p className="text-xs text-muted-foreground mb-4">
-                Máximo 5 archivos PDF, cada uno hasta 200 MB
+                Máximo 20 archivos PDF, cada uno hasta 200 MB
               </p>
               <FileUpload
                 onFilesChange={setUploadedFiles}
-                maxFiles={5}
+                maxFiles={20}
                 maxSizePerFile={200 * 1024 * 1024}
               />
             </CardContent>

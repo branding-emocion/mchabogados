@@ -11,7 +11,7 @@ import { uploadFile } from "./services";
 export function FileUpload({
   files = [],
   onFilesChange,
-  maxFiles = 5,
+  maxFiles = 20,
   label = "Archivos",
   accept = ".pdf",
   folder = "documents",
