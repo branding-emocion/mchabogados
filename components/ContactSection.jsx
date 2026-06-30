@@ -30,6 +30,15 @@ export function LicenciaFuncionamiento() {
                 Ver Licencia
               </a>
             </Button>
+            <Button size="lg" className={"uppercase"} variant="secondary">
+              <a
+                href="/ResolucionAdministrativa.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ver Resolución Administrativa
+              </a>
+            </Button>
           </div>
         </motion.div>
       </div>
