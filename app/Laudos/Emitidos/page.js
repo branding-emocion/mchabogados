@@ -55,7 +55,7 @@ export default function LaudosEmitidosPage() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+              backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
             }}
           />
           <div className="absolute inset-0 bg-slate-900/70" />
@@ -86,7 +86,7 @@ export default function LaudosEmitidosPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -111,7 +111,7 @@ export default function LaudosEmitidosPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <p className="text-lg text-muted-foreground mb-8">
-              N° DE LAUDOS EMITIDOS: {filteredLaudos.length}
+              NÂ° DE LAUDOS EMITIDOS: {filteredLaudos.length}
             </p>
 
             {/* Buscador */}
@@ -190,7 +190,7 @@ export default function LaudosEmitidosPage() {
             </div>
           </div>
 
-          {/* Paginación */}
+          {/* PaginaciÃ³n */}
           {totalPages > 1 && (
             <div className="mt-8 flex items-center justify-between">
               <p className="text-sm text-muted-foreground">

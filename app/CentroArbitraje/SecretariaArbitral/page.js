@@ -12,7 +12,7 @@ export default function SecretariaArbitral() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -25,7 +25,7 @@ export default function SecretariaArbitral() {
             className="text-white"
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
-              secretaría arbitral <br />
+              secretarÃ­a arbitral <br />
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
@@ -42,17 +42,17 @@ export default function SecretariaArbitral() {
             className="text-center"
           >
             <h2 className="text-3xl font-bold mb-8 text-primary uppercase">
-              ¿Qué es la Secretaría Arbitral?{" "}
+              Â¿QuÃ© es la SecretarÃ­a Arbitral?{" "}
             </h2>
             <Card className="mb-8">
               <CardContent className="p-8">
                 <p className="text-lg leading-relaxed mb-6">
-                  La <strong>Secretaría Arbitral</strong> es el servicio
+                  La <strong>SecretarÃ­a Arbitral</strong> es el servicio
                   administrativo especializado que brinda soporte integral a los
-                  procesos de arbitraje. Actúa como el centro operativo que
+                  procesos de arbitraje. ActÃºa como el centro operativo que
                   coordina, gestiona y administra todos los aspectos
                   procedimentales del arbitraje, desde su inicio hasta la
-                  emisión del laudo arbitral.
+                  emisiÃ³n del laudo arbitral.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3  ">

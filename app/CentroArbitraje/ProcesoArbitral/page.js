@@ -65,25 +65,25 @@ export default function ClausulaArbitralPage() {
       id: 1,
       title: "Inicio del Arbitraje",
       description:
-        "El procedimiento se inicia con la presentación de la solicitud de arbitraje, lo que da inicio al cómputo de plazos procesales. Posteriormente, se notifica formalmente a la parte demandada.",
+        "El procedimiento se inicia con la presentaciÃ³n de la solicitud de arbitraje, lo que da inicio al cÃ³mputo de plazos procesales. Posteriormente, se notifica formalmente a la parte demandada.",
       icon: FileText,
       color: "bg-blue-600",
       delay: 0.1,
     },
     {
       id: 2,
-      title: "Constitución del Tribunal Arbitral",
+      title: "ConstituciÃ³n del Tribunal Arbitral",
       description:
-        "Se designa un árbitro único o un tribunal colegiado de tres árbitros, conforme al acuerdo arbitral o reglamento aplicable. Los árbitros aceptan su cargo declarando independencia e imparcialidad.",
+        "Se designa un Ã¡rbitro Ãºnico o un tribunal colegiado de tres Ã¡rbitros, conforme al acuerdo arbitral o reglamento aplicable. Los Ã¡rbitros aceptan su cargo declarando independencia e imparcialidad.",
       icon: Users,
       color: "bg-indigo-600",
       delay: 0.2,
     },
     {
       id: 3,
-      title: "Fijación de Reglas y Costos",
+      title: "FijaciÃ³n de Reglas y Costos",
       description:
-        "En una audiencia preliminar, se determinan las reglas procesales y los costos del arbitraje, incluyendo los honorarios arbitrales y gastos administrativos, distribuidos según acuerdo de las partes.",
+        "En una audiencia preliminar, se determinan las reglas procesales y los costos del arbitraje, incluyendo los honorarios arbitrales y gastos administrativos, distribuidos segÃºn acuerdo de las partes.",
       icon: Calculator,
       color: "bg-purple-600",
       delay: 0.3,
@@ -92,7 +92,7 @@ export default function ClausulaArbitralPage() {
       id: 4,
       title: "Etapa Postulatoria",
       description:
-        "La parte actora presenta su escrito de demanda. La parte demandada formula su contestación y, en su caso, puede interponer reconvención.",
+        "La parte actora presenta su escrito de demanda. La parte demandada formula su contestaciÃ³n y, en su caso, puede interponer reconvenciÃ³n.",
       icon: MessageSquare,
       color: "bg-pink-600",
       delay: 0.4,
@@ -101,7 +101,7 @@ export default function ClausulaArbitralPage() {
       id: 5,
       title: "Audiencias",
       description:
-        "Se celebran audiencias para fomentar la conciliación, sustentar hechos, presentar pruebas y formular alegatos orales ante el tribunal arbitral.",
+        "Se celebran audiencias para fomentar la conciliaciÃ³n, sustentar hechos, presentar pruebas y formular alegatos orales ante el tribunal arbitral.",
       icon: Volume2,
       color: "bg-red-600",
       delay: 0.5,
@@ -125,7 +125,7 @@ export default function ClausulaArbitralPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -142,7 +142,7 @@ export default function ClausulaArbitralPage() {
             </h1>
             <div className="w-24 h-1  mx-auto mb-8 bg-white" />
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              MCH ABOGADOS - Resolución especializada de controversias a través
+              MCH ABOGADOS - ResoluciÃ³n especializada de controversias a travÃ©s
               de arbitraje, brindando un servicio integral y confidencial en
               procesos arbitrales de alta complejidad.
             </p>

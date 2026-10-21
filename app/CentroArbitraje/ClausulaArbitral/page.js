@@ -10,7 +10,7 @@ export default function ClausulaArbitralPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -23,7 +23,7 @@ export default function ClausulaArbitralPage() {
             className="text-white"
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
-              CLÁUSULA ARBITRAL
+              CLÃUSULA ARBITRAL
               <br />
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
@@ -41,16 +41,16 @@ export default function ClausulaArbitralPage() {
             className="text-center"
           >
             <h2 className="text-3xl font-bold mb-8 text-primary uppercase">
-              Cláusula Arbitral Modelo
+              ClÃ¡usula Arbitral Modelo
             </h2>
             <p className="text-lg text-gray-600">
               &quot;Las partes acuerdan que todo litigio y controversia
-              resultante de este contrato o relativo a éste, se resolverá
+              resultante de este contrato o relativo a Ã©ste, se resolverÃ¡
               mediante el arbitraje organizado y administrado por MCH ABOGADOS
               S.A.C. con numero de RUC: 20613091158, de conformidad con sus
               reglamentos y directivas vigentes, a los cuales las partes se
-              someten libremente, señalando que el laudo que se emita en el
-              proceso será inapelable y definitivo.”
+              someten libremente, seÃ±alando que el laudo que se emita en el
+              proceso serÃ¡ inapelable y definitivo.â€
             </p>
           </motion.div>
         </div>

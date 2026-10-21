@@ -113,7 +113,7 @@ export default function NominaClient() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -126,7 +126,7 @@ export default function NominaClient() {
             className="text-white"
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
-              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLICA{" "}
+              NÃ“MINA DE ÃRBITROS EN MATERIA DE CONTRATACIÃ“N PÃšBLICA{" "}
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
           </motion.div>
@@ -172,7 +172,7 @@ export default function NominaClient() {
         <Card className="shadow-lg">
           <CardHeader className="bg-[#a5803d] text-white  ">
             <CardTitle className="text-2xl font-bold text-center py-2">
-              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLICA{" "}
+              NÃ“MINA DE ÃRBITROS EN MATERIA DE CONTRATACIÃ“N PÃšBLICA{" "}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
@@ -256,7 +256,7 @@ export default function NominaClient() {
                       disabled={loading}
                       className="bg-[#a5803d] hover:bg-[#8a6b32] uppercase hover:cursor-pointer"
                     >
-                      {loading ? "Cargando..." : "Cargar más"}
+                      {loading ? "Cargando..." : "Cargar mÃ¡s"}
                     </Button>
                   </div>
                 )}

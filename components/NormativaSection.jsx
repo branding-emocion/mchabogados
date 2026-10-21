@@ -6,8 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, RefreshCw, Calendar, FileText } from "lucide-react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/firebase/firebaseClient";
+import { collection, getDocs, query, limit } from "firebase/firestore";
+import { db } from "@/firebase/firebaseReader";
 
 const NormativaSection = () => {
   const [isos, setIsos] = useState([]);
@@ -20,7 +20,9 @@ const NormativaSection = () => {
   const loadISOs = async () => {
     try {
       setLoading(true);
-      const querySnapshot = await getDocs(collection(db, "isos"));
+      const querySnapshot = await getDocs(
+        query(collection(db, "isos"), limit(100))
+      );
       const isosData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),

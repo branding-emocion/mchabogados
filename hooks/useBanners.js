@@ -10,14 +10,9 @@ import {
   getDocs,
   orderBy,
   query,
+  limit,
 } from "firebase/firestore";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import { db, storage } from "@/firebase/firebaseClient";
+import { db, getStorageLazy } from "@/firebase/firebaseReader";
 
 export function useBanners() {
   const [banners, setBanners] = useState([]);
@@ -29,7 +24,8 @@ export function useBanners() {
       setIsLoading(true);
       const bannersQuery = query(
         collection(db, "banners"),
-        orderBy("createdAt", "desc")
+        orderBy("createdAt", "desc"),
+        limit(50)
       );
       const querySnapshot = await getDocs(bannersQuery);
       const bannersData = querySnapshot.docs.map((doc) => ({
@@ -44,9 +40,14 @@ export function useBanners() {
     }
   };
 
-  // Subir imagen a Firebase Storage
+  // Subir imagen a Firebase Storage (SDK se carga solo cuando se usa)
   const uploadImage = async (file) => {
     if (!file) return null;
+
+    const [{ ref, uploadBytes, getDownloadURL }, storage] = await Promise.all([
+      import("firebase/storage"),
+      getStorageLazy(),
+    ]);
 
     const timestamp = Date.now();
     const fileName = `banners/${timestamp}_${file.name}`;
@@ -98,9 +99,13 @@ export function useBanners() {
   // Eliminar banner
   const deleteBanner = async (banner) => {
     try {
-      // Eliminar imagen del storage si existe
+      // Eliminar imagen del storage si existe (SDK perezoso)
       if (banner?.imageUrl) {
         try {
+          const [{ ref, deleteObject }, storage] = await Promise.all([
+            import("firebase/storage"),
+            getStorageLazy(),
+          ]);
           const imageRef = ref(storage, banner.imageUrl);
           await deleteObject(imageRef);
         } catch (error) {

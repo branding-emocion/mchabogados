@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, FileText, User, AlertCircle } from "lucide-react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
-import { db } from "@/firebase/firebaseClient";
+import { db } from "@/firebase/firebaseReader";
 import { motion } from "framer-motion";
 
 export default function ConsultaExpediente() {
@@ -20,13 +20,13 @@ export default function ConsultaExpediente() {
 
   const buscarExpediente = async () => {
     if (!numeroExpediente.trim() || !numeroDocumento.trim()) {
-      toast.error("Por favor ingrese el número de expediente y documento");
+      toast.error("Por favor ingrese el nÃºmero de expediente y documento");
       return;
     }
 
     setLoading(true);
     try {
-      // Buscar expediente por número
+      // Buscar expediente por nÃºmero
       const expedientesRef = collection(db, "expedientes");
       const q = query(
         expedientesRef,
@@ -35,7 +35,7 @@ export default function ConsultaExpediente() {
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
-        toast.error("No se encontró el expediente");
+        toast.error("No se encontrÃ³ el expediente");
         setExpediente(null);
         return;
       }
@@ -53,7 +53,7 @@ export default function ConsultaExpediente() {
 
       if (!parteEncontrada) {
         toast.error(
-          "El número de documento no coincide con ninguna parte del expediente"
+          "El nÃºmero de documento no coincide con ninguna parte del expediente"
         );
         setExpediente(null);
         return;
@@ -102,7 +102,7 @@ export default function ConsultaExpediente() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/professional-legal-office-arbitration-center.png')`,
+            backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -122,12 +122,12 @@ export default function ConsultaExpediente() {
         </div>
       </section>
       <div className="max-w-4xl mx-auto space-y-6 pt-5">
-        {/* Formulario de búsqueda */}
+        {/* Formulario de bÃºsqueda */}
         <Card>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="numeroExpediente">Número de Expediente</Label>
+                <Label htmlFor="numeroExpediente">NÃºmero de Expediente</Label>
                 <Input
                   id="numeroExpediente"
                   placeholder="Ej: EXP-2024-123456"
@@ -136,7 +136,7 @@ export default function ConsultaExpediente() {
                 />
               </div>
               <div>
-                <Label htmlFor="numeroDocumento">Número de Documento</Label>
+                <Label htmlFor="numeroDocumento">NÃºmero de Documento</Label>
                 <Input
                   id="numeroDocumento"
                   placeholder="Ej: 12345678"
@@ -158,7 +158,7 @@ export default function ConsultaExpediente() {
         {/* Resultados */}
         {expediente && (
           <div className="space-y-6">
-            {/* Información general */}
+            {/* InformaciÃ³n general */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
@@ -184,7 +184,7 @@ export default function ConsultaExpediente() {
                   </div>
                   <div>
                     <Label className="text-sm font-medium text-muted-foreground">
-                      Fecha de Presentación
+                      Fecha de PresentaciÃ³n
                     </Label>
                     <p className="font-medium">
                       {formatearFecha(expediente.fechaPresentacion)}
@@ -192,7 +192,7 @@ export default function ConsultaExpediente() {
                   </div>
                   <div>
                     <Label className="text-sm font-medium text-muted-foreground">
-                      Fecha de Creación
+                      Fecha de CreaciÃ³n
                     </Label>
                     <p className="font-medium">
                       {formatearFecha(expediente.fechaCreacion)}
@@ -203,7 +203,7 @@ export default function ConsultaExpediente() {
                 {expediente.descripcion && (
                   <div>
                     <Label className="text-sm font-medium text-muted-foreground">
-                      Descripción
+                      DescripciÃ³n
                     </Label>
                     <p className="text-sm bg-muted p-3 rounded-md">
                       {expediente.descripcion}
@@ -213,12 +213,12 @@ export default function ConsultaExpediente() {
               </CardContent>
             </Card>
 
-            {/* Información del consultante */}
+            {/* InformaciÃ³n del consultante */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="h-5 w-5" />
-                  Su Información en el Expediente
+                  Su InformaciÃ³n en el Expediente
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -243,7 +243,7 @@ export default function ConsultaExpediente() {
                   {expediente.parteConsultante.direccion && (
                     <div className="md:col-span-2">
                       <Label className="text-sm font-medium text-muted-foreground">
-                        Dirección
+                        DirecciÃ³n
                       </Label>
                       <p className="font-medium">
                         {expediente.parteConsultante.direccion}
@@ -306,25 +306,25 @@ export default function ConsultaExpediente() {
               </Card>
             )}
 
-            {/* Información de contacto */}
+            {/* InformaciÃ³n de contacto */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5" />
-                  Información Importante
+                  InformaciÃ³n Importante
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <p>
-                    • Para consultas adicionales, comuníquese con nuestro
+                    â€¢ Para consultas adicionales, comunÃ­quese con nuestro
                     bufete.
                   </p>
                   <p>
-                    • Mantenga su número de expediente y documento de identidad
+                    â€¢ Mantenga su nÃºmero de expediente y documento de identidad
                     para futuras consultas.
                   </p>
-                  <p>• El estado del expediente se actualiza regularmente.</p>
+                  <p>â€¢ El estado del expediente se actualiza regularmente.</p>
                 </div>
               </CardContent>
             </Card>

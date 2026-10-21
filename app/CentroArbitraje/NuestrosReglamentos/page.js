@@ -14,7 +14,7 @@ export default function NuestrosReglamentosPage() {
       href: "/pdfs/REGLAMENTOINTERNODELCENTRO.pdf",
     },
 
-    { title: "Código de Ética", href: "/pdfs/Etica.pdf" },
+    { title: "CÃ³digo de Ã‰tica", href: "/pdfs/Etica.pdf" },
     {
       title: "Reglamento de Arbitraje Express",
       href: "/pdfs/Express.pdf",
@@ -27,13 +27,13 @@ export default function NuestrosReglamentosPage() {
 
   const directives = [
     {
-      title: `Directiva N°001-${new Date().getFullYear()}`,
-      description: "Regulación sobre la Nómina de Árbitros",
+      title: `Directiva NÂ°001-${new Date().getFullYear()}`,
+      description: "RegulaciÃ³n sobre la NÃ³mina de Ãrbitros",
       href: "/pdfs/001.pdf",
     },
     {
-      title: "Directiva N°002-2024",
-      description: "Recusación de Árbitros",
+      title: "Directiva NÂ°002-2024",
+      description: "RecusaciÃ³n de Ãrbitros",
       href: "/pdfs/002.pdf",
     },
   ];
@@ -44,7 +44,7 @@ export default function NuestrosReglamentosPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/legal-regulations-documents-books.png')`,
+            backgroundImage: `url('/legal-regulations-documents-books.webp')`,
           }}
         />
         <div className="absolute inset-0 bg-slate-900/70" />
@@ -65,7 +65,7 @@ export default function NuestrosReglamentosPage() {
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Documentos normativos que rigen los procesos arbitrales en MCH
               ABOGADOS, garantizando transparencia, eficiencia y cumplimiento de
-              los más altos estándares legales.
+              los mÃ¡s altos estÃ¡ndares legales.
             </p>
           </motion.div>
         </div>
@@ -166,11 +166,11 @@ export default function NuestrosReglamentosPage() {
                 Tabla de Pagos y Aranceles
               </h3>
               <p className="text-gray-600 mb-4">
-                En este documento nuestros usuarios podrán encontrar los costos
+                En este documento nuestros usuarios podrÃ¡n encontrar los costos
                 de los servicios brindados por el Centro de Arbitraje,
-                categorizados según la cuantía de la materia controvertida para
-                efectos de tener mayor información antes de iniciar los
-                arbitrajes en nuestra institución.
+                categorizados segÃºn la cuantÃ­a de la materia controvertida para
+                efectos de tener mayor informaciÃ³n antes de iniciar los
+                arbitrajes en nuestra instituciÃ³n.
               </p>
               <a
                 href="/pdfs/Tabla.pdf"
