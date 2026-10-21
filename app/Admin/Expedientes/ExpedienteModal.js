@@ -125,10 +125,8 @@ export default function ExpedienteModal({
       toast("Solo se permiten archivos PDF");
     }
 
-    if (formData.archivos.length + pdfFiles.length > 20) {
-      toast("Máximo 20 archivos permitidos");
-      return;
-    }
+    // ♾️ Sin límite de cantidad: las resoluciones del expediente se pueden
+    // subir en cualquier número (solo se exige formato PDF y 200MB c/u).
 
     setUploadingFiles(true);
     try {

@@ -75,6 +75,8 @@ export default function PresentacionPage() {
                     <img
                       src="/QuienesSomos1.jpg"
                       alt="Juan Armando Morillas Arbildo"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>

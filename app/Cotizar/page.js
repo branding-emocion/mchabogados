@@ -8,8 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Calculator, FileText, Users, Scale, Badge } from "lucide-react";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 
 import { getCalculatorConfig } from "@/lib/calculator";
 import {
@@ -290,6 +288,12 @@ export default function CotizarPage() {
     setIsGeneratingPDF(true);
 
     try {
+      // Carga diferida: jsPDF solo se descarga cuando se genera el PDF
+      const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+        import("jspdf"),
+        import("jspdf-autotable"),
+      ]);
+
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
       const logoWidth = 40;

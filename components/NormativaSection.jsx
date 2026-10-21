@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import { db } from "@/firebase/firebaseClient";
 
 const NormativaSection = () => {
   const [isos, setIsos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadISOs();
@@ -18,6 +19,7 @@ const NormativaSection = () => {
 
   const loadISOs = async () => {
     try {
+      setLoading(true);
       const querySnapshot = await getDocs(collection(db, "isos"));
       const isosData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -26,6 +28,8 @@ const NormativaSection = () => {
       setIsos(isosData);
     } catch (error) {
       console.error("Error cargando isos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,9 +107,12 @@ const NormativaSection = () => {
               <CardHeader className="pb-4">
                 {iso.imagenURL && (
                   <div className="relative overflow-hidden rounded-lg mb-4">
-                    <img
-                      src={iso.imagenURL || ""}
-                      alt={iso.nombre}
+                    <Image
+                      src={iso.imagenURL}
+                      alt={iso.nombre || "Normativa ISO"}
+                      width={400}
+                      height={400}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="w-full h-48 object-contain aspect-square transition-transform duration-300 hover:scale-105"
                     />
                   </div>

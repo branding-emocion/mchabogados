@@ -12,12 +12,43 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// ⚙️ Inicialización diferida (lazy):
+// Durante el build/prerender (p. ej. en Vercel) las variables
+// NEXT_PUBLIC_FIREBASE_* pueden no estar definidas; en ese caso NO se
+// rompe la compilación. Solo fallará (con mensaje claro) si en runtime
+// se intenta usar auth/db/storage sin configuración.
+const tieneConfig = Boolean(
+  process.env.NEXT_PUBLIC_FIREBASE_API_KEY && process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+);
 
-const db = getFirestore();
-const auth = getAuth(app);
+// 🔒 Proxy con mensaje claro si se usa Firebase client sin variables
+const proxySinConfig = () =>
+  new Proxy(
+    {},
+    {
+      get() {
+        throw new Error(
+          "⚠️ Firebase Client no está configurado: define las variables NEXT_PUBLIC_FIREBASE_* en tu .env.local (o en Vercel → Settings → Environment Variables)."
+        );
+      },
+    }
+  );
 
-const storage = getStorage(app, "gs://mchabogados-30867.firebasestorage.app");
+let app;
+if (tieneConfig) {
+  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+} else {
+  console.warn(
+    "⚠️ NEXT_PUBLIC_FIREBASE_* sin definir: Firebase Client queda inactivo (el build/prerender sigue funcionando)."
+  );
+  app = proxySinConfig();
+}
+
+const db = tieneConfig ? getFirestore(app) : proxySinConfig();
+const auth = tieneConfig ? getAuth(app) : proxySinConfig();
+const storage = tieneConfig
+  ? getStorage(app, "gs://mchabogados-30867.firebasestorage.app")
+  : proxySinConfig();
 
 //google provider
 export { db, auth, app, storage };

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import { Scale, Award, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -127,11 +128,16 @@ export default function NuestroEquipo() {
                     <CardContent className="p-0 flex items-center">
                       {/* Imagen a la izquierda */}
                       <div className="relative overflow-hidden rounded-l-lg min-w-[160px] max-w-[180px]">
-                        <img
-                          src={member.image || ""}
-                          alt={member.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+                        {member.image && (
+                          <Image
+                            src={member.image}
+                            alt={member.name || "Miembro del equipo"}
+                            width={180}
+                            height={220}
+                            sizes="180px"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
                       </div>
 
