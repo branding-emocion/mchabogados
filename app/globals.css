@@ -121,8 +121,13 @@
   html {
     scroll-behavior: smooth;
   }
+  /* 🎨 Fondo con lavado sutil: cielo azulado arriba-izquierda + arena cálido arriba-derecha */
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(1100px 560px at 12% -8%, oklch(0.955 0.02 250 / 0.5), transparent 62%),
+      radial-gradient(900px 480px at 92% -6%, oklch(0.965 0.016 80 / 0.55), transparent 58%);
+    background-attachment: fixed;
   }
   /* ✨ Titulares con serif elegante y encuadre tipográfico moderno */
   h1, h2, h3, h4, h5, h6 {
@@ -130,9 +135,40 @@
     letter-spacing: -0.015em;
     text-wrap: balance;
   }
+  /* 🃏 Tarjetas con elevación suave y degradado luminoso */
+  .bg-card {
+    background-image: linear-gradient(180deg, oklch(1 0 0), oklch(0.985 0.003 95));
+    box-shadow:
+      0 1px 2px oklch(0.22 0.025 260 / 0.06),
+      0 10px 30px -12px oklch(0.22 0.025 260 / 0.12);
+  }
+  /* 🔵 Botones primarios con profundidad */
+  .bg-primary {
+    background-image: linear-gradient(180deg, oklch(0.32 0.07 260), oklch(0.25 0.058 258));
+    box-shadow: 0 1px 2px oklch(0.22 0.03 260 / 0.35);
+  }
   /* Selección de texto en azul tinta de marca */
   ::selection {
     background: oklch(0.28 0.065 258);
     color: oklch(0.985 0.003 95);
+  }
+  /* 🖱️ Scrollbar moderna y discreta */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.45 0.05 258 / 0.32);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.35 0.062 258 / 0.5);
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
 }
