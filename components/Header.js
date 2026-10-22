@@ -134,13 +134,17 @@ const Header = () => {
                     <NavigationMenuContent>
                       <div className="w-80 p-2">
                         {legalServices?.map((service) => (
-                          <Link key={service.name} href={service.href}>
-                            <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <NavigationMenuLink
+                            asChild
+                            key={service.name}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <Link href={service.href}>
                               <div className="text-sm font-medium leading-none uppercase">
                                 {service.name}
                               </div>
-                            </NavigationMenuLink>
-                          </Link>
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                     </NavigationMenuContent>
@@ -163,13 +167,17 @@ const Header = () => {
                     <NavigationMenuContent>
                       <div className="w-60 ">
                         {arbitrationCenter.map((item) => (
-                          <Link key={item.name} href={item.href}>
-                            <NavigationMenuLink className="block select-none   space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full">
+                          <NavigationMenuLink
+                            asChild
+                            key={item.name}
+                            className="block select-none   space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground w-full"
+                          >
+                            <Link href={item.href}>
                               <div className="text-sm font-medium leading-none w.">
                                 {item.name}
                               </div>
-                            </NavigationMenuLink>
-                          </Link>
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                     </NavigationMenuContent>
@@ -194,13 +202,17 @@ const Header = () => {
                     <NavigationMenuContent>
                       <div className="w-80 p-2">
                         {laudos?.map((laudo) => (
-                          <Link key={`${laudo.name}`} href={`${laudo.href}`}>
-                            <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <NavigationMenuLink
+                            asChild
+                            key={laudo.name}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <Link href={`${laudo.href}`}>
                               <div className="text-sm font-medium leading-none uppercase">
                                 {laudo.name}
                               </div>
-                            </NavigationMenuLink>
-                          </Link>
+                            </Link>
+                          </NavigationMenuLink>
                         ))}
                       </div>
                     </NavigationMenuContent>
