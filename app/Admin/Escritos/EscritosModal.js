@@ -29,7 +29,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileUpload } from "./file-upload";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, LinkIcon, X } from "lucide-react";
 import { toast } from "sonner";
 import { auth, db } from "@/firebase/firebaseClient";
 import useAuthState from "@/lib/useAuthState";
@@ -51,6 +51,44 @@ export function AddEscritoModal({ onEscritoAdded }) {
   const [loadingExpedientes, setLoadingExpedientes] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [enlaces, setEnlaces] = useState([]);
+  const [nuevoEnlaceUrl, setNuevoEnlaceUrl] = useState("");
+  const [nuevoEnlaceTitulo, setNuevoEnlaceTitulo] = useState("");
+
+  // ➕ Agregar un enlace web a la lista del escrito
+  const agregarEnlace = () => {
+    const url = nuevoEnlaceUrl.trim();
+    if (!url) return;
+
+    // Permite pegar la URL sin protocolo
+    const urlFormateada = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+
+    try {
+      new URL(urlFormateada);
+    } catch {
+      toast.error("Ingresa un enlace web válido (ej: www.expediente.gob.pe)");
+      return;
+    }
+
+    if (enlaces.some((e) => e.url === urlFormateada)) {
+      toast.error("Ese enlace ya fue agregado");
+      return;
+    }
+
+    setEnlaces((prev) => [
+      ...prev,
+      {
+        url: urlFormateada,
+        titulo: nuevoEnlaceTitulo.trim() || urlFormateada,
+      },
+    ]);
+    setNuevoEnlaceUrl("");
+    setNuevoEnlaceTitulo("");
+  };
+
+  const quitarEnlace = (url) => {
+    setEnlaces((prev) => prev.filter((e) => e.url !== url));
+  };
 
   const [formData, setFormData] = useState({
     expedienteId: "",
@@ -133,6 +171,7 @@ export function AddEscritoModal({ onEscritoAdded }) {
           path: file.path,
           size: file.size,
         })),
+        enlaces,
         fechaCreacion: serverTimestamp(),
         estado: "pendiente",
         expedienteData: InfoExpediente,
@@ -150,6 +189,9 @@ export function AddEscritoModal({ onEscritoAdded }) {
         contenido: "",
       });
       setUploadedFiles([]);
+      setEnlaces([]);
+      setNuevoEnlaceUrl("");
+      setNuevoEnlaceTitulo("");
       setOpen(false);
 
       onEscritoAdded?.();
@@ -274,16 +316,90 @@ export function AddEscritoModal({ onEscritoAdded }) {
           </div>
 
           <Card>
-            <CardContent className="p-4">
-              <Label className="text-sm font-medium">Documentos y Anexos</Label>
-              <p className="text-xs text-muted-foreground mb-4">
-                Máximo 20 archivos PDF, cada uno hasta 200 MB
-              </p>
-              <FileUpload
-                onFilesChange={setUploadedFiles}
-                maxFiles={20}
-                maxSizePerFile={200 * 1024 * 1024}
-              />
+            <CardContent className="p-4 space-y-6">
+              <div>
+                <Label className="text-sm font-medium">
+                  Documentos y Anexos
+                </Label>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Cantidad ilimitada de archivos (PDF, Word, Excel o CSV), hasta
+                  200 MB cada uno
+                </p>
+                <FileUpload
+                  onFilesChange={setUploadedFiles}
+                  maxSizePerFile={200 * 1024 * 1024}
+                />
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium">Enlaces web</Label>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Agrega enlaces a expedientes virtuales, repositorios u otras
+                  páginas (ilimitados, opcional)
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3">
+                  <Input
+                    type="url"
+                    value={nuevoEnlaceUrl}
+                    onChange={(e) => setNuevoEnlaceUrl(e.target.value)}
+                    placeholder="https://www.expediente.gob.pe/..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        agregarEnlace();
+                      }
+                    }}
+                  />
+                  <Input
+                    value={nuevoEnlaceTitulo}
+                    onChange={(e) => setNuevoEnlaceTitulo(e.target.value)}
+                    placeholder="Título (opcional)"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        agregarEnlace();
+                      }
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={agregarEnlace}
+                  >
+                    <LinkIcon className="h-4 w-4 mr-2" />
+                    Agregar
+                  </Button>
+                </div>
+
+                {enlaces.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    {enlaces.map((enlace) => (
+                      <div
+                        key={enlace.url}
+                        className="flex items-center justify-between p-2 border rounded-lg"
+                      >
+                        <a
+                          href={enlace.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:underline flex items-center gap-1 min-w-0"
+                        >
+                          <LinkIcon className="h-4 w-4 shrink-0" />
+                          <span className="truncate">{enlace.titulo}</span>
+                        </a>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => quitarEnlace(enlace.url)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </CardContent>
           </Card>
 

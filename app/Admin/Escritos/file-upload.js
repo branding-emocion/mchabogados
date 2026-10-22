@@ -10,9 +10,21 @@ import { X, Upload, FileIcon } from "lucide-react";
 import { toast } from "sonner";
 import { storage } from "@/firebase/firebaseClient";
 
+// Formatos permitidos: PDF, Word, Excel y CSV
+const FORMATOS_ACEPTADOS = ["pdf", "doc", "docx", "xls", "xlsx", "csv"];
+
+const ICONO_COLOR = {
+  pdf: "text-red-500",
+  doc: "text-blue-500",
+  docx: "text-blue-500",
+  xls: "text-green-600",
+  xlsx: "text-green-600",
+  csv: "text-green-600",
+};
+
 export function FileUpload({
   onFilesChange,
-  maxFiles = 20,
+  maxFiles = Infinity,
   maxSizePerFile = 200 * 1024 * 1024,
 }) {
   const [files, setFiles] = useState([]);
@@ -23,16 +35,22 @@ export function FileUpload({
   const handleFileSelect = (event) => {
     const selectedFiles = Array.from(event.target.files);
 
-    // Validate file count
-    if (files.length + selectedFiles.length > maxFiles) {
+    // Validate file count (ilimitado si maxFiles no es finito)
+    if (
+      Number.isFinite(maxFiles) &&
+      files.length + selectedFiles.length > maxFiles
+    ) {
       toast.error(`Máximo ${maxFiles} archivos permitidos`);
       return;
     }
 
     // Validate file types and sizes
     const validFiles = selectedFiles.filter((file) => {
-      if (file.type !== "application/pdf") {
-        toast.error(`${file.name} no es un archivo PDF válido`);
+      const extension = file.name.split(".").pop().toLowerCase();
+      if (!FORMATOS_ACEPTADOS.includes(extension)) {
+        toast.error(
+          `${file.name}: formato no permitido (usa PDF, Word, Excel o CSV)`
+        );
         return false;
       }
 
@@ -130,20 +148,24 @@ export function FileUpload({
           type="button"
           variant="outline"
           onClick={() => fileInputRef.current?.click()}
-          disabled={uploading || files.length >= maxFiles}
+          disabled={
+            uploading ||
+            (Number.isFinite(maxFiles) && files.length >= maxFiles)
+          }
         >
           <Upload className="h-4 w-4 mr-2" />
-          Seleccionar PDFs
+          Seleccionar archivos
         </Button>
         <span className="text-sm text-muted-foreground">
-          {files.length}/{maxFiles} archivos
+          {files.length}
+          {Number.isFinite(maxFiles) ? `/${maxFiles}` : ""} archivos
         </span>
       </div>
 
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf"
+        accept=".pdf,.doc,.docx,.xls,.xlsx,.csv"
         multiple
         onChange={handleFileSelect}
         className="hidden"
@@ -159,7 +181,13 @@ export function FileUpload({
                   className="flex items-center justify-between p-3 border rounded-lg"
                 >
                   <div className="flex items-center gap-3 flex-1">
-                    <FileIcon className="h-8 w-8 text-red-500" />
+                    <FileIcon
+                      className={`h-8 w-8 ${
+                        ICONO_COLOR[
+                          fileData.name.split(".").pop().toLowerCase()
+                        ] || "text-muted-foreground"
+                      }`}
+                    />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">
                         {fileData.name}

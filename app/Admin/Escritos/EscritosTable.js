@@ -255,11 +255,22 @@ export function EscritosDataTable({ claims }) {
                             📄 {doc.name}
                           </a>
                         ))
-                      ) : (
+                      ) : !escrito.enlaces?.length ? (
                         <span className="text-muted-foreground text-sm">
                           Sin archivos
                         </span>
-                      )}
+                      ) : null}
+                      {escrito.enlaces?.map((enlace, index) => (
+                        <a
+                          key={enlace.url || index}
+                          href={enlace.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:underline flex items-center gap-1"
+                        >
+                          🔗 {enlace.titulo || enlace.url}
+                        </a>
+                      ))}
                     </div>
                   </TableCell>
                 </TableRow>
