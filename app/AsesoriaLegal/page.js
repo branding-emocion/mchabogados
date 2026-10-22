@@ -6,9 +6,9 @@ import Link from "next/link";
 
 const legalServices = [
   {
-    title: "Arbitraje en ContrataciÃ³n PÃºblica",
+    title: "Arbitraje en Contratación Pública",
     description:
-      "ResoluciÃ³n de controversias surgidas en procesos de contrataciÃ³n con el Estado mediante arbitraje especializado.",
+      "Resolución de controversias surgidas en procesos de contratación con el Estado mediante arbitraje especializado.",
     icon: Gavel,
     href: "/AsesoriaLegal/ContratacionPublica",
     color: "bg-blue-50 text-blue-600",
@@ -16,7 +16,7 @@ const legalServices = [
   {
     title: "Arbitraje de Emergencia",
     description:
-      "Mecanismo expedito para atender solicitudes urgentes y medidas cautelares antes de la constituciÃ³n del tribunal arbitral.",
+      "Mecanismo expedito para atender solicitudes urgentes y medidas cautelares antes de la constitución del tribunal arbitral.",
     icon: Shield,
     href: "/AsesoriaLegal/ArbitrajeEmergencia",
     color: "bg-red-50 text-red-600",
@@ -24,7 +24,7 @@ const legalServices = [
   {
     title: "Arbitraje entre Privados",
     description:
-      "SoluciÃ³n de disputas comerciales, civiles o contractuales entre particulares de forma confidencial y efectiva.",
+      "Solución de disputas comerciales, civiles o contractuales entre particulares de forma confidencial y efectiva.",
     icon: Users,
     href: "/AsesoriaLegal/EntrePrivados",
     color: "bg-green-50 text-green-600",
@@ -32,7 +32,7 @@ const legalServices = [
   {
     title: "Arbitraje Express",
     description:
-      "Procedimiento arbitral simplificado y rÃ¡pido, diseÃ±ado para resolver controversias en plazos mÃ¡s cortos.",
+      "Procedimiento arbitral simplificado y rápido, diseñado para resolver controversias en plazos más cortos.",
     icon: Clock,
     href: "/AsesoriaLegal/ArbitrajeExpress",
     color: "bg-purple-50 text-purple-600",
@@ -53,11 +53,11 @@ export default function AsesoriaLegal() {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 uppercase">
-              AsesorÃ­a Legal Especializada
+              Asesoría Legal Especializada
             </h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              MÃ¡s de una dÃ©cada de experiencia ofreciendo servicios legales
-              integrales y soluciones personalizadas en diversas Ã¡reas del
+              Más de una década de experiencia ofreciendo servicios legales
+              integrales y soluciones personalizadas en diversas áreas del
               derecho.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -92,8 +92,8 @@ export default function AsesoriaLegal() {
               Nuestras Especialidades
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Contamos con especialistas en cada Ã¡rea del derecho para brindar
-              la mejor asesorÃ­a legal adaptada a sus necesidades especÃ­ficas.
+              Contamos con especialistas en cada área del derecho para brindar
+              la mejor asesoría legal adaptada a sus necesidades específicas.
             </p>
           </motion.div>
 
@@ -124,7 +124,7 @@ export default function AsesoriaLegal() {
                     </p>
 
                     <div className="flex items-center text-primary font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                      <span>Conocer mÃ¡s</span>
+                      <span>Conocer más</span>
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </div>
                   </div>

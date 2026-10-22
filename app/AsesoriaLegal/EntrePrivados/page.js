@@ -41,7 +41,7 @@ export default function ArbitrajeEntrePrivadosPage() {
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              ResoluciÃ³n eficiente de controversias comerciales y civiles entre
+              Resolución eficiente de controversias comerciales y civiles entre
               particulares, con total confidencialidad y flexibilidad procesal.
             </p>
           </motion.div>
@@ -67,8 +67,8 @@ export default function ArbitrajeEntrePrivadosPage() {
                   El arbitraje entre privados ofrece una alternativa eficaz al
                   sistema judicial tradicional para resolver disputas
                   comerciales, contractuales y civiles. Las partes pueden elegir
-                  Ã¡rbitros especializados en la materia especÃ­fica del
-                  conflicto, garantizando una resoluciÃ³n tÃ©cnica y fundamentada.
+                  árbitros especializados en la materia específica del
+                  conflicto, garantizando una resolución técnica y fundamentada.
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
                   Este procedimiento se caracteriza por su flexibilidad,
@@ -94,7 +94,7 @@ export default function ArbitrajeEntrePrivadosPage() {
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Especialistas en la resoluciÃ³n de diversos tipos de disputas
+                Especialistas en la resolución de diversos tipos de disputas
                 entre particulares
               </p>
             </div>
@@ -105,23 +105,23 @@ export default function ArbitrajeEntrePrivadosPage() {
                   icon: <Users className="w-8 h-8" />,
                   title: "Contratos Comerciales",
                   description:
-                    "Incumplimientos, interpretaciÃ³n de clÃ¡usulas, y disputas de ejecuciÃ³n contractual.",
+                    "Incumplimientos, interpretación de cláusulas, y disputas de ejecución contractual.",
                 },
                 {
                   icon: <Scale className="w-8 h-8" />,
                   title: "Sociedades y Socios",
                   description:
-                    "Conflictos societarios, exclusiÃ³n de socios, y valoraciÃ³n de participaciones.",
+                    "Conflictos societarios, exclusión de socios, y valoración de participaciones.",
                 },
                 {
                   icon: <Shield className="w-8 h-8" />,
                   title: "Propiedad Intelectual",
                   description:
-                    "Licencias, transferencias tecnolÃ³gicas, y uso no autorizado de derechos.",
+                    "Licencias, transferencias tecnológicas, y uso no autorizado de derechos.",
                 },
                 {
                   icon: <CheckCircle className="w-8 h-8" />,
-                  title: "ConstrucciÃ³n e Inmobiliario",
+                  title: "Construcción e Inmobiliario",
                   description:
                     "Contratos de obra, defectos constructivos, y compraventa inmobiliaria.",
                 },
@@ -129,13 +129,13 @@ export default function ArbitrajeEntrePrivadosPage() {
                   icon: <Clock className="w-8 h-8" />,
                   title: "Servicios Profesionales",
                   description:
-                    "Honorarios, responsabilidad profesional, y contratos de prestaciÃ³n.",
+                    "Honorarios, responsabilidad profesional, y contratos de prestación.",
                 },
                 {
                   icon: <Users className="w-8 h-8" />,
-                  title: "DistribuciÃ³n y Franquicias",
+                  title: "Distribución y Franquicias",
                   description:
-                    "TerminaciÃ³n de contratos, exclusividad territorial, y obligaciones comerciales.",
+                    "Terminación de contratos, exclusividad territorial, y obligaciones comerciales.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -180,17 +180,17 @@ export default function ArbitrajeEntrePrivadosPage() {
                     {
                       title: "Confidencialidad Total",
                       description:
-                        "Las actuaciones y el laudo son completamente confidenciales, protegiendo la reputaciÃ³n y secretos comerciales de las partes.",
+                        "Las actuaciones y el laudo son completamente confidenciales, protegiendo la reputación y secretos comerciales de las partes.",
                     },
                     {
                       title: "Flexibilidad Procesal",
                       description:
-                        "Las partes pueden adaptar el procedimiento a sus necesidades especÃ­ficas, incluyendo plazos, idioma y sede del arbitraje.",
+                        "Las partes pueden adaptar el procedimiento a sus necesidades específicas, incluyendo plazos, idioma y sede del arbitraje.",
                     },
                     {
-                      title: "EspecializaciÃ³n TÃ©cnica",
+                      title: "Especialización Técnica",
                       description:
-                        "SelecciÃ³n de Ã¡rbitros con expertise especÃ­fico en la materia controvertida, garantizando decisiones tÃ©cnicamente fundamentadas.",
+                        "Selección de árbitros con expertise específico en la materia controvertida, garantizando decisiones técnicamente fundamentadas.",
                     },
                   ].map((advantage, index) => (
                     <motion.div
@@ -219,17 +219,17 @@ export default function ArbitrajeEntrePrivadosPage() {
                     {
                       title: "Rapidez y Eficiencia",
                       description:
-                        "ResoluciÃ³n en plazos significativamente menores que los procesos judiciales ordinarios, con procedimientos streamlined.",
+                        "Resolución en plazos significativamente menores que los procesos judiciales ordinarios, con procedimientos streamlined.",
                     },
                     {
                       title: "Ejecutabilidad Internacional",
                       description:
-                        "Los laudos arbitrales son reconocidos y ejecutables en mÃ¡s de 160 paÃ­ses bajo la ConvenciÃ³n de Nueva York.",
+                        "Los laudos arbitrales son reconocidos y ejecutables en más de 160 países bajo la Convención de Nueva York.",
                     },
                     {
                       title: "Control de Costos",
                       description:
-                        "Previsibilidad en los costos del procedimiento y posibilidad de establecer lÃ­mites presupuestarios desde el inicio.",
+                        "Previsibilidad en los costos del procedimiento y posibilidad de establecer límites presupuestarios desde el inicio.",
                     },
                   ].map((advantage, index) => (
                     <motion.div
@@ -270,7 +270,7 @@ export default function ArbitrajeEntrePrivadosPage() {
               </h2>
               <div className="w-24 h-1 bg-primary mx-auto mb-8" />
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Un procedimiento estructurado y eficiente diseÃ±ado para resolver
+                Un procedimiento estructurado y eficiente diseñado para resolver
                 controversias de manera definitiva
               </p>
             </div>
@@ -281,25 +281,25 @@ export default function ArbitrajeEntrePrivadosPage() {
                   step: "01",
                   title: "Solicitud de Arbitraje",
                   description:
-                    "PresentaciÃ³n de la demanda arbitral con exposiciÃ³n de hechos y pretensiones.",
+                    "Presentación de la demanda arbitral con exposición de hechos y pretensiones.",
                 },
                 {
                   step: "02",
-                  title: "ConstituciÃ³n del Tribunal",
+                  title: "Constitución del Tribunal",
                   description:
-                    "DesignaciÃ³n de Ã¡rbitros segÃºn el acuerdo de las partes o reglamento aplicable.",
+                    "Designación de árbitros según el acuerdo de las partes o reglamento aplicable.",
                 },
                 {
                   step: "03",
                   title: "Procedimiento",
                   description:
-                    "Intercambio de escritos, prÃ¡ctica de pruebas y audiencias segÃºn cronograma.",
+                    "Intercambio de escritos, práctica de pruebas y audiencias según cronograma.",
                 },
                 {
                   step: "04",
                   title: "Laudo Final",
                   description:
-                    "EmisiÃ³n de decisiÃ³n definitiva y vinculante para ambas partes.",
+                    "Emisión de decisión definitiva y vinculante para ambas partes.",
                 },
               ].map((step, index) => (
                 <motion.div

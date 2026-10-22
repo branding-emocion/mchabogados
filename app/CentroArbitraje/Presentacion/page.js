@@ -23,12 +23,12 @@ export default function PresentacionPage() {
             className="text-white"
           >
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif uppercase">
-              Ã“rgano de DirecciÃ³n
+              Órgano de Dirección
               <br />
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              MCH ABOGADOS â€“ Confidencialidad y excelencia en arbitraje.
+              MCH ABOGADOS – Confidencialidad y excelencia en arbitraje.
             </p>
           </motion.div>
         </div>
@@ -54,10 +54,10 @@ export default function PresentacionPage() {
                   DIRECTOR(A) DEL CENTRO DE ARBITRAJE{" "}
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700 mb-8 text-justify">
-                  El cargo de Director(a) constituye la denominaciÃ³n del Ã“rgano
-                  Directivo de la instituciÃ³n. Este cargo representa la mÃ¡xima
+                  El cargo de Director(a) constituye la denominación del Órgano
+                  Directivo de la institución. Este cargo representa la máxima
                   autoridad ejecutiva, encargada de conducir las estrategias y
-                  planes institucionales, asegurando su adecuada implementaciÃ³n
+                  planes institucionales, asegurando su adecuada implementación
                   y cumplimiento.
                 </p>
               </div>
@@ -98,16 +98,16 @@ export default function PresentacionPage() {
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
                 <p className="text-lg leading-relaxed text-gray-700">
-                  Un arbitraje es crucial debido a sus ventajas tÃ©cnicas y
+                  Un arbitraje es crucial debido a sus ventajas técnicas y
                   procesales frente a la justicia ordinaria. Permite elegir
-                  Ã¡rbitros especializados, lo que garantiza un anÃ¡lisis profundo
-                  y preciso del conflicto. AdemÃ¡s, se caracteriza por su
+                  árbitros especializados, lo que garantiza un análisis profundo
+                  y preciso del conflicto. Además, se caracteriza por su
                   rapidez, evitando demoras propias de los tribunales
                   judiciales. El arbitraje es confidencial, protegiendo la
-                  informaciÃ³n sensible de las partes y salvaguardando su
-                  reputaciÃ³n, especialmente en disputas comerciales. El laudo
+                  información sensible de las partes y salvaguardando su
+                  reputación, especialmente en disputas comerciales. El laudo
                   arbitral es vinculante y, generalmente, inapelable, lo que
-                  otorga seguridad jurÃ­dica y asegura su ejecuciÃ³n como una
+                  otorga seguridad jurídica y asegura su ejecución como una
                   sentencia judicial.
                 </p>
               </div>

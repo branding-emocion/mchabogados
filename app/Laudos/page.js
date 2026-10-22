@@ -111,7 +111,7 @@ export default function HomePage() {
           {/* Header */}
           <div className="text-center mb-12">
             <p className="text-lg text-muted-foreground mb-8">
-              NÂ° DE LAUDOS: {filteredLaudos.length}
+              N° DE LAUDOS: {filteredLaudos.length}
             </p>
 
             {/* Buscador */}
@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* PaginaciÃ³n */}
+          {/* Paginación */}
           {totalPages > 1 && (
             <div className="mt-8 flex items-center justify-between">
               <p className="text-sm text-muted-foreground">

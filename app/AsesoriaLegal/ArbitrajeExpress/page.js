@@ -46,7 +46,7 @@ export default function RecusacionPage() {
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              SoluciÃ³n eficiente y profesional .
+              Solución eficiente y profesional .
             </p>
           </motion.div>
         </div>
@@ -59,11 +59,11 @@ export default function RecusacionPage() {
           <div className="container mx-auto px-4">
             <div className="text-center ">
               <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4 uppercase">
-                Â¿Por quÃ© elegir Arbitraje Express?
+                ¿Por qué elegir Arbitraje Express?
               </h2>
               <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">
                 Un proceso optimizado que combina rapidez, eficiencia y
-                garantÃ­as legales
+                garantías legales
               </p>
             </div>
 
@@ -73,11 +73,11 @@ export default function RecusacionPage() {
                   <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Clock className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">MÃ¡ximo 15 dÃ­as</CardTitle>
+                  <CardTitle className="text-xl">Máximo 15 días</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    ResoluciÃ³n garantizada en un plazo mÃ¡ximo de 15 dÃ­as hÃ¡biles
+                    Resolución garantizada en un plazo máximo de 15 días hábiles
                   </p>
                 </CardContent>
               </Card>
@@ -93,7 +93,7 @@ export default function RecusacionPage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Solo demanda, contestaciÃ³n y reconvenciÃ³n. Sin
+                    Solo demanda, contestación y reconvención. Sin
                     complicaciones innecesarias
                   </p>
                 </CardContent>
@@ -105,7 +105,7 @@ export default function RecusacionPage() {
                     <FileText className="h-6 w-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl">
-                    DocumentaciÃ³n MÃ­nima
+                    Documentación Mínima
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -122,7 +122,7 @@ export default function RecusacionPage() {
                     <Users className="h-6 w-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl">
-                    Ãrbitros Especializados
+                    Árbitros Especializados
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -158,7 +158,7 @@ export default function RecusacionPage() {
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Presenta tu solicitud con los documentos necesarios. Tenemos 5
-                  dÃ­as hÃ¡biles para notificar a la otra parte.
+                  días hábiles para notificar a la otra parte.
                 </p>
               </div>
 
@@ -167,11 +167,11 @@ export default function RecusacionPage() {
                   2
                 </div>
                 <h3 className="text-xl font-semibold mb-4">
-                  DesignaciÃ³n de Ãrbitro
+                  Designación de Árbitro
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  El Consejo Superior designa un Ã¡rbitro especializado.
-                  InstalaciÃ³n del tribunal y fijaciÃ³n de reglas procesales.
+                  El Consejo Superior designa un árbitro especializado.
+                  Instalación del tribunal y fijación de reglas procesales.
                 </p>
               </div>
 
@@ -179,10 +179,10 @@ export default function RecusacionPage() {
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
                   3
                 </div>
-                <h3 className="text-xl font-semibold mb-4">ResoluciÃ³n</h3>
+                <h3 className="text-xl font-semibold mb-4">Resolución</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  PresentaciÃ³n de escritos, actuaciÃ³n de pruebas y laudo final
-                  en mÃ¡ximo 15 dÃ­as hÃ¡biles.
+                  Presentación de escritos, actuación de pruebas y laudo final
+                  en máximo 15 días hábiles.
                 </p>
               </div>
             </div>

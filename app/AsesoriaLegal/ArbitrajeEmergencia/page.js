@@ -40,7 +40,7 @@ export default function ArbitrajeEmergenciaPage() {
             <div className="w-24 h-1  mx-auto bg-white mb-8" />
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Procedimiento acelerado para situaciones urgentes que requieren
-              medidas cautelares inmediatas y resoluciÃ³n expedita.
+              medidas cautelares inmediatas y resolución expedita.
             </p>
           </motion.div>
         </div>
@@ -63,22 +63,22 @@ export default function ArbitrajeEmergenciaPage() {
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6">
                   El arbitraje de emergencia es un procedimiento especial
-                  diseÃ±ado para atender situaciones urgentes que no pueden
-                  esperar la constituciÃ³n formal del tribunal arbitral. Permite
+                  diseñado para atender situaciones urgentes que no pueden
+                  esperar la constitución formal del tribunal arbitral. Permite
                   obtener medidas cautelares de manera inmediata para proteger
                   los derechos de las partes.
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  Este mecanismo garantiza que las situaciones crÃ­ticas reciban
-                  atenciÃ³n prioritaria, con plazos reducidos y procedimientos
+                  Este mecanismo garantiza que las situaciones críticas reciban
+                  atención prioritaria, con plazos reducidos y procedimientos
                   simplificados, manteniendo siempre los principios de debido
-                  proceso y contradicciÃ³n.
+                  proceso y contradicción.
                 </p>
               </div>
             </div>
           </motion.section>
 
-          {/* CaracterÃ­sticas del Procedimiento */}
+          {/* Características del Procedimiento */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export default function ArbitrajeEmergenciaPage() {
             className="mb-20"
           >
             <h3 className="text-3xl font-bold mb-12 text-center text-slate-800 font-serif">
-              CaracterÃ­sticas del Procedimiento de Emergencia
+              Características del Procedimiento de Emergencia
             </h3>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-primary">
@@ -96,7 +96,7 @@ export default function ArbitrajeEmergenciaPage() {
                   Plazos Acelerados
                 </h4>
                 <p className="text-gray-600 leading-relaxed">
-                  Procedimiento expedito diseÃ±ado para situaciones crÃ­ticas.
+                  Procedimiento expedito diseñado para situaciones críticas.
                 </p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-primary">
@@ -105,24 +105,24 @@ export default function ArbitrajeEmergenciaPage() {
                   Medidas Cautelares
                 </h4>
                 <p className="text-gray-600 leading-relaxed">
-                  ProtecciÃ³n inmediata de derechos y activos mientras se
+                  Protección inmediata de derechos y activos mientras se
                   constituye el tribunal arbitral principal.
                 </p>
               </div>
               <div className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-primary">
                 <Zap className="w-12 h-12 text-primary mb-4" />
                 <h4 className="text-xl font-semibold mb-4 text-slate-800">
-                  Ãrbitro de Emergencia
+                  Árbitro de Emergencia
                 </h4>
                 <p className="text-gray-600 leading-relaxed">
-                  DesignaciÃ³n inmediata de Ã¡rbitro especializado con amplia
+                  Designación inmediata de árbitro especializado con amplia
                   experiencia en procedimientos urgentes.
                 </p>
               </div>
             </div>
           </motion.section>
 
-          {/* Casos de AplicaciÃ³n */}
+          {/* Casos de Aplicación */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -132,7 +132,7 @@ export default function ArbitrajeEmergenciaPage() {
           >
             <div className="bg-slate-50 rounded-lg p-8 lg:p-12">
               <h3 className="text-3xl font-bold mb-8 text-center text-slate-800 font-serif uppercase">
-                Casos TÃ­picos de Arbitraje de Emergencia
+                Casos Típicos de Arbitraje de Emergencia
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
@@ -143,19 +143,19 @@ export default function ArbitrajeEmergenciaPage() {
                     <li className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">
-                        SuspensiÃ³n de ejecuciÃ³n de garantÃ­as bancarias
+                        Suspensión de ejecución de garantías bancarias
                       </span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">
-                        ParalizaciÃ³n de obras o servicios
+                        Paralización de obras o servicios
                       </span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">
-                        ProtecciÃ³n de informaciÃ³n confidencial
+                        Protección de información confidencial
                       </span>
                     </li>
                   </ul>
@@ -174,13 +174,13 @@ export default function ArbitrajeEmergenciaPage() {
                     <li className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">
-                        AdministraciÃ³n judicial de empresas
+                        Administración judicial de empresas
                       </span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-green-600 mt-1 mr-3 flex-shrink-0" />
                       <span className="text-gray-700">
-                        ProhibiciÃ³n de enajenar bienes
+                        Prohibición de enajenar bienes
                       </span>
                     </li>
                   </ul>
@@ -211,7 +211,7 @@ export default function ArbitrajeEmergenciaPage() {
                       Solicitud de Emergencia
                     </h4>
                     <p className="text-gray-600 leading-relaxed">
-                      PresentaciÃ³n de solicitud fundamentada con evidencia de
+                      Presentación de solicitud fundamentada con evidencia de
                       urgencia y riesgo inminente.
                     </p>
                   </div>
@@ -222,10 +222,10 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold mb-2 text-slate-800">
-                      DesignaciÃ³n del Ãrbitro
+                      Designación del Árbitro
                     </h4>
                     <p className="text-gray-600 leading-relaxed">
-                      Nombramiento inmediato de Ã¡rbitro de emergencia
+                      Nombramiento inmediato de árbitro de emergencia
                       especializado en 24 horas.
                     </p>
                   </div>
@@ -249,11 +249,11 @@ export default function ArbitrajeEmergenciaPage() {
                   </div>
                   <div>
                     <h4 className="text-xl font-semibold mb-2 text-slate-800">
-                      DecisiÃ³n y EjecuciÃ³n
+                      Decisión y Ejecución
                     </h4>
                     <p className="text-gray-600 leading-relaxed">
                       Laudo de emergencia ejecutable inmediatamente con medidas
-                      cautelares especÃ­ficas.
+                      cautelares específicas.
                     </p>
                   </div>
                 </div>
@@ -278,12 +278,12 @@ export default function ArbitrajeEmergenciaPage() {
                   <Clock className="w-12 h-12 text-white mx-auto mb-4" />
                   <h4 className="font-semibold mb-2">Rapidez</h4>
                   <p className="text-sm text-gray-300">
-                    DecisiÃ³n en dÃ­as, no meses
+                    Decisión en días, no meses
                   </p>
                 </div>
                 <div className="text-center">
                   <Shield className="w-12 h-12 text-white mx-auto mb-4" />
-                  <h4 className="font-semibold mb-2">ProtecciÃ³n</h4>
+                  <h4 className="font-semibold mb-2">Protección</h4>
                   <p className="text-sm text-gray-300">
                     Salvaguarda inmediata de derechos
                   </p>

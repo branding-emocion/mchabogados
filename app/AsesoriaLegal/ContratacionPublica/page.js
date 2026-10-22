@@ -36,13 +36,13 @@ export default function ArbitrajeContratacionPublicaPage() {
             <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
               ARBITRAJE EN
               <br />
-              <span className="text-white">CONTRATACIÃ“N PÃšBLICA</span>
+              <span className="text-white">CONTRATACIÓN PÚBLICA</span>
             </h1>
             <div className="w-24 h-1 bg-white mx-auto mb-8" />
             <p className="text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              ResoluciÃ³n especializada de controversias en procesos de
-              contrataciÃ³n estatal, garantizando transparencia y eficiencia en
-              la administraciÃ³n pÃºblica.
+              Resolución especializada de controversias en procesos de
+              contratación estatal, garantizando transparencia y eficiencia en
+              la administración pública.
             </p>
           </motion.div>
         </div>
@@ -61,21 +61,21 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-12 text-slate-800 font-serif text-center">
-                ARBITRAJE EN CONTRATACIÃ“N PÃšBLICA
+                ARBITRAJE EN CONTRATACIÓN PÚBLICA
               </h2>
               <div className="bg-gray-50 rounded-lg p-8 lg:p-12">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6">
-                  El arbitraje en contrataciÃ³n pÃºblica es un mecanismo
+                  El arbitraje en contratación pública es un mecanismo
                   especializado para resolver controversias que surgen en los
-                  procesos de contrataciÃ³n del Estado. Este procedimiento
-                  permite una resoluciÃ³n mÃ¡s Ã¡gil y tÃ©cnica de los conflictos
-                  entre entidades pÃºblicas y contratistas.
+                  procesos de contratación del Estado. Este procedimiento
+                  permite una resolución más ágil y técnica de los conflictos
+                  entre entidades públicas y contratistas.
                 </p>
                 <p className="text-lg leading-relaxed text-gray-700">
-                  Nuestro centro cuenta con Ã¡rbitros especializados en derecho
-                  administrativo y contrataciÃ³n estatal, garantizando decisiones
-                  fundamentadas en la normativa vigente y las mejores prÃ¡cticas
-                  del sector pÃºblico.
+                  Nuestro centro cuenta con árbitros especializados en derecho
+                  administrativo y contratación estatal, garantizando decisiones
+                  fundamentadas en la normativa vigente y las mejores prácticas
+                  del sector público.
                 </p>
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function ArbitrajeContratacionPublicaPage() {
           >
             <div className="text-center mb-16">
               <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4 uppercase">
-                Ãreas de EspecializaciÃ³n
+                Áreas de Especialización
               </h3>
               <div className="w-20 h-1 bg-primary mx-auto" />
             </div>
@@ -100,27 +100,27 @@ export default function ArbitrajeContratacionPublicaPage() {
               {[
                 {
                   icon: Building2,
-                  title: "Obras PÃºblicas",
+                  title: "Obras Públicas",
                   description:
-                    "Controversias en contratos de construcciÃ³n, infraestructura y proyectos de inversiÃ³n pÃºblica.",
+                    "Controversias en contratos de construcción, infraestructura y proyectos de inversión pública.",
                 },
                 {
                   icon: FileText,
-                  title: "Servicios PÃºblicos",
+                  title: "Servicios Públicos",
                   description:
-                    "Disputas en contratos de prestaciÃ³n de servicios, consultorÃ­a y asesorÃ­a al Estado.",
+                    "Disputas en contratos de prestación de servicios, consultoría y asesoría al Estado.",
                 },
                 {
                   icon: Clock,
-                  title: "Procesos Ãgiles",
+                  title: "Procesos Ágiles",
                   description:
-                    "ResoluciÃ³n eficiente que respeta los tiempos de la administraciÃ³n pÃºblica.",
+                    "Resolución eficiente que respeta los tiempos de la administración pública.",
                 },
                 {
                   icon: Shield,
                   title: "Cumplimiento Legal",
                   description:
-                    "Estricto apego a la normativa de contrataciÃ³n pÃºblica y transparencia.",
+                    "Estricto apego a la normativa de contratación pública y transparencia.",
                 },
               ].map((area, index) => (
                 <Card
@@ -152,7 +152,7 @@ export default function ArbitrajeContratacionPublicaPage() {
             <div className="bg-slate-50 rounded-2xl p-8 lg:p-16">
               <div className="text-center mb-12">
                 <h3 className="text-3xl md:text-4xl font-bold text-slate-800 font-serif mb-4 uppercase">
-                  Ventajas del Arbitraje PÃºblico
+                  Ventajas del Arbitraje Público
                 </h3>
                 <div className="w-20 h-1 bg-primary mx-auto" />
               </div>
@@ -160,19 +160,19 @@ export default function ArbitrajeContratacionPublicaPage() {
               <div className="grid md:grid-cols-2 gap-12">
                 <div>
                   <h4 className="text-2xl font-semibold mb-6 text-slate-800">
-                    Para Entidades PÃºblicas
+                    Para Entidades Públicas
                   </h4>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-700">
-                        ResoluciÃ³n tÃ©cnica especializada en contrataciÃ³n estatal
+                        Resolución técnica especializada en contratación estatal
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-700">
-                        ReducciÃ³n de tiempos procesales comparado con la vÃ­a
+                        Reducción de tiempos procesales comparado con la vía
                         judicial
                       </span>
                     </li>
@@ -180,7 +180,7 @@ export default function ArbitrajeContratacionPublicaPage() {
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-700">
                         Confidencialidad en asuntos sensibles de la
-                        administraciÃ³n
+                        administración
                       </span>
                     </li>
                   </ul>
@@ -193,7 +193,7 @@ export default function ArbitrajeContratacionPublicaPage() {
                     <li className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-700">
-                        Acceso a Ã¡rbitros con experiencia en sector pÃºblico
+                        Acceso a árbitros con experiencia en sector público
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -205,7 +205,7 @@ export default function ArbitrajeContratacionPublicaPage() {
                     <li className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                       <span className="text-gray-700">
-                        EjecuciÃ³n efectiva de laudos arbitrales
+                        Ejecución efectiva de laudos arbitrales
                       </span>
                     </li>
                   </ul>
