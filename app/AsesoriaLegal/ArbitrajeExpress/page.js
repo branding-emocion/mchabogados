@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Aparecer } from "@/components/animaciones";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -57,7 +58,7 @@ export default function RecusacionPage() {
         {/* Features Section */}
         <section className=" ">
           <div className="container mx-auto px-4">
-            <div className="text-center ">
+            <Aparecer className="text-center ">
               <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4 uppercase">
                 ¿Por qué elegir Arbitraje Express?
               </h2>
@@ -65,9 +66,9 @@ export default function RecusacionPage() {
                 Un proceso optimizado que combina rapidez, eficiencia y
                 garantías legales
               </p>
-            </div>
+            </Aparecer>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Aparecer retraso={0.15} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <Card className="text-center border-0 shadow-lg">
                 <CardHeader>
                   <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
@@ -132,23 +133,23 @@ export default function RecusacionPage() {
                   </p>
                 </CardContent>
               </Card>
-            </div>
+            </Aparecer>
           </div>
         </section>
 
         {/* Process Section */}
         <section className="py-20 lg:py-28 bg-accent/30">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
+            <Aparecer className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold text-balance mb-4 uppercase">
                 Proceso Simple y Eficiente
               </h2>
               <p className="text-lg text-muted-foreground text-balance max-w-2xl mx-auto">
                 Tres pasos para resolver tu disputa comercial
               </p>
-            </div>
+            </Aparecer>
 
-            <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <Aparecer retraso={0.15} className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
                   1
@@ -185,7 +186,7 @@ export default function RecusacionPage() {
                   en máximo 15 días hábiles.
                 </p>
               </div>
-            </div>
+            </Aparecer>
           </div>
         </section>
       </main>

@@ -11,6 +11,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { toast } from "sonner";
 import { db } from "@/firebase/firebaseReader";
 import { motion } from "framer-motion";
+import { Aparecer, Escalonar, Elemento } from "@/components/animaciones";
 
 export default function ConsultaExpediente() {
   const [numeroExpediente, setNumeroExpediente] = useState("");
@@ -123,7 +124,8 @@ export default function ConsultaExpediente() {
       </section>
       <div className="max-w-4xl mx-auto space-y-6 pt-5">
         {/* Formulario de búsqueda */}
-        <Card>
+        <Aparecer>
+          <Card>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -154,12 +156,14 @@ export default function ConsultaExpediente() {
             </Button>
           </CardContent>
         </Card>
+        </Aparecer>
 
         {/* Resultados */}
         {expediente && (
-          <div className="space-y-6">
+          <Escalonar className="space-y-6">
             {/* Información general */}
-            <Card>
+            <Elemento>
+              <Card>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span>Expediente {expediente.numeroExpediente}</span>
@@ -211,10 +215,12 @@ export default function ConsultaExpediente() {
                   </div>
                 )}
               </CardContent>
-            </Card>
+              </Card>
+            </Elemento>
 
             {/* Información del consultante */}
-            <Card>
+            <Elemento>
+              <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="h-5 w-5" />
@@ -252,12 +258,14 @@ export default function ConsultaExpediente() {
                   )}
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </Elemento>
 
             {/* Documentos */}
             {(expediente.documentos?.length > 0 ||
               expediente.anexos?.length > 0) && (
-              <Card>
+              <Elemento>
+                <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <FileText className="h-5 w-5" />
@@ -303,11 +311,13 @@ export default function ConsultaExpediente() {
                     </div>
                   )}
                 </CardContent>
-              </Card>
+                </Card>
+              </Elemento>
             )}
 
             {/* Información de contacto */}
-            <Card>
+            <Elemento>
+              <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5" />
@@ -327,8 +337,9 @@ export default function ConsultaExpediente() {
                   <p>• El estado del expediente se actualiza regularmente.</p>
                 </div>
               </CardContent>
-            </Card>
-          </div>
+              </Card>
+            </Elemento>
+          </Escalonar>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { Aparecer } from "@/components/animaciones";
 import { useState, useEffect } from "react";
 import { Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -109,7 +110,7 @@ export default function HomePage() {
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-12">
+          <Aparecer className="text-center mb-12">
             <p className="text-lg text-muted-foreground mb-8">
               N° DE LAUDOS: {filteredLaudos.length}
             </p>
@@ -128,10 +129,13 @@ export default function HomePage() {
                 className="pl-10"
               />
             </div>
-          </div>
+          </Aparecer>
 
           {/* Tabla de laudos */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <Aparecer
+            retraso={0.1}
+            className="bg-white rounded-lg shadow-lg overflow-hidden"
+          >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-[#a5803d] text-white">
@@ -188,7 +192,7 @@ export default function HomePage() {
                 </tbody>
               </table>
             </div>
-          </div>
+          </Aparecer>
 
           {/* Paginación */}
           {totalPages > 1 && (

@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, RefreshCw, Calendar, FileText } from "lucide-react";
 import { collection, getDocs, query, limit } from "firebase/firestore";
 import { db } from "@/firebase/firebaseReader";
+import { Aparecer, Escalonar, Elemento } from "@/components/animaciones";
 
 const NormativaSection = () => {
   const [isos, setIsos] = useState([]);
@@ -90,7 +91,7 @@ const NormativaSection = () => {
     <section className="py-16 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <Aparecer className="text-center mb-12">
           <span className="eyebrow-oro">Biblioteca normativa</span>
           <h2 className="text-4xl font-bold text-black mb-4 mt-3 uppercase">
             Normativas ISO
@@ -98,15 +99,13 @@ const NormativaSection = () => {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Consulta las últimas normativas y estándares ISO disponibles
           </p>
-        </div>
+        </Aparecer>
 
         {/* Grid de normativas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Escalonar className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isos?.map((iso) => (
-            <Card
-              key={iso.id}
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-0 shadow-lg"
-            >
+            <Elemento key={iso.id}>
+              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader className="pb-4">
                 {iso.imagenURL && (
                   <div className="relative overflow-hidden rounded-lg mb-4">
@@ -150,9 +149,10 @@ const NormativaSection = () => {
                   </a>
                 </div>
               </CardContent>
-            </Card>
+              </Card>
+            </Elemento>
           ))}
-        </div>
+        </Escalonar>
       </div>
     </section>
   );
