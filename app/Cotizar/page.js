@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Aparecer } from "@/components/animaciones";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -467,7 +468,7 @@ export default function CotizarPage() {
       </section>
 
       <section id="calculator" className="py-16">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <Aparecer className="container mx-auto px-4 max-w-4xl">
           <Tabs
             value={activeCalculator}
             onValueChange={setActiveCalculator}
@@ -1017,7 +1018,7 @@ export default function CotizarPage() {
               )}
             </TabsContent>
           </Tabs>
-        </div>
+        </Aparecer>
       </section>
     </div>
   );

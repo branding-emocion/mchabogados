@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { Aparecer } from "@/components/animaciones";
 import { useState, useEffect } from "react";
 import { Search, Users, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -135,7 +136,8 @@ export default function NominaClient() {
 
       <div className="container mx-auto px-4 py-8">
         {/* Search Bar */}
-        <Card className="mb-8 shadow-lg">
+        <Aparecer>
+          <Card className="mb-8 shadow-lg">
           <CardContent className="p-6">
             <form onSubmit={handleSearchSubmit} className="flex gap-4">
               <div className="flex-1 relative">
@@ -167,9 +169,11 @@ export default function NominaClient() {
             </form>
           </CardContent>
         </Card>
+        </Aparecer>
 
         {/* Empleados Table */}
-        <Card className="shadow-lg">
+        <Aparecer retraso={0.1}>
+          <Card className="shadow-lg">
           <CardHeader className="bg-[#a5803d] text-white  ">
             <CardTitle className="text-2xl font-bold text-center py-2">
               NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLICA{" "}
@@ -272,6 +276,7 @@ export default function NominaClient() {
             )}
           </CardContent>
         </Card>
+        </Aparecer>
       </div>
     </div>
   );
