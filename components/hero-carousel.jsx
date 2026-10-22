@@ -131,8 +131,10 @@ const HeroCarousel = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
           style={{ backgroundImage: `url(${getBackgroundImage()})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/85 to-primary/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1330]/95 via-[#16224d]/80 to-[#0a1330]/55" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/20" />
+        {/* Resplandor dorado ambiental */}
+        <div className="absolute -bottom-44 left-1/2 h-96 w-[60rem] -translate-x-1/2 rounded-full bg-[#c9a45c]/15 blur-3xl" />
       </div>
 
       {/* Decorative Elements */}
@@ -175,6 +177,22 @@ const HeroCarousel = () => {
                   </Badge>
                 </motion.div> */}
 
+                {/* Insignia superior dorada */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#e6c886]/40 bg-white/10 px-4 py-1.5 backdrop-blur-sm"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#e6c886] opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#e6c886]" />
+                  </span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#e6c886]">
+                    Centro de Arbitraje · MCH Abogados
+                  </span>
+                </motion.div>
+
                 {/* Main Title */}
                 <motion.h1
                   className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight"
@@ -188,7 +206,7 @@ const HeroCarousel = () => {
                 {/* Subtitle - only show for fallback slides */}
                 {currentSlideData.subtitle && (
                   <motion.h2
-                    className="text-2xl md:text-3xl text-teal-200 mb-6 font-light"
+                    className="text-2xl md:text-3xl text-[#e6c886] mb-6 font-light"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
@@ -222,7 +240,7 @@ const HeroCarousel = () => {
                     >
                       <Button
                         size="lg"
-                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                        className="btn-oro shadow-none hover:cursor-pointer px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105"
                       >
                         {currentSlideData.mediaType === "video"
                           ? "Ver Video"
@@ -233,18 +251,17 @@ const HeroCarousel = () => {
                     <Link href="/Contacto">
                       <Button
                         size="lg"
-                        className="bg-white text-primary hover:cursor-pointer hover:bg-teal-50 px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 uppercase"
+                        className="bg-white text-primary hover:cursor-pointer hover:bg-[#faf3e3] px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 uppercase"
                       >
                         Solicitar Consulta
-                      </Button>
-                    </Link>
+                      </Button>                    </Link>
                   )}
 
                   <Link href="/Admin">
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:cursor-pointer"
+                      className="border-2 border-white text-white hover:bg-white hover:text-primary hover:border-[#e6c886] px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:cursor-pointer"
                     >
                       MESA DE PARTES ARGUS
                     </Button>
@@ -263,7 +280,7 @@ const HeroCarousel = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               {/* Main Icon Circle */}
-              <div className="w-80 h-80 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center relative">
+              <div className="w-80 h-80 rounded-full bg-white/10 backdrop-blur-sm border border-[#e6c886]/30 shadow-[0_0_90px_-20px_rgba(201,164,92,0.55)] flex items-center justify-center relative">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide}
@@ -284,9 +301,9 @@ const HeroCarousel = () => {
 
                 {/* Orbiting Elements */}
                 <div className="absolute inset-0 animate-spin-slow">
-                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-teal-300 rounded-full"></div>
+                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#e6c886] rounded-full"></div>
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div>
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-teal-200 rounded-full"></div>
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-[#dcbd76] rounded-full"></div>
                   <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white/80 rounded-full"></div>
                 </div>
               </div>
@@ -308,7 +325,7 @@ const HeroCarousel = () => {
             >
               {index === currentSlide && (
                 <motion.div
-                  className="absolute inset-0 bg-teal-300 rounded-full"
+                  className="absolute inset-0 bg-[#e6c886] rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 6, ease: "linear" }}

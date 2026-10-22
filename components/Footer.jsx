@@ -37,7 +37,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-[#080f26] text-white">
+      <div className="hairline-oro h-[3px] w-full opacity-80" />
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center ">
           {/* Company Info */}
@@ -82,7 +83,7 @@ const Footer = () => {
           {/* Services Links */}
           <div>
             <motion.h3
-              className="text-lg font-bold mb-6"
+              className="text-lg font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -90,6 +91,7 @@ const Footer = () => {
             >
               Servicios
             </motion.h3>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-[#c9a45c] to-transparent rounded-full mb-5" />
             <ul className="space-y-3">
               {footerLinks.servicios.map((link, index) => (
                 <motion.li
@@ -101,7 +103,7 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300"
+                    className="text-gray-300 hover:text-[#e6c886] transition-colors duration-300"
                   >
                     {link.name}
                   </a>
@@ -113,7 +115,7 @@ const Footer = () => {
           {/* Company Links */}
           <div>
             <motion.h3
-              className="text-lg font-bold mb-6"
+              className="text-lg font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -121,6 +123,7 @@ const Footer = () => {
             >
               Empresa
             </motion.h3>
+            <div className="w-10 h-0.5 bg-gradient-to-r from-[#c9a45c] to-transparent rounded-full mb-5" />
             <ul className="space-y-3">
               {footerLinks.empresa.map((link, index) => (
                 <motion.li
@@ -132,7 +135,7 @@ const Footer = () => {
                 >
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300"
+                    className="text-gray-300 hover:text-[#e6c886] transition-colors duration-300"
                   >
                     {link.name}
                   </a>
@@ -146,7 +149,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <motion.div
-          className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+          className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}

@@ -172,3 +172,33 @@
     background-clip: content-box;
   }
 }
+
+@layer components {
+  /* 🏆 Botón dorado de marca (CTA principal sobre fondos oscuros) */
+  .btn-oro {
+    background-image: linear-gradient(135deg, #e2c37c 0%, #c9a45c 45%, #a5813d 100%);
+    color: #1c2547;
+    box-shadow:
+      0 12px 28px -10px rgb(201 164 92 / 0.6),
+      0 1px 2px rgb(20 28 60 / 0.3);
+    transition: filter 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-oro:hover {
+    filter: brightness(1.07);
+    box-shadow:
+      0 16px 34px -10px rgb(201 164 92 / 0.7),
+      0 1px 2px rgb(20 28 60 / 0.3);
+  }
+  /* ✨ Etiqueta pequeña dorada sobre los títulos de sección */
+  .eyebrow-oro {
+    color: #a57f3e;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  /* ➖ Línea fina con degradado dorado */
+  .hairline-oro {
+    background-image: linear-gradient(90deg, transparent, #c9a45c, transparent);
+  }
+}

@@ -91,7 +91,8 @@ const NormativaSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-black mb-4 uppercase">
+          <span className="eyebrow-oro">Biblioteca normativa</span>
+          <h2 className="text-4xl font-bold text-black mb-4 mt-3 uppercase">
             Normativas ISO
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -125,7 +126,7 @@ const NormativaSection = () => {
                   </CardTitle>
                   <Badge
                     variant="secondary"
-                    className="ml-2 bg-blue-100 text-blue-800 hover:bg-blue-200"
+                    className="ml-2 bg-[#c9a45c]/15 text-[#a57f3e] hover:bg-[#c9a45c]/25"
                   >
                     ISO
                   </Badge>
@@ -142,7 +143,7 @@ const NormativaSection = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300 bg-transparent hover:cursor-pointer"
+                      className="hover:bg-[#c9a45c]/10 hover:text-[#a57f3e] hover:border-[#c9a45c]/50 bg-transparent hover:cursor-pointer"
                     >
                       Ver detalles
                     </Button>

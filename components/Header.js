@@ -79,13 +79,15 @@ const Header = () => {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
+            ? "bg-white/90 backdrop-blur-xl shadow-[0_10px_40px_-15px_rgba(15,25,60,0.35)] border-b border-[#c9a45c]/25"
             : "bg-transparent"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
+        {/* Línea dorada de marca */}
+        <div className="hairline-oro h-[3px] w-full opacity-90" />
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20 uppercase">
             {/* Logo */}
@@ -225,8 +227,10 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary uppercase",
-                    isScrolled ? "text-gray-700" : "text-white"
+                    "relative h-10 px-4 py-2 text-sm font-medium transition-colors uppercase after:absolute after:bottom-1 after:left-4 after:right-4 after:h-0.5 after:rounded-full after:bg-[#c9a45c] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300",
+                    isScrolled
+                      ? "text-gray-700 hover:text-[#a57f3e]"
+                      : "text-white hover:text-[#e6c886] hover:bg-white/10"
                   )}
                 >
                   Nuestro Equipo
@@ -237,8 +241,10 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "h-10 px-4 py-2 text-sm font-medium transition-colors hover:text-primary uppercase",
-                    isScrolled ? "text-gray-700" : "text-white"
+                    "relative h-10 px-4 py-2 text-sm font-medium transition-colors uppercase after:absolute after:bottom-1 after:left-4 after:right-4 after:h-0.5 after:rounded-full after:bg-[#c9a45c] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300",
+                    isScrolled
+                      ? "text-gray-700 hover:text-[#a57f3e]"
+                      : "text-white hover:text-[#e6c886] hover:bg-white/10"
                   )}
                 >
                   Contacto
@@ -256,11 +262,7 @@ const Header = () => {
               >
                 <Link href="/Cotizar">
                   <Button
-                    className={`px-3 py-2 md:px-6 md:py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:cursor-pointer text-xs md:text-sm ${
-                      isScrolled
-                        ? "bg-primary text-white hover:bg-primary/90 hover:shadow-xl"
-                        : "bg-white text-primary hover:bg-white/90 hover:shadow-xl"
-                    }`}
+                    className="btn-oro shadow-none px-3 py-2 md:px-6 md:py-2 rounded-full font-bold transition-all duration-300 hover:cursor-pointer text-xs md:text-sm uppercase"
                   >
                     COTIZAR
                   </Button>

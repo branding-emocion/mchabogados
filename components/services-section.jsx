@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Landmark, Zap, Handshake, Scale } from "lucide-react";
 import Link from "next/link";
 
 const ServicesSection = () => {
@@ -15,28 +16,28 @@ const ServicesSection = () => {
       title: "Arbitraje en Contratación Pública",
       description:
         "Resolución especializada de controversias en procesos de contratación con el Estado y entidades públicas.",
-      icon: "🏛️",
+      icon: Landmark,
       link: "/AsesoriaLegal/ContratacionPublica",
     },
     {
       title: "Arbitraje de Emergencia",
       description:
         "Procedimientos arbitrales urgentes para la resolución rápida de conflictos que requieren medidas cautelares inmediatas.",
-      icon: "⚡",
+      icon: Zap,
       link: "/AsesoriaLegal/ArbitrajeEmergencia",
     },
     {
       title: "Arbitraje entre Privados",
       description:
         "Mediación y arbitraje comercial entre empresas privadas para resolver disputas contractuales y comerciales.",
-      icon: "🤝",
+      icon: Handshake,
       link: "/AsesoriaLegal/EntrePrivados",
     },
     {
       title: "Arbitraje Express",
       description:
         "Procedimientos de recusación de árbitros y magistrados para garantizar la imparcialidad en los procesos.",
-      icon: "⚖️",
+      icon: Scale,
       link: "/AsesoriaLegal/ArbitrajeExpress",
     },
   ];
@@ -65,7 +66,7 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="servicios" className="py-20 bg-gray-50" ref={ref}>
+    <section id="servicios" className="py-20 bg-gradient-to-b from-white via-[#faf6ee] to-white" ref={ref}>
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -74,8 +75,9 @@ const ServicesSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         >
+          <span className="eyebrow-oro">Áreas de práctica</span>
           <motion.h2
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 uppercase"
+            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 mt-3 uppercase"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={
               isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
@@ -106,19 +108,19 @@ const ServicesSection = () => {
           {services?.map((service) => (
             <motion.div key={service.title} variants={itemVariants}>
               <Link href={service.link}>
-                <Card className="h-full bg-white hover:shadow-xl transition-all duration-300 border-0 shadow-md group cursor-pointer">
+                <Card className="h-full bg-white rounded-2xl border border-[#c9a45c]/15 shadow-md hover:shadow-[0_24px_50px_-20px_rgba(15,25,60,0.35)] hover:border-[#c9a45c]/45 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer">
                   <CardContent className="p-8 text-center">
                     {/* Icon */}
                     <motion.div
-                      className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors duration-300"
+                      className="w-20 h-20 bg-gradient-to-br from-[#c9a45c]/25 to-[#a57f3e]/10 ring-1 ring-[#c9a45c]/30 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:from-[#c9a45c]/40 group-hover:to-[#a57f3e]/20 transition-colors duration-300"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <span className="text-3xl">{service.icon}</span>
+                      <service.icon className="w-8 h-8 text-[#a57f3e]" />
                     </motion.div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300 uppercase">
+                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-[#a57f3e] transition-colors duration-300 uppercase">
                       {service.title}
                     </h3>
 
@@ -129,12 +131,12 @@ const ServicesSection = () => {
 
                     {/* Hover Effect Line */}
                     <motion.div
-                      className="w-0 h-1 bg-primary mx-auto mt-6 group-hover:w-16 transition-all duration-300"
+                      className="w-0 h-1 bg-gradient-to-r from-[#c9a45c] to-[#a57f3e] rounded-full mx-auto mt-6 group-hover:w-16 transition-all duration-300"
                       initial={{ width: 0 }}
                       whileHover={{ width: 64 }}
                     />
                     <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 uppercase">
-                      <span className="text-primary font-medium text-sm">
+                      <span className="text-[#a57f3e] font-medium text-sm">
                         Ver más →
                       </span>
                     </motion.div>
@@ -153,7 +155,7 @@ const ServicesSection = () => {
         >
           <motion.a
             href="/AsesoriaLegal"
-            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-primary/90 transition-colors duration-300 uppercase"
+            className="btn-oro inline-block px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 uppercase"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

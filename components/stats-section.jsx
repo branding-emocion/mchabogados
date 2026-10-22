@@ -12,8 +12,12 @@ const StatsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 bg-slate-900 text-white" ref={ref}>
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative overflow-hidden py-20 bg-[#0a1330] text-white" ref={ref}>
+      {/* Resplandores dorados ambientales */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[52rem] -translate-x-1/2 rounded-full bg-[#c9a45c]/12 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -right-24 h-80 w-80 rounded-full bg-[#c9a45c]/10 blur-3xl" />
+      <div className="hairline-oro absolute inset-x-0 top-0 h-[2px] opacity-70" />
+      <div className="container mx-auto px-4 lg:px-8 relative">
         {/* Section Header */}
         <motion.div
           className="text-center"
@@ -31,7 +35,7 @@ const StatsSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link href="/Cotizar" className="cursor-pointer">
               <Button
-                className="bg-blue-600 uppercase cursor-pointer hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 flex items-center gap-2"
+                className="btn-oro shadow-none uppercase cursor-pointer px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 items-center gap-2"
                 size="lg"
               >
                 <Calculator className="w-5 h-5 " />
