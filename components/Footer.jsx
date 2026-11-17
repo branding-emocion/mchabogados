@@ -1,170 +1,72 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+const footerLinks = {
+  servicios: [
+    { name: "Contratación pública", href: "/AsesoriaLegal/ContratacionPublica" },
+    { name: "Arbitraje de emergencia", href: "/AsesoriaLegal/ArbitrajeEmergencia" },
+    { name: "Arbitraje entre privados", href: "/AsesoriaLegal/EntrePrivados" },
+    { name: "Arbitraje express", href: "/AsesoriaLegal/ArbitrajeExpress" },
+  ],
+  centro: [
+    { name: "Nuestro equipo", href: "/NuestroEquipo" },
+    { name: "Reglamentos", href: "/CentroArbitraje/NuestrosReglamentos" },
+    { name: "Banco de laudos", href: "/Laudos/Emitidos" },
+    { name: "Contacto", href: "/Contacto" },
+  ],
+};
 
-  const footerLinks = {
-    servicios: [
-      {
-        name: "Arbitraje en contratación pública",
-        href: "/AsesoriaLegal/ContratacionPublica",
-      },
-      {
-        name: "Arbitraje de emergencia",
-        href: "/AsesoriaLegal/ArbitrajeEmergencia",
-      },
-      {
-        name: "Arbitraje entre privados",
-        href: "/AsesoriaLegal/EntrePrivados",
-      },
-      { name: "Arbitraje Express", href: "/AsesoriaLegal/ArbitrajeExpress" },
-    ],
-    empresa: [
-      { name: "Nuestro Equipo", href: "/NuestroEquipo" },
-      { name: "Banco de Laudos", href: "/Laudos" },
-      { name: "Contacto", href: "/Contacto" },
-    ],
-  };
-
-  const socialLinks = [
-    { name: "LinkedIn", href: "#", icon: "💼" },
-    { name: "Facebook", href: "#", icon: "📘" },
-    { name: "Twitter", href: "#", icon: "🐦" },
-    { name: "Instagram", href: "#", icon: "📷" },
-  ];
-
+function FooterLink({ href, children }) {
   return (
-    <footer className="bg-[#080f26] text-white">
-      <div className="hairline-oro h-[3px] w-full opacity-80" />
-      <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center ">
-          {/* Company Info */}
-          <div className="">
-            <motion.div
-              className="flex items-center space-x-2 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <Image
-                src="/LogoBlanco.png"
-                alt="logo"
-                width={281}
-                height={87}
-                className="object-cover"
-              />
-            </motion.div>
+    <li>
+      <Link href={href} className="text-sm leading-6 text-white/65 underline-offset-4 transition-colors hover:text-[#e2c68d] hover:underline">
+        {children}
+      </Link>
+    </li>
+  );
+}
 
-            {/* <motion.div
-              className="flex space-x-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="text-lg">{social.icon}</span>
-                </motion.a>
-              ))}
-            </motion.div> */}
+export default function Footer() {
+  return (
+    <footer className="bg-[#0a1529] text-white">
+      <div className="home-shell py-16 sm:py-20">
+        <div className="grid grid-cols-2 gap-x-7 gap-y-10 border-b border-white/15 pb-12 lg:grid-cols-[1.15fr_1fr_0.8fr_1.05fr] lg:gap-x-9">
+          <div className="col-span-2 lg:col-span-1">
+            <Link href="/" aria-label="MCH Abogados, inicio" className="inline-flex">
+              <Image src="/LogoBlanco.png" alt="MCH Abogados" width={281} height={87} className="h-auto w-56 object-contain" />
+            </Link>
+            <p className="mt-5 max-w-[16rem] text-sm leading-7 text-white/55">
+              Centro de Arbitraje y Asesoría Legal.
+            </p>
           </div>
 
-          {/* Services Links */}
           <div>
-            <motion.h3
-              className="text-lg font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              Servicios
-            </motion.h3>
-            <div className="w-10 h-0.5 bg-gradient-to-r from-[#c9a45c] to-transparent rounded-full mb-5" />
-            <ul className="space-y-3">
-              {footerLinks.servicios.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-[#e6c886] transition-colors duration-300"
-                  >
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
+            <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-[#d7b878]">Servicios</h2>
+            <ul className="mt-5 space-y-3">
+              {footerLinks.servicios.map((item) => <FooterLink key={item.href} href={item.href}>{item.name}</FooterLink>)}
             </ul>
           </div>
-
-          {/* Company Links */}
           <div>
-            <motion.h3
-              className="text-lg font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Empresa
-            </motion.h3>
-            <div className="w-10 h-0.5 bg-gradient-to-r from-[#c9a45c] to-transparent rounded-full mb-5" />
-            <ul className="space-y-3">
-              {footerLinks.empresa.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-[#e6c886] transition-colors duration-300"
-                  >
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
+            <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-[#d7b878]">El centro</h2>
+            <ul className="mt-5 space-y-3">
+              {footerLinks.centro.map((item) => <FooterLink key={item.href} href={item.href}>{item.name}</FooterLink>)}
             </ul>
           </div>
-
-          {/* Legal Links */}
+          <div className="col-span-2 lg:col-span-1">
+            <h2 className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.13em] text-[#d7b878]">Atención y consultas</h2>
+            <a href="tel:+51976936575" className="mt-5 inline-block text-xl font-medium tracking-[-0.01em] text-white transition-colors hover:text-[#e2c68d]">
+              +51 976 936 575
+            </a>
+            <a href="mailto:mchabogados@legalmch.com" className="mt-3 block break-words text-sm leading-6 text-white/65 underline-offset-4 hover:text-[#e2c68d] hover:underline">
+              mchabogados@legalmch.com
+            </a>
+          </div>
         </div>
-
-        {/* Bottom Bar */}
-        <motion.div
-          className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © {currentYear} MCH Abogados. Todos los derechos reservados.
-          </p>
-          <p className="text-gray-400 text-sm">
-            Diseñado con ❤️ para brindar la mejor experiencia
-          </p>
-        </motion.div>
+        <div className="flex flex-col gap-3 pt-6 text-[0.7rem] leading-6 text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} MCH Abogados. Todos los derechos reservados.</p>
+          <Link href="/Admin" className="text-white/60 underline-offset-4 hover:text-[#e2c68d] hover:underline">Mesa de partes ARGUS</Link>
+        </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

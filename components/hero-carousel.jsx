@@ -1,357 +1,157 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Scale, Shield, Play, ImageIcon } from "lucide-react";
-import Link from "next/link";
-import { useBanners } from "@/hooks/useBanners";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { useBanners } from "@/hooks/useBanners";
 
-const CarouselSkeleton = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/85 to-primary/80" />
-      </div>
+const fallbackSlides = [
+  {
+    idDoc: "default-banner",
+    title: "Enfoque dedicado y eficaz",
+    description: "Centro especializado en Arbitraje y Asesoría Legal.",
+    mediaType: "fallback",
+  },
+];
 
-      {/* Content Skeleton */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Column - Text Content Skeleton */}
-          <div className="text-left space-y-6">
-            {/* Badge Skeleton */}
-            <div className="w-32 h-8 bg-white/20 rounded-full animate-pulse" />
-
-            {/* Title Skeleton */}
-            <div className="space-y-3">
-              <div className="w-full h-16 bg-white/20 rounded animate-pulse" />
-              <div className="w-3/4 h-16 bg-white/20 rounded animate-pulse" />
-            </div>
-
-            {/* Subtitle Skeleton */}
-            <div className="w-5/6 h-10 bg-white/15 rounded animate-pulse" />
-
-            {/* Description Skeleton */}
-            <div className="space-y-2">
-              <div className="w-full h-6 bg-white/15 rounded animate-pulse" />
-              <div className="w-4/5 h-6 bg-white/15 rounded animate-pulse" />
-              <div className="w-3/5 h-6 bg-white/15 rounded animate-pulse" />
-            </div>
-
-            {/* Buttons Skeleton */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="w-48 h-14 bg-white/20 rounded-full animate-pulse" />
-              <div className="w-40 h-14 bg-white/10 border border-white/20 rounded-full animate-pulse" />
-            </div>
-          </div>
-
-          {/* Right Column - Visual Element Skeleton */}
-          <div className="hidden lg:flex items-center justify-center">
-            <div className="w-80 h-80 rounded-full bg-white/10 border border-white/20 animate-pulse" />
-          </div>
-        </div>
-
-        {/* Slide Indicators Skeleton */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          <div className="w-12 h-3 bg-white/40 rounded-full animate-pulse" />
-          <div className="w-3 h-3 bg-white/20 rounded-full animate-pulse" />
-          <div className="w-3 h-3 bg-white/20 rounded-full animate-pulse" />
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const HeroCarousel = () => {
+export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { banners, isLoading } = useBanners();
-
-  const fallbackSlides = [
-    {
-      title: "MCH ABOGADOS",
-      subtitle: "Excelencia Jurídica con Más de 15 Años de Experiencia",
-      description:
-        "Brindamos asesoría legal especializada con un enfoque integral y personalizado para empresas y particulares en todo el Perú",
-      icon: Scale,
-      mediaType: "fallback",
-    },
-    {
-      title: "DERECHO CORPORATIVO",
-      subtitle: "Soluciones Estratégicas para tu Empresa",
-      description:
-        "Acompañamos el crecimiento de tu negocio con asesoría especializada en fusiones, adquisiciones, compliance y gobierno corporativo",
-      icon: Shield,
-      mediaType: "fallback",
-    },
-  ];
-
-  const slides =
-    banners && banners.length > 0
-      ? banners
-          .filter((banner) => banner.isActive)
-          .map((banner) => ({
-            ...banner,
-            icon: banner.mediaType === "video" ? Play : ImageIcon,
-          }))
-      : fallbackSlides;
+  const { banners } = useBanners(6, true);
+  const prefersReducedMotion = useReducedMotion();
+  const slides = useMemo(() => {
+    const activeBanners = (banners || []).filter((banner) => banner.isActive);
+    return activeBanners.length > 0 ? activeBanners : fallbackSlides;
+  }, [banners]);
 
   useEffect(() => {
-    if (slides.length > 0) {
-      const timer = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-      }, 6000);
+    if (slides.length < 2 || prefersReducedMotion) return undefined;
+    const timer = window.setInterval(() => {
+      setCurrentSlide((index) => (index + 1) % slides.length);
+    }, 8000);
+    return () => window.clearInterval(timer);
+  }, [slides.length, prefersReducedMotion]);
 
-      return () => clearInterval(timer);
-    }
+  useEffect(() => {
+    setCurrentSlide((index) => (index < slides.length ? index : 0));
   }, [slides.length]);
 
-  if (isLoading) {
-    return <CarouselSkeleton />;
-  }
-
-  const currentSlideData = slides[currentSlide];
-  const IconComponent = currentSlideData.icon;
-
-  const getBackgroundImage = () => {
-    if (currentSlideData.mediaType === "image" && currentSlideData.imageUrl) {
-      return currentSlideData.imageUrl;
-    }
-    return "/slider/Banner.avif"; // fallback image
-  };
+  const slide = slides[currentSlide] || slides[0];
+  const backgroundImage = slide.mediaType === "image" && slide.imageUrl
+    ? slide.imageUrl
+    : "/slider/Banner.avif";
+  const primaryHref = slide.linkUrl || "/Contacto";
+  const externalLink = /^https?:\/\//i.test(primaryHref);
+  const primaryLabel = slide.linkUrl
+    ? slide.mediaType === "video" ? "Ver video" : "Ver más"
+    : "Solicitar consulta";
+  const title = slide.title || "MCH Abogados";
+  const displayTitle = title === title.toLocaleUpperCase("es") && title.length > 12
+    ? (title.charAt(0) + title.slice(1).toLocaleLowerCase("es"))
+      .replace(/\bmch\b/gi, "MCH")
+      .replace(/\bargus\b/gi, "ARGUS")
+      .replace(/\biso\b/gi, "ISO")
+    : title;
+  const titleWords = displayTitle.split(/\s+/);
+  const highlightedWord = titleWords.length > 3 ? titleWords.pop() : null;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
-          style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+    <section aria-label="Presentación de MCH Abogados" className="relative isolate overflow-hidden bg-[#0c2038] text-white">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          fetchPriority="high"
+          quality={75}
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1330]/95 via-[#16224d]/80 to-[#0a1330]/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/20" />
-        {/* Resplandor dorado ambiental */}
-        <div className="absolute -bottom-44 left-1/2 h-96 w-[60rem] -translate-x-1/2 rounded-full bg-[#c9a45c]/15 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,28,49,0.95)_0%,rgba(8,28,49,0.83)_38%,rgba(8,28,49,0.42)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(8,28,49,0.88)_0%,transparent_45%,rgba(8,28,49,0.2)_100%)]" />
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute inset-0 z-5">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-white/10 rounded-full animate-pulse" />
-        <div className="absolute bottom-32 right-16 w-24 h-24 border border-white/10 rounded-full animate-pulse delay-1000" />
-        <div className="absolute top-1/2 right-10 w-16 h-16 border border-white/10 rounded-full animate-pulse delay-2000" />
-      </div>
+      <div className="home-shell relative flex min-h-[800px] flex-col pb-28 pt-36 sm:min-h-[820px] lg:min-h-[min(900px,100svh)] lg:pb-32 lg:pt-40">
+        <div className="grid flex-1 items-center gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+          <div className="relative z-10 max-w-2xl">
+            <p className="home-kicker mb-6 max-w-xs text-[#e2c68d] sm:max-w-none">
+              Centro de Arbitraje · MCH Abogados
+            </p>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Column - Text Content */}
-          <div className="text-left">
-            <AnimatePresence mode="wait">
+            <AnimatePresence initial={false} mode="wait">
               <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                key={slide.idDoc || currentSlide}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.35 }}
               >
-                {/* Badge with Media Type */}
-                {/* <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="mb-6"
-                >
-                  <Badge
-                    variant="secondary"
-                    className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm font-medium"
-                  >
-                    <IconComponent className="w-4 h-4 mr-2" />
-                    {currentSlideData.mediaType === "video"
-                      ? "Video"
-                      : currentSlideData.mediaType === "image"
-                      ? "Imagen"
-                      : "Contenido"}
-                  </Badge>
-                </motion.div> */}
-
-                {/* Insignia superior dorada */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#e6c886]/40 bg-white/10 px-4 py-1.5 backdrop-blur-sm"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#e6c886] opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#e6c886]" />
-                  </span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#e6c886]">
-                    Centro de Arbitraje · MCH Abogados
-                  </span>
-                </motion.div>
-
-                {/* Main Title */}
-                <motion.h1
-                  className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  {currentSlideData.title}
-                </motion.h1>
-
-                {/* Subtitle - only show for fallback slides */}
-                {currentSlideData.subtitle && (
-                  <motion.h2
-                    className="text-2xl md:text-3xl text-[#e6c886] mb-6 font-light"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                  >
-                    {currentSlideData.subtitle}
-                  </motion.h2>
+                <h1 className="home-hero-title max-w-[10ch] text-white sm:max-w-[11.5ch]">
+                  {highlightedWord ? <>{titleWords.join(" ")} <span className="font-normal italic text-[#ddc18a]">{highlightedWord}</span></> : displayTitle}
+                </h1>
+                {slide.subtitle && (
+                  <p className="mt-6 max-w-[18rem] text-xl font-medium leading-snug text-[#e2c68d] sm:max-w-lg sm:text-2xl">
+                    {slide.subtitle}
+                  </p>
                 )}
-
-                {/* Description */}
-                <motion.p
-                  className="text-lg md:text-xl text-white/90 mb-8 max-w-xl leading-relaxed"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  {currentSlideData.description}
-                </motion.p>
-
-                {/* CTA Buttons */}
-                <motion.div
-                  className="flex flex-col sm:flex-row gap-4"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                >
-                  {currentSlideData.linkUrl ? (
-                    <Link
-                      href={currentSlideData.linkUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="lg"
-                        className="btn-oro shadow-none hover:cursor-pointer px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105"
-                      >
-                        {currentSlideData.mediaType === "video"
-                          ? "Ver Video"
-                          : "Ver Más"}
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link href="/Contacto">
-                      <Button
-                        size="lg"
-                        className="bg-white text-primary hover:cursor-pointer hover:bg-[#faf3e3] px-8 py-4 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 uppercase"
-                      >
-                        Solicitar Consulta
-                      </Button>                    </Link>
-                  )}
-
-                  <Link href="/Admin">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="border-2 border-white text-white hover:bg-white hover:text-primary hover:border-[#e6c886] px-8 py-4 text-lg font-semibold rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:cursor-pointer"
-                    >
-                      MESA DE PARTES ARGUS
-                    </Button>
+                {slide.description && (
+                  <p className="mt-6 max-w-[17rem] text-base leading-7 text-white/80 sm:max-w-md sm:text-lg sm:leading-8">
+                    {slide.description}
+                  </p>
+                )}
+                <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
+                  <Link href={primaryHref} target={externalLink ? "_blank" : undefined} rel={externalLink ? "noopener noreferrer" : undefined} className="home-button bg-[#c9a45c] text-[#09142f] hover:bg-[#dfc283]">
+                    {primaryLabel}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
-                </motion.div>
+                  <Link href="/Admin" className="home-button border border-white/45 bg-transparent text-white hover:border-[#e2c68d] hover:bg-white/5">
+                    Mesa de partes ARGUS
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
+                <Link href="#servicios" className="mt-6 inline-flex min-h-10 items-center gap-3 text-xs font-medium text-white/65 transition-colors hover:text-[#e2c68d]">
+                  Conozca nuestros servicios
+                  <ArrowDown className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
               </motion.div>
             </AnimatePresence>
-          </div>
 
-          {/* Right Column - Visual Element */}
-          <div className="hidden lg:flex items-center justify-center">
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-            >
-              {/* Main Icon Circle */}
-              <div className="w-80 h-80 rounded-full bg-white/10 backdrop-blur-sm border border-[#e6c886]/30 shadow-[0_0_90px_-20px_rgba(201,164,92,0.55)] flex items-center justify-center relative">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, rotate: -180 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 180 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    {/* <IconComponent className="w-32 h-32 text-white" /> */}
-                    <Image
-                      src={"/LogoSolo.png"}
-                      alt="banner"
-                      width={128}
-                      height={128}
-                    />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Orbiting Elements */}
-                <div className="absolute inset-0 animate-spin-slow">
-                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#e6c886] rounded-full"></div>
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-white rounded-full"></div>
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-[#dcbd76] rounded-full"></div>
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-white/80 rounded-full"></div>
-                </div>
+            {slides.length > 1 && (
+              <div className="mt-8 flex items-center gap-3" aria-label="Elegir banner">
+                {slides.map((item, index) => (
+                  <button key={item.idDoc || index} type="button" onClick={() => setCurrentSlide(index)} aria-label={`Mostrar banner ${index + 1}`} aria-pressed={index === currentSlide} className="flex h-9 items-center py-3">
+                    <span className={"h-px transition-all " + (index === currentSlide ? "w-9 bg-[#e2c68d]" : "w-5 bg-white/40")} />
+                  </button>
+                ))}
+                <span className="ml-1 text-[0.7rem] tabular-nums tracking-[0.12em] text-white/60">
+                  {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+                </span>
               </div>
-            </motion.div>
+            )}
           </div>
+
+          <aside className="pointer-events-none absolute -right-12 top-60 flex h-32 w-32 items-center justify-center min-[380px]:right-2 sm:right-4 sm:top-56 sm:h-60 sm:w-60 lg:static lg:h-auto lg:w-full" role="img" aria-label="Emblema de MCH Abogados">
+            <div className="relative aspect-square w-full max-w-[380px] opacity-55 sm:opacity-75 lg:opacity-100">
+              <div className="absolute inset-0 rounded-full border border-[#e2c68d]/35 bg-white/[0.06] backdrop-blur-[2px]" />
+              <motion.div
+                aria-hidden="true"
+                className="absolute inset-[12%] rounded-full border border-white/15"
+                animate={prefersReducedMotion ? undefined : { rotate: 360 }}
+                transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+              >
+                <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+                <span className="absolute right-0 top-1/2 h-3.5 w-3.5 translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e2c68d]" />
+                <span className="absolute bottom-0 left-1/2 h-2.5 w-2.5 -translate-x-1/2 translate-y-1/2 rounded-full bg-white" />
+                <span className="absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e2c68d]" />
+              </motion.div>
+              <Image src="/LogoSolo.png" alt="" width={180} height={180} className="absolute left-1/2 top-1/2 h-[42%] w-[42%] -translate-x-1/2 -translate-y-1/2 object-contain" />
+            </div>
+          </aside>
         </div>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`relative overflow-hidden transition-all duration-500 ${
-                index === currentSlide
-                  ? "w-12 h-3 bg-white rounded-full"
-                  : "w-3 h-3 bg-white/40 rounded-full hover:bg-white/60"
-              }`}
-            >
-              {index === currentSlide && (
-                <motion.div
-                  className="absolute inset-0 bg-[#e6c886] rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 6, ease: "linear" }}
-                />
-              )}
-            </button>
-          ))}
-        </div>
       </div>
-
-      {/* Custom CSS for slow spin animation */}
-      <style jsx>{`
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-      `}</style>
     </section>
   );
-};
-
-export default HeroCarousel;
+}

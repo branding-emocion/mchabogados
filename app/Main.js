@@ -12,11 +12,11 @@ const Main = ({ children }) => {
       {pathname.includes("/Admin") ? (
         <>{children}</>
       ) : (
-        <main>
+        <div className="public-site">
           <Header />
           {children}
           <Footer />
-        </main>
+        </div>
       )}
     </>
   );

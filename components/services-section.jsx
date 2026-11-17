@@ -1,170 +1,140 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Landmark, Zap, Handshake, Scale } from "lucide-react";
 import Link from "next/link";
+import { ArrowUpRight, BookOpen, Building2, Calculator, Clock3, Scale, UsersRound, Landmark } from "lucide-react";
 
-const ServicesSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+const shortcuts = [
+  { title: "Calcular costos", detail: "Gastos y honorarios arbitrales", href: "/Cotizar", icon: Calculator },
+  { title: "Reglamentos", detail: "Documentos del centro", href: "/CentroArbitraje/NuestrosReglamentos", icon: BookOpen },
+  { title: "Nómina de árbitros", detail: "Conozca a nuestros profesionales", href: "/CentroArbitraje/NominaDeArbitros", icon: UsersRound },
+];
 
-  const services = [
-    {
-      title: "Arbitraje en Contratación Pública",
-      description:
-        "Resolución especializada de controversias en procesos de contratación con el Estado y entidades públicas.",
-      icon: Landmark,
-      link: "/AsesoriaLegal/ContratacionPublica",
-    },
-    {
-      title: "Arbitraje de Emergencia",
-      description:
-        "Procedimientos arbitrales urgentes para la resolución rápida de conflictos que requieren medidas cautelares inmediatas.",
-      icon: Zap,
-      link: "/AsesoriaLegal/ArbitrajeEmergencia",
-    },
-    {
-      title: "Arbitraje entre Privados",
-      description:
-        "Mediación y arbitraje comercial entre empresas privadas para resolver disputas contractuales y comerciales.",
-      icon: Handshake,
-      link: "/AsesoriaLegal/EntrePrivados",
-    },
-    {
-      title: "Arbitraje Express",
-      description:
-        "Procedimientos de recusación de árbitros y magistrados para garantizar la imparcialidad en los procesos.",
-      icon: Scale,
-      link: "/AsesoriaLegal/ArbitrajeExpress",
-    },
-  ];
+const services = [
+  {
+    n: "01",
+    badge: "Contratación con el Estado",
+    title: "Arbitraje en contratación pública",
+    desc: "Controversias derivadas de contratos entre las entidades del Estado y sus contratistas.",
+    href: "/AsesoriaLegal/ContratacionPublica",
+    Icon: Landmark,
+    BgIcon: Scale,
+  },
+  {
+    n: "02",
+    badge: "Empresas y particulares",
+    title: "Arbitraje entre privados",
+    desc: "Resolución de controversias civiles y comerciales entre empresas y particulares.",
+    href: "/AsesoriaLegal/EntrePrivados",
+    Icon: Building2,
+    BgIcon: UsersRound,
+  },
+  {
+    n: "03",
+    badge: "Medidas urgentes",
+    title: "Arbitraje de emergencia",
+    desc: "Atención de solicitudes urgentes de medidas cautelares.",
+    href: "/AsesoriaLegal/ArbitrajeEmergencia",
+    Icon: Clock3,
+    BgIcon: Clock3,
+  },
+  {
+    n: "04",
+    badge: "Rápido y documental",
+    title: "Arbitraje express",
+    desc: "Un procedimiento simplificado, con actuaciones concentradas y sustento documental.",
+    href: "/AsesoriaLegal/ArbitrajeExpress",
+    Icon: Scale,
+    BgIcon: BookOpen,
+  },
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
+function Dots() {
   return (
-    <section id="servicios" className="py-20 bg-gradient-to-b from-white via-[#faf6ee] to-white" ref={ref}>
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <span className="eyebrow-oro">Áreas de práctica</span>
-          <motion.h2
-            className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 mt-3 uppercase"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
-            }
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Nuestros Servicios
-          </motion.h2>
-          <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Contamos con los mejores servicios a tu disposición, brindando
-            asesoría legal especializada con más de una década de experiencia en
-            el mercado peruano.
-          </motion.p>
-        </motion.div>
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 opacity-60"
+      style={{
+        backgroundImage: "radial-gradient(rgba(20,36,62,0.08) 1px, transparent 1px)",
+        backgroundSize: "22px 22px",
+        maskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+        WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+      }}
+    />
+  );
+}
 
-        {/* Services Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2   gap-8 max-w-4xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {services?.map((service) => (
-            <motion.div key={service.title} variants={itemVariants}>
-              <Link href={service.link}>
-                <Card className="h-full bg-white rounded-2xl border border-[#c9a45c]/15 shadow-md hover:shadow-[0_24px_50px_-20px_rgba(15,25,60,0.35)] hover:border-[#c9a45c]/45 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer">
-                  <CardContent className="p-8 text-center">
-                    {/* Icon */}
-                    <motion.div
-                      className="w-20 h-20 bg-gradient-to-br from-[#c9a45c]/25 to-[#a57f3e]/10 ring-1 ring-[#c9a45c]/30 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:from-[#c9a45c]/40 group-hover:to-[#a57f3e]/20 transition-colors duration-300"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <service.icon className="w-8 h-8 text-[#a57f3e]" />
-                    </motion.div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 group-hover:text-[#a57f3e] transition-colors duration-300 uppercase">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-gray-600 leading-relaxed">
-                      {service.description}
-                    </p>
-
-                    {/* Hover Effect Line */}
-                    <motion.div
-                      className="w-0 h-1 bg-gradient-to-r from-[#c9a45c] to-[#a57f3e] rounded-full mx-auto mt-6 group-hover:w-16 transition-all duration-300"
-                      initial={{ width: 0 }}
-                      whileHover={{ width: 64 }}
-                    />
-                    <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-4 uppercase">
-                      <span className="text-[#a57f3e] font-medium text-sm">
-                        Ver más →
-                      </span>
-                    </motion.div>
-                  </CardContent>
-                </Card>
+export default function ServicesSection() {
+  return (
+    <section aria-labelledby="services-title" className="relative bg-white pb-20 lg:pb-28">
+      <div className="home-shell">
+        <nav aria-label="Accesos del centro" className="relative -top-10 z-10 grid grid-cols-3 overflow-hidden rounded-xl border border-[#e5e8ed] bg-white p-2 shadow-[0_18px_48px_-28px_rgba(14,31,58,0.35)] sm:-top-12 sm:p-3">
+          {shortcuts.map((shortcut, index) => {
+            const Icon = shortcut.icon;
+            return (
+              <Link key={shortcut.href} href={shortcut.href} className={"group flex flex-col items-center justify-center gap-2 rounded-md px-2 py-5 text-center transition-colors hover:bg-[#f6f4ef] sm:flex-row sm:justify-start sm:gap-4 sm:px-5 sm:py-6 sm:text-left " + (index > 0 ? "border-l border-[#e8ebef]" : "")}>
+                <Icon className="h-6 w-6 shrink-0 text-[#aa843f] sm:h-7 sm:w-7" strokeWidth={1.5} aria-hidden="true" />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[0.73rem] font-semibold leading-5 text-[#14243e] sm:text-[0.94rem]">{shortcut.title}</span>
+                  <span className="mt-1 hidden text-xs leading-5 text-[#727b89] lg:block">{shortcut.detail}</span>
+                </span>
+                <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-[#aa843f] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 md:block" aria-hidden="true" />
               </Link>
-            </motion.div>
-          ))}
-        </motion.div>
+            );
+          })}
+        </nav>
 
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <motion.a
-            href="/AsesoriaLegal"
-            className="btn-oro inline-block px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 uppercase"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Ver Todos los Servicios
-          </motion.a>
-        </motion.div>
+        <div id="servicios" className="mb-10 mt-3 scroll-mt-28 sm:mt-5 lg:mb-12">
+          <p className="home-kicker">Arbitraje especializado</p>
+          <h2 id="services-title" className="home-title mt-3">Nuestros servicios</h2>
+          <p className="home-copy mt-4 max-w-2xl">
+            Procedimientos para resolver controversias entre entidades públicas,
+            empresas y particulares. Encuentre la modalidad que necesita conocer.
+          </p>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2 md:auto-rows-fr">
+          {services.map((s) => {
+            const Icon = s.Icon;
+            const BgIcon = s.BgIcon;
+            return (
+              <Link
+                key={s.n}
+                href={s.href}
+                className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-[0_28px_60px_-28px_rgba(20,36,62,0.35)] lg:min-h-[420px]"
+              >
+                {/* línea dorada superior */}
+                <span aria-hidden="true" className="absolute inset-x-8 top-0 h-[3px] rounded-full bg-[linear-gradient(90deg,#c9a45c,#f0dcae,#c9a45c)]" />
+                <div aria-hidden="true" className="pointer-events-none absolute -right-14 -top-14 h-44 w-44 rounded-full bg-[#f6f1e3] blur-2xl" />
+                <Dots />
+                <BgIcon aria-hidden="true" className="pointer-events-none absolute -bottom-8 -right-8 h-52 w-52 text-[#14243e]/[0.05] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" strokeWidth={0.7} />
+                <span aria-hidden="true" className="pointer-events-none absolute bottom-6 left-8 font-[family-name:var(--font-playfair)] text-[4.5rem] font-semibold leading-none text-[#14243e]/[0.05] select-none">{s.n}</span>
+
+                <div className="relative flex items-start justify-between gap-4">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14243e] text-[#e2c488] shadow-[0_12px_24px_-10px_rgba(20,36,62,0.6)] ring-1 ring-[#c9a45c]/30 transition-transform duration-300 group-hover:scale-105">
+                    <Icon className="h-7 w-7" strokeWidth={1.4} aria-hidden="true" />
+                  </span>
+                  <span className="inline-flex items-center rounded-full border border-[#e6dcc5] bg-[#faf7ef] px-3 py-1.5 text-[0.63rem] font-semibold uppercase tracking-[0.14em] text-[#7a5f2a]">{s.badge}</span>
+                </div>
+
+                <h3 className="relative mt-7 font-[family-name:var(--font-playfair)] text-[1.9rem] font-medium leading-[1.15] tracking-[-0.02em] text-[#14243e] sm:text-[2.15rem]">{s.title}</h3>
+                <p className="relative mt-3 max-w-md flex-1 text-[0.95rem] leading-7 text-[#5b6a7f]">{s.desc}</p>
+
+                <span className="relative mt-8 inline-flex items-center gap-3 border-t border-[#eef1f5] pt-6 text-sm font-semibold text-[#14243e]">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#14243e] text-[#e2c488] transition-all duration-300 group-hover:bg-[#c9a45c] group-hover:text-[#0b1a33]">
+                    <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
+                  Conocer el servicio
+                  <span className="h-px flex-1 bg-gradient-to-r from-[#c9a45c]/50 to-transparent" aria-hidden="true" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="mt-9 text-center">
+          <Link href="/AsesoriaLegal" className="inline-flex min-h-11 items-center gap-3 text-sm font-semibold text-[#18304c] underline-offset-4 hover:underline">
+            Explorar todos los servicios
+            <ArrowUpRight className="h-4 w-4 text-[#a48041]" aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
   );
-};
-
-export default ServicesSection;
+}

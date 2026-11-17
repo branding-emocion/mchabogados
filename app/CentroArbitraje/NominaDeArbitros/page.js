@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import { Aparecer } from "@/components/animaciones";
 import { useState, useEffect } from "react";
-import { Search, Users, Download } from "lucide-react";
+import { Search, Users, Download, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -108,176 +109,242 @@ export default function NominaClient() {
   };
 
   return (
-    <div className="min-h-screen ">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-[#0b1a33]">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          aria-hidden="true"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url('/professional-legal-office-arbitration-center.webp')`,
           }}
         />
-        <div className="absolute inset-0 bg-slate-900/70" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(100deg,rgba(8,20,38,0.93)_0%,rgba(11,32,62,0.82)_45%,rgba(20,50,90,0.45)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -left-24 top-1/3 h-96 w-96 rounded-full bg-[#c9a45c]/20 blur-3xl"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pb-20 lg:pt-40">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-white"
+            className="max-w-3xl"
           >
-            <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif">
-              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLICA{" "}
+            <p className="inline-flex items-center gap-2 rounded-full border border-[#c9a45c]/40 bg-[#c9a45c]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-[#f3e3bb]">
+              Centro de arbitraje · Nómina oficial
+            </p>
+            <h1 className="mt-5 font-[family-name:var(--font-playfair)] text-4xl font-medium leading-[1.08] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl">
+              Nómina de árbitros en materia de contratación pública
             </h1>
-            <div className="w-24 h-1 bg-white mx-auto mb-8" />
+            <div className="mt-6 h-[3px] w-24 rounded-full bg-[#c9a45c]" />
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">
+              Conozca a los profesionales que integran nuestra nómina de
+              árbitros especializados en contratación pública. Busque por nombre
+              y descargue su hoja de vida.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         {/* Search Bar */}
         <Aparecer>
-          <Card className="mb-8 shadow-lg">
-          <CardContent className="p-6">
-            <form onSubmit={handleSearchSubmit} className="flex gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                <Input
-                  type="text"
-                  placeholder="Buscar por nombre..."
-                  value={searchTerm}
-                  onChange={handleSearch}
-                  className="pl-10 h-12 text-lg"
-                />
-              </div>
-              <Button
-                type="submit"
-                className="h-12 px-8 bg-[#a5803d] hover:bg-[#8a6b32]"
+          <Card className="relative mb-8 overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white shadow-[0_18px_48px_-28px_rgba(14,31,58,0.35)]">
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-8 top-0 h-[3px] rounded-full bg-[linear-gradient(90deg,#c9a45c,#f0dcae,#c9a45c)]"
+            />
+            <CardContent className="p-6 sm:p-8">
+              <form
+                onSubmit={handleSearchSubmit}
+                className="flex flex-col gap-4 sm:flex-row"
               >
-                Buscar
-              </Button>
-              {activeSearchTerm && (
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#a48041]" />
+                  <Input
+                    type="text"
+                    placeholder="Buscar por nombre..."
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="h-12 border-[#e5e8ed] pl-10 text-base text-[#14243e] placeholder:text-[#727b89] focus-visible:border-[#c9a45c] focus-visible:ring-[#c9a45c]/40"
+                  />
+                </div>
                 <Button
-                  type="button"
-                  onClick={handleClearSearch}
-                  variant="outline"
-                  className="h-12 px-6 bg-transparent"
+                  type="submit"
+                  className="h-12 rounded-xl bg-[#c9a45c] px-8 text-sm font-bold text-[#0b1a33] transition-all hover:bg-[#e8cf8f]"
                 >
-                  Limpiar
+                  Buscar
                 </Button>
-              )}
-            </form>
-          </CardContent>
-        </Card>
+                {activeSearchTerm && (
+                  <Button
+                    type="button"
+                    onClick={handleClearSearch}
+                    variant="outline"
+                    className="h-12 rounded-xl border-[#e5e8ed] bg-transparent px-6 text-sm font-semibold text-[#14243e] hover:border-[#c9a45c]/60 hover:bg-[#faf7ef] hover:text-[#14243e]"
+                  >
+                    Limpiar
+                  </Button>
+                )}
+              </form>
+            </CardContent>
+          </Card>
         </Aparecer>
 
         {/* Empleados Table */}
         <Aparecer retraso={0.1}>
-          <Card className="shadow-lg">
-          <CardHeader className="bg-[#a5803d] text-white  ">
-            <CardTitle className="text-2xl font-bold text-center py-2">
-              NÓMINA DE ÁRBITROS EN MATERIA DE CONTRATACIÓN PÚBLICA{" "}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            {loading && empleados.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#a5803d] mx-auto"></div>
-                <p className="mt-4 text-gray-600">Cargando empleados...</p>
+          <Card className="relative overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white shadow-[0_18px_48px_-28px_rgba(14,31,58,0.35)]">
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-8 top-0 z-10 h-[3px] rounded-full bg-[linear-gradient(90deg,#c9a45c,#f0dcae,#c9a45c)]"
+            />
+            <CardHeader className="border-b border-[#eef1f5] bg-[#14243e] px-6 py-6 sm:px-8">
+              <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+                <CardTitle className="font-[family-name:var(--font-playfair)] text-2xl font-medium tracking-[-0.02em] text-white">
+                  Nómina de árbitros en materia de contratación pública
+                </CardTitle>
+                <span className="inline-flex items-center rounded-full border border-[#c9a45c]/40 bg-[#c9a45c]/15 px-3 py-1.5 text-[0.63rem] font-semibold uppercase tracking-[0.14em] text-[#f3e3bb]">
+                  {totalEmpleados > 0
+                    ? `${totalEmpleados} registrados`
+                    : "Nómina oficial"}
+                </span>
               </div>
-            ) : empleados.length === 0 ? (
-              <div className="text-center py-12">
-                <Users className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600 text-lg">
-                  {activeSearchTerm
-                    ? `No se encontraron empleados para "${activeSearchTerm}"`
-                    : "No se encontraron empleados"}
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-[#8a6b32] text-white">
-                      <tr>
-                        <th className="px-6 py-4 text-left font-semibold">
-                          ID
-                        </th>
-                        <th className="px-6 py-4 text-left font-semibold">
-                          APELLIDOS
-                        </th>
-                        <th className="px-6 py-4 text-left font-semibold">
-                          NOMBRE
-                        </th>
-                        <th className="px-6 py-4 text-left font-semibold">
-                          CV
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {empleados.map((empleado, index) => (
-                        <tr
-                          key={empleado.id}
-                          className={`border-b hover:bg-amber-50 transition-colors ${
-                            index % 2 == 0 ? "bg-white" : "bg-gray-50"
-                          }`}
-                        >
-                          <td className="px-6 py-4 font-medium text-[#a5803d]">
-                            {index + 1}
-                          </td>
-                          <td className="px-6 py-4 font-medium uppercase">
-                            {empleado.apellido || ""}
-                          </td>
-                          <td className="px-6 py-4 font-medium uppercase">
-                            {empleado.nombre}
-                          </td>
-                          <td className="px-6 py-4">
-                            {empleado.cvUrl ? (
-                              <a
-                                href={empleado.cvUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center text-[#a5803d] hover:text-[#8a6b32] font-medium"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Descargar CV
-                              </a>
-                            ) : (
-                              <span className="text-gray-400">Sin CV</span>
-                            )}
-                          </td>
+            </CardHeader>
+            <CardContent className="p-0">
+              {loading && empleados.length === 0 ? (
+                <div className="py-12 text-center">
+                  <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-[#c9a45c]"></div>
+                  <p className="mt-4 text-[#5b6a7f]">Cargando empleados...</p>
+                </div>
+              ) : empleados.length === 0 ? (
+                <div className="py-12 text-center">
+                  <span className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14243e] text-[#e2c488] ring-1 ring-[#c9a45c]/30">
+                    <Users className="h-7 w-7" strokeWidth={1.4} />
+                  </span>
+                  <p className="mt-4 text-lg text-[#5b6a7f]">
+                    {activeSearchTerm
+                      ? `No se encontraron empleados para "${activeSearchTerm}"`
+                      : "No se encontraron empleados"}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-[#14243e] text-white">
+                        <tr>
+                          <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#f3e3bb]">
+                            ID
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#f3e3bb]">
+                            Apellidos
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#f3e3bb]">
+                            Nombre
+                          </th>
+                          <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#f3e3bb]">
+                            CV
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Load More Button */}
-                {hasMore && (
-                  <div className="p-6 text-center border-t">
-                    <Button
-                      onClick={loadMore}
-                      disabled={loading}
-                      className="bg-[#a5803d] hover:bg-[#8a6b32] uppercase hover:cursor-pointer"
-                    >
-                      {loading ? "Cargando..." : "Cargar más"}
-                    </Button>
+                      </thead>
+                      <tbody>
+                        {empleados.map((empleado, index) => (
+                          <tr
+                            key={empleado.id}
+                            className="border-b border-[#eef1f5] bg-white transition-colors last:border-0 hover:bg-[#faf7ef]"
+                          >
+                            <td className="px-6 py-4">
+                              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#14243e] text-xs font-bold text-[#e2c488] ring-1 ring-[#c9a45c]/30">
+                                {index + 1}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 font-medium uppercase text-[#14243e]">
+                              {empleado.apellido || ""}
+                            </td>
+                            <td className="px-6 py-4 font-medium uppercase text-[#14243e]">
+                              {empleado.nombre}
+                            </td>
+                            <td className="px-6 py-4">
+                              {empleado.cvUrl ? (
+                                <a
+                                  href={empleado.cvUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-2 rounded-full border border-[#e6dcc5] bg-[#faf7ef] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-[#7a5f2a] transition-colors hover:border-[#c9a45c] hover:bg-[#c9a45c] hover:text-[#0b1a33]"
+                                >
+                                  <Download className="h-4 w-4" />
+                                  Descargar CV
+                                </a>
+                              ) : (
+                                <span className="inline-flex items-center rounded-full bg-[#eef1f5] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-[#727b89]">
+                                  Sin CV
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                )}
 
-                {/* Results Info */}
-                <div className="px-6 py-4 bg-gray-50 border-t text-center text-gray-600">
-                  Mostrando {empleados.length}
-                  {activeSearchTerm && (
-                    <span> para &quot;{activeSearchTerm}&quot;</span>
+                  {/* Load More Button */}
+                  {hasMore && (
+                    <div className="border-t border-[#eef1f5] p-6 text-center">
+                      <Button
+                        onClick={loadMore}
+                        disabled={loading}
+                        className="h-12 rounded-xl bg-[#c9a45c] px-8 text-sm font-bold uppercase text-[#0b1a33] transition-all hover:cursor-pointer hover:bg-[#e8cf8f]"
+                      >
+                        {loading ? "Cargando..." : "Cargar más"}
+                      </Button>
+                    </div>
                   )}
-                </div>
-              </>
-            )}
-          </CardContent>
-        </Card>
+
+                  {/* Results Info */}
+                  <div className="border-t border-[#eef1f5] bg-[#faf7ef] px-6 py-4 text-center text-sm text-[#5b6a7f]">
+                    Mostrando {empleados.length}
+                    {activeSearchTerm && (
+                      <span> para &quot;{activeSearchTerm}&quot;</span>
+                    )}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
         </Aparecer>
+
+        {/* CTA */}
+        <section className="relative mt-12 overflow-hidden rounded-3xl bg-[#0b1a33] px-6 py-12 sm:px-10 lg:px-14">
+          <div
+            aria-hidden="true"
+            className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#c9a45c]/20 blur-3xl"
+          />
+          <div className="relative flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#c9a45c]">
+                Centro de arbitraje
+              </p>
+              <h2 className="mt-3 font-[family-name:var(--font-playfair)] text-2xl font-medium tracking-[-0.02em] text-white sm:text-3xl">
+                ¿Necesita designar un árbitro?
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75 sm:text-base">
+                Contáctenos y lo asesoramos en la elección del profesional
+                idóneo para su controversia en contratación pública.
+              </p>
+            </div>
+            <Link
+              href="/Contacto"
+              className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#c9a45c] px-8 font-sans text-sm font-bold text-[#0b1a33] transition-all hover:bg-[#e8cf8f]"
+            >
+              Solicitar asesoría
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

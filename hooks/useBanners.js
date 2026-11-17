@@ -11,22 +11,23 @@ import {
   orderBy,
   query,
   limit,
+  where,
 } from "firebase/firestore";
 import { db, getStorageLazy } from "@/firebase/firebaseReader";
 
-export function useBanners() {
+export function useBanners(limitN = 50, publicOnly = false) {
   const [banners, setBanners] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Cargar banners desde Firebase
-  const loadBanners = async () => {
+  const loadBanners = async (overrideLimit) => {
     try {
       setIsLoading(true);
-      const bannersQuery = query(
-        collection(db, "banners"),
-        orderBy("createdAt", "desc"),
-        limit(50)
-      );
+      const n = overrideLimit ?? limitN;
+      const constraints = publicOnly
+        ? [where("isActive", "==", true), orderBy("createdAt", "desc"), limit(Math.min(n, 10))]
+        : [orderBy("createdAt", "desc"), limit(n)];
+      const bannersQuery = query(collection(db, "banners"), ...constraints);
       const querySnapshot = await getDocs(bannersQuery);
       const bannersData = querySnapshot.docs.map((doc) => ({
         idDoc: doc.id,
