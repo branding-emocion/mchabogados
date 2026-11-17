@@ -1,30 +1,10 @@
 // app/api/consejo-miembros/[id]/route.js
 import { NextResponse } from "next/server";
-import { initializeApp, getApps, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+import { dbAdmin } from "@/firebase/firebaseAdmin";
 
-// Inicializar Firebase Admin en la ruta API
+// Módulo compartido: error claro si faltan las credenciales.
 function getAdminFirestore() {
-  if (!getApps().length) {
-    initializeApp({
-      credential: cert({
-        type: "service_account",
-        project_id: "mchabogados-30867",
-        private_key_id: "af42e82cd24c1995c0f2e269ae674b356baf5327",
-        private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-        client_email: process.env.FIREBASE_CLIENT_EMAIL,
-        client_id: "115778287377470715754",
-        auth_uri: "https://accounts.google.com/o/oauth2/auth",
-        token_uri: "https://oauth2.googleapis.com/token",
-        auth_provider_x509_cert_url:
-          "https://www.googleapis.com/oauth2/v1/certs",
-        client_x509_cert_url:
-          "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40mchabogados-30867.iam.gserviceaccount.com",
-        universe_domain: "googleapis.com",
-      }),
-    });
-  }
-  return getFirestore();
+  return dbAdmin;
 }
 
 export async function PUT(request, { params }) {

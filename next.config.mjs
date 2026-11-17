@@ -12,6 +12,7 @@ const nextConfig = {
   compress: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 90],
     minimumCacheTTL: 31536000,
     remotePatterns: [
       {
