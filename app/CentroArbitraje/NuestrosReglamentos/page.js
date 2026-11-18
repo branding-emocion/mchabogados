@@ -203,54 +203,52 @@ export default function NuestrosReglamentosPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <div className="space-y-5">
-              {directives.map((directive, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-[0_28px_60px_-28px_rgba(20,36,62,0.35)]"
+          <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {directives.map((directive, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-[0_28px_60px_-28px_rgba(20,36,62,0.35)]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-8 top-0 h-[3px] rounded-full bg-[linear-gradient(90deg,#c9a45c,#f0dcae,#c9a45c)]"
+                />
+                <div className="relative flex items-start justify-between gap-4">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14243e] text-[#e2c488] shadow-[0_12px_24px_-10px_rgba(20,36,62,0.6)] ring-1 ring-[#c9a45c]/30 transition-transform duration-300 group-hover:scale-105">
+                    <FileText className="h-7 w-7" strokeWidth={1.4} aria-hidden="true" />
+                  </span>
+                  <span className="inline-flex items-center rounded-full border border-[#e6dcc5] bg-[#faf7ef] px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[#7a5f2a]">
+                    Directiva · PDF
+                  </span>
+                </div>
+                <h3 className="relative mt-6 font-[family-name:var(--font-playfair)] text-[1.45rem] font-medium leading-snug tracking-[-0.015em] text-[#14243e]">
+                  {directive.title}
+                </h3>
+                <p className="relative mt-2 text-[0.95rem] leading-7 text-[#5b6a7f]">
+                  {directive.description}
+                </p>
+                <a
+                  href={directive.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative mt-6 inline-flex min-h-12 w-fit items-center gap-2 rounded-xl bg-[#14243e] px-6 font-sans text-sm font-semibold text-white transition-all hover:bg-[#c9a45c] hover:text-[#0b1a33]"
                 >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-8 top-0 h-[3px] rounded-full bg-[linear-gradient(90deg,#c9a45c,#f0dcae,#c9a45c)]"
-                  />
-                  <div className="relative flex items-start justify-between gap-4">
-                    <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14243e] text-[#e2c488] shadow-[0_12px_24px_-10px_rgba(20,36,62,0.6)] ring-1 ring-[#c9a45c]/30 transition-transform duration-300 group-hover:scale-105">
-                      <FileText className="h-7 w-7" strokeWidth={1.4} aria-hidden="true" />
-                    </span>
-                    <span className="inline-flex items-center rounded-full border border-[#e6dcc5] bg-[#faf7ef] px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-[#7a5f2a]">
-                      Directiva · PDF
-                    </span>
-                  </div>
-                  <h3 className="relative mt-6 font-[family-name:var(--font-playfair)] text-[1.45rem] font-medium leading-snug tracking-[-0.015em] text-[#14243e]">
-                    {directive.title}
-                  </h3>
-                  <p className="relative mt-2 flex-1 text-[0.95rem] leading-7 text-[#5b6a7f]">
-                    {directive.description}
-                  </p>
-                  <a
-                    href={directive.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative mt-6 inline-flex min-h-12 w-fit items-center gap-2 rounded-xl bg-[#14243e] px-6 font-sans text-sm font-semibold text-white transition-all hover:bg-[#c9a45c] hover:text-[#0b1a33]"
-                  >
-                    <Download className="h-4 w-4" aria-hidden="true" />
-                    Descargar
-                  </a>
-                </motion.div>
-              ))}
-            </div>
+                  <Download className="h-4 w-4" aria-hidden="true" />
+                  Descargar
+                </a>
+              </motion.div>
+            ))}
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-[0_28px_60px_-28px_rgba(20,36,62,0.35)]"
+              className="group relative flex flex-col overflow-hidden rounded-3xl border border-[#e5e8ed] bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#c9a45c]/60 hover:shadow-[0_28px_60px_-28px_rgba(20,36,62,0.35)]"
             >
               <span
                 aria-hidden="true"
@@ -267,7 +265,7 @@ export default function NuestrosReglamentosPage() {
               <h3 className="relative mt-6 font-[family-name:var(--font-playfair)] text-[1.45rem] font-medium leading-snug tracking-[-0.015em] text-[#14243e]">
                 Tabla de pagos y aranceles
               </h3>
-              <p className="relative mt-2 flex-1 text-[0.95rem] leading-7 text-[#5b6a7f]">
+              <p className="relative mt-2 text-[0.95rem] leading-7 text-[#5b6a7f]">
                 En este documento nuestros usuarios podrán encontrar los
                 costos de los servicios brindados por el Centro de Arbitraje,
                 categorizados según la cuantía de la materia controvertida
