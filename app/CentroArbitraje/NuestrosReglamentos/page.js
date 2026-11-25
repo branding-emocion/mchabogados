@@ -36,7 +36,7 @@ export default function NuestrosReglamentosPage() {
 
   const directives = [
     {
-      title: `Directiva N°001-${new Date().getFullYear()}`,
+      title: "Directiva N°001-2025",
       description: "Regulación sobre la Nómina de Árbitros",
       href: "/pdfs/001.pdf",
     },

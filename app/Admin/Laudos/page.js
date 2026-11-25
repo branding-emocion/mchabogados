@@ -40,6 +40,7 @@ export default function AdminDashboard() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingLaudo, setEditingLaudo] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState({
     contratista: "",
     entidad: "",
@@ -64,15 +65,26 @@ export default function AdminDashboard() {
     }
   };
 
-  const filteredLaudos = laudos.filter(
-    (laudo) =>
-      laudo.contratista.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      laudo.entidad.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      laudo.controversia.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredLaudos = laudos.filter((laudo) => {
+    const q = searchTerm.toLowerCase();
+    return (
+      (laudo.contratista || "").toLowerCase().includes(q) ||
+      (laudo.entidad || "").toLowerCase().includes(q) ||
+      (laudo.controversia || "").toLowerCase().includes(q)
+    );
+  });
 
   const handleAddLaudo = async () => {
+    if (!formData.tipoLaudo || !formData.contratista.trim() || !formData.entidad.trim() || !formData.controversia.trim()) {
+      alert("Completa Tipo, Contratista, Entidad y Controversia");
+      return;
+    }
+    if (!formData.laudo) {
+      alert("Adjunta el archivo PDF del laudo");
+      return;
+    }
     try {
+      setIsSaving(true);
       await laudosService.addLaudo(
         {
           contratista: formData.contratista,
@@ -94,7 +106,9 @@ export default function AdminDashboard() {
       setIsAddModalOpen(false);
     } catch (error) {
       console.error("Error agregando laudo:", error);
-      alert("Error al agregar el laudo");
+      alert("Error al agregar el laudo: " + (error?.message || error));
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -279,9 +293,10 @@ export default function AdminDashboard() {
                   </Button>
                   <Button
                     onClick={handleAddLaudo}
-                    className="bg-blue-700 hover:bg-blue-800"
+                    disabled={isSaving}
+                    className="bg-blue-700 hover:bg-blue-800 disabled:bg-blue-400"
                   >
-                    Agregar Laudo
+                    {isSaving ? "Guardando..." : "Agregar Laudo"}
                   </Button>
                 </div>
               </DialogContent>
@@ -353,8 +368,10 @@ export default function AdminDashboard() {
                       {laudo.controversia}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
-                      {laudo.fechaCreacion
+                      {laudo.fechaCreacion instanceof Date
                         ? laudo.fechaCreacion.toLocaleDateString("es-ES")
+                        : laudo.fechaCreacion?.toDate
+                        ? laudo.fechaCreacion.toDate().toLocaleDateString("es-ES")
                         : "N/A"}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
